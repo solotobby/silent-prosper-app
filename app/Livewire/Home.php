@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Comment;
+use App\Models\CommentLike;
 use App\Models\Story;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -125,6 +126,33 @@ class Home extends Component
     {
         $this->perPageComments += 3; // Increment the number of comments to load
     }
+
+    public function toggleCommentLike($commentId)
+    {
+        $userId = Auth::id();
+
+        $existingLike = CommentLike::where('user_id', $userId)
+            ->where('comment_id', $commentId)
+            ->first();
+
+        $comment = Comment::where('id', $commentId)->first();
+
+        if ($existingLike) {
+            // Unlike the comment
+            $existingLike->delete();
+            $comment->count -= 1;
+            $comment->save();
+        } else {
+            // Like the comment
+            CommentLike::create([
+                'user_id' => $userId,
+                'comment_id' => $commentId,
+            ]);
+            $comment->count += 1;
+            $comment->save();
+        }
+    }
+
 
     public function render()
     {

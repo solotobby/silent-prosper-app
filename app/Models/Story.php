@@ -28,4 +28,9 @@ class Story extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function reads()
+    {
+        return $this->hasMany(StoryRead::class);
+    }
 }

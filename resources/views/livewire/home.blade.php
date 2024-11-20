@@ -67,8 +67,11 @@
                     </div>
                   </div>
                 </div>
+               
                 <div class="block-content">
-                    {{ $story->content }} 
+                  <a href="{{ url('show/'.$story->_id)}}">
+                   <span style="color: black"> {{ $story->content }} </span>
+                  </a>
                  <hr>
                   <ul class="nav nav-pills fs-sm push">
 
@@ -105,6 +108,8 @@
                       </li> --}}
                   </ul>
                 </div>
+                
+
                 @if ($commentSectionOpen[$story->id] ?? false)
                 <div class="block-content block-content-full bg-body-light">
                    
@@ -127,8 +132,18 @@
                                 <small class="text-muted d-block">Posted on {{ $comment->created_at->format('M d, Y h:i A') }}</small>
                               </p>
                               <p>
-                                <a href="javascript:void(0)" class="me-1">Like</a>
-                                <a href="javascript:void(0)">Comment</a>
+                                {{-- <a href="javascript:void(0)" class="me-1">Like</a> --}}
+
+                                <a href="javascript:void(0)"  wire:click="toggleCommentLike({{ $comment->id }})" class="me-1">
+                                  @if ($comment->isLikedByUser(auth()->id()))
+                                      Unlike
+                                  @else
+                                      Like
+                                  @endif
+                                  ({{ $comment->count }})
+                                </a>
+
+                                {{-- <a href="javascript:void(0)">Comment</a> --}}
                               </p>
                             
                             </div>
@@ -161,6 +176,7 @@
         <div class="col-md-4 col-sm-4">
             srhdfgjdghj
         </div>
+
     </div>
 
      <!-- Bootstrap Modal -->

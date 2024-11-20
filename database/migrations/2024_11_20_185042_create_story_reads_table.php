@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('story_reads', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('story_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('count')->default('0');
-            $table->longText('content');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // User who read the post
+            $table->foreignId('story_id')->constrained()->onDelete('cascade'); // Post that was read
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('story_reads');
     }
 };
