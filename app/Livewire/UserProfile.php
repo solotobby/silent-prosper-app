@@ -5,66 +5,32 @@ namespace App\Livewire;
 use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Story;
+use App\Models\SubscriptionPlan;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Livewire\Attributes\Validate;
 
-class Home extends Component
+class UserProfile extends Component
 {
-    #[Validate('required|string')]
-    public $content = '';
+    public $user;
 
-   
-    public $category_id; // For category selection
-    public $categories; // Categories list
     public $comment; // For adding comments
     public $selectedStory; // For targeted commenting
-    public $perPage = 5; // Initial number of stories p
+    public $perPage = 10; // Initial number of stories p
     public $commentStoryId; // To track the story being commented on
     public $commentSectionOpen = []; // Tracks which story's comment section is open
-    public $perPageComments = 3; // Number of comments to load per story
+    public $perPageComments = 5; // Number of comments to load per story
+    public $hasActiveSubscription;
+    public $subscription;
 
 
-    protected $listeners = ['storyCreated' => '$refresh']; // Refresh on new story
-    protected $story;
-
-
-    public function mount(Story $story)
-    {
-        $this->story = $story; // Inject the Story model
-        $this->content = ''; // Initialize content
-
-        $this->category_id = null;
-        $this->comment = '';
-        $this->selectedStory = null;
-
-        // Fetch categories (static example or from DB)
-        $this->categories = [
-            1 => 'Category 1',
-            2 => 'Category 2',
-            3 => 'Category 3',
-        ];
-
-
-    }
-
-    public function post(){
-         // Validate input
-         $this->validate([
-            'content' => 'required|string', // Add your validation rules
-        ]);
-
-
-        Story::create(['user_id' => Auth::user()->id, '_id' => rand(999,99999), 'category_id' => 1, 'content' => $this->content]);
-
-        $this->reset('content');
-
-        $this->dispatch('close-modal');
-
-        // Optionally, show a success message
-        session()->flash('message', 'Story posted successfully!');
-        $this->dispatch('storyCreated');
-       
+    public function mount(User $user){
+     
+        //$this->hasActiveSubscription = $user->subscription && $user->subscription->ends_at->isFuture();
+        $this->user = User::withPostStats($this->user->id)->first();
+      
+        $this->subscription = $this->user->getSubscriptionDetails(); 
+        // dd($this->user->isSubscribed());
 
     }
 
@@ -110,11 +76,11 @@ class Home extends Component
             $story->save();
         }
     }
-    
+
     public function loadMore()
     {
        
-        $this->perPage += 5; // Load 5 more stories
+        $this->perPage += 10; // Load 10 more stories
     }
 
     public function toggleComments($storyId)
@@ -125,7 +91,7 @@ class Home extends Component
 
     public function loadMoreComments()
     {
-        $this->perPageComments += 3; // Increment the number of comments to load
+        $this->perPageComments += 5; // Increment the number of comments to load
     }
 
     public function toggleCommentLike($commentId)
@@ -152,15 +118,16 @@ class Home extends Component
             $comment->count += 1;
             $comment->save();
         }
+
     }
 
 
     public function render()
     {
-        return view('livewire.home', [
+        return view('livewire.user-profile', [
             'stories' => Story::with(['likes', 'comments.user' => function ($query) {
                 $query->latest(); // Fetch comments in descending order
-            }])->latest()->paginate($this->perPage),
+            }])->where('user_id', $this->user->id)->latest()->paginate($this->perPage),
         ]);
     }
 }

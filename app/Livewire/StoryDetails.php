@@ -28,29 +28,48 @@ class StoryDetails extends Component
         $this->story = Story::with(['likes', 'comments.user'])->where('_id', $query)->first();//findOrFail();
         $this->story->views_count += 1;
         $this->story->save();
-       
+
+        $user = Auth::user();
         if (Auth::check()) {
 
-            $alreadyRead = StoryRead::where('user_id', Auth::id())
-            ->where('story_id', $this->story->id)
-            ->exists();
-
-            if (!$alreadyRead) {
-                // Count the total number of unique stories read by the user
-                $uniqueStoriesRead = StoryRead::where('user_id', Auth::id())->distinct('story_id')->count();
-    
-                // If the user has already read 3 unique stories, redirect to the subscription page
-                if ($uniqueStoriesRead >= 3) {
-                    dd('subscription');
-                    // return redirect()->route('subscription.page');
-                }
-    
-                // Record this story as read
-                StoryRead::firstOrCreate([
-                    'user_id' => Auth::id(),
-                    'story_id' => $this->story->id,
-                ]);
+            // Check if the user is the author of the story
+            if ($this->story->user_id == $user->id) {
+                // Allow authors to read their own stories unlimitedly, but track views
+                return; // Skip further checks for story restrictions
             }
+
+              // Check if the user has an active subscription
+            // $hasActiveSubscription = $user->subscription && $user->subscription->ends_at->isFuture();
+
+        //    if (!$hasActiveSubscription) {
+                    $alreadyRead = StoryRead::where('user_id', Auth::id())
+                    ->where('story_id', $this->story->id)
+                    ->exists();
+
+                    if (!$alreadyRead) {
+                        // Count the total number of unique stories read by the user
+                        $uniqueStoriesRead = StoryRead::where('user_id', Auth::id())->distinct('story_id')->count();
+            
+                        // If the user has already read 3 unique stories, redirect to the subscription page
+                        if ($uniqueStoriesRead >= 2) {
+                            // dd('subscription');
+                            return redirect()->route('subscription.page');
+                        }
+            
+                        // Record this story as read
+                        StoryRead::firstOrCreate([
+                            'user_id' => Auth::id(),
+                            'story_id' => $this->story->id,
+                        ]);
+                    }
+            // }else{
+
+            //         StoryRead::firstOrCreate([
+            //             'user_id' => $user->id,
+            //             'story_id' => $this->story->id,
+            //         ]);
+
+            //  }
 
         }
 
