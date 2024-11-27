@@ -1,11 +1,16 @@
 @foreach ($stories as $story)
+
+          @php
+          $subscriptionPlan = $story->user->currentSubscriptionPlan();
+          @endphp
+
             <div wire:poll.visible.30s class="block block-rounded block-bordered">
                 <div class="block-header block-header-default">
                   <div>
                     <a class="img-link me-1" href="javascript:void(0)">
-                      <img class="img-avatar img-avatar32 img-avatar-thumb" src="{{ asset('src/assets/media/avatars/avatar6.jpg')}}" alt="">
+                      <img class="img-avatar img-avatar32 img-avatar-thumb border border-{{ @$subscriptionPlan->subscription->color_code }}" src="{{ asset('src/assets/media/avatars/avatar6.jpg')}}" alt="">
                     </a>
-                    <a class="fw-semibold" href="{{ url('profile/'.$story->user->id) }}"> {{ $story->user->name }} </a>
+                    <a class="fw-semibold" href="{{ url('profile/'.$story->user->id) }}"> {{ $story->user->name }}  </a>
                     <span class="fs-sm text-muted">{{ $story->created_at->diffForHumans()  }}</span>
                   </div>
                   <div class="block-options">
@@ -32,7 +37,7 @@
                
                 <div class="block-content">
                   <a href="{{ url('show/'.$story->_id)}}">
-                   <span style="color: black"> {{ $story->content }} </span>
+                   <span style="color: black"> {{ Str::limit($story->content, 250) }}</span>
                   </a>
                  <hr>
                   <ul class="nav nav-pills fs-sm push">
@@ -61,8 +66,18 @@
                       <a class="nav-link" href="javascript:void(0)">
                         <i class="fa fa-eye opacity-50 me-1"></i> {{$story->views_count}}
                       </a>
+                    </li> 
+                    <li class="nav-item">
+                      <a class="nav-link" href="javascript:void(0)" wire:click="bookmarkStory({{ $story->id }})">
+                        
+                        @if ($story->isBookmarkedBy(auth()->id()))
+                            <i class="fa fa-fw fa-bookmark opacity-100 me-1"></i>
+                        @else
+                            <i class="fa fa-fw fa-bookmark opacity-50 me-1"></i>
+                        @endif
+                          {{ $story->bookmark_counts }}
+                      </a>
                     </li>
-
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="javascript:void(0)">
                           <i class="fa fa-share-alt opacity-50 me-1"></i> Share

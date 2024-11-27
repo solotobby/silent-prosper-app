@@ -6,9 +6,9 @@
             <span class="nav-main-link-name">Dashboard</span>
          
           </a>
-        <a class="nav-main-link" href="{{ url('analytics') }}">
-            <i class="nav-main-link-icon si si-bar-chart"></i>
-            <span class="nav-main-link-name">Analytics</span>
+        <a class="nav-main-link" href="{{ url('bookmarks') }}">
+            <i class="nav-main-link-icon far fa-bookmark"></i>
+            <span class="nav-main-link-name">Bookmarks</span>
         </a>
           <a class="nav-main-link" href="{{ url('settings') }}">
               <i class="nav-main-link-icon si si-settings"></i>

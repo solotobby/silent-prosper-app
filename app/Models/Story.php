@@ -19,6 +19,14 @@ class Story extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function bookmarks(){
+        return $this->hasMany(Bookmark::class);
+    }
+    public function isBookmarkedBy($userId)
+    {
+        return $this->bookmarks()->where('user_id', $userId)->exists();
+    }
+
     public function isLikedByUser($userId)
     {
         return $this->likes()->where('user_id', $userId)->exists();

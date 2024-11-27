@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Story;
 use App\Models\StoryRead;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -32,19 +33,23 @@ class StoryDetails extends Component
         $user = Auth::user();
         if (Auth::check()) {
 
+           
+
             // Check if the user is the author of the story
             if ($this->story->user_id == $user->id) {
                 // Allow authors to read their own stories unlimitedly, but track views
                 return; // Skip further checks for story restrictions
             }
+            
+           
+                // Check if the user has an active subscription
+                // $hasActiveSubscription = @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
+            
+                if (!$this->hasActiveSubscription($user)) { //user not subscribed
 
-              // Check if the user has an active subscription
-            // $hasActiveSubscription = $user->subscription && $user->subscription->ends_at->isFuture();
-
-        //    if (!$hasActiveSubscription) {
                     $alreadyRead = StoryRead::where('user_id', Auth::id())
-                    ->where('story_id', $this->story->id)
-                    ->exists();
+                        ->where('story_id', $this->story->id)
+                        ->exists();
 
                     if (!$alreadyRead) {
                         // Count the total number of unique stories read by the user
@@ -62,36 +67,49 @@ class StoryDetails extends Component
                             'story_id' => $this->story->id,
                         ]);
                     }
-            // }else{
+                }else{
+                    //subscribed user
+                    StoryRead::firstOrCreate([
+                        'user_id' => $user->id,
+                        'story_id' => $this->story->id,
+                    ]);
 
-            //         StoryRead::firstOrCreate([
-            //             'user_id' => $user->id,
-            //             'story_id' => $this->story->id,
-            //         ]);
-
-            //  }
+                }
 
         }
 
     }
 
-    public function toggleLike()
-    {
-        
-        $user = Auth::id();
+    public function bookmarkStory($storyId){
+        $user = Auth::user();
+        $story = Story::findOrFail($storyId);
+       
+        if ($story->user_id === $user->id || hasActiveSubscription($user)) {
 
-        if ($this->story->isLikedByUser($user)) {
-            $this->story->likes()->where('user_id', $user)->delete();
-           
-            $this->story->likes_count -= 1;
-            $this->story->save();
-        } else {
-            $this->story->likes()->create(['user_id' => $user]);
-            $this->story->likes_count += 1;
-            $this->story->save();
+            addStoryBookmark($story);
+
+            $this->story->refresh();
+
+        }else{
+            return redirect()->route('subscription.page');
         }
+         
+    }
 
-        $this->story->refresh(); // Refresh the post to reflect the new like count
+    public function hasActiveSubscription($user){
+       return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
+       
+    }
+
+
+    public function toggleLike($storyId)
+    {
+
+       
+        likeStory($storyId);
+
+        $this->story->refresh();
+
     }
 
     public function toggleComments($storyId)
@@ -106,20 +124,11 @@ class StoryDetails extends Component
         $this->validate([
             'comment' => 'required|string|max:255',
         ]);
+        
+        addStoryComment($storyId, $this->comment);
 
-       $comment = Comment::create([
-            'story_id' => $storyId,
-            'user_id' => Auth::id(),
-            'content' => $this->comment,
-        ]);
-
-        if($comment){
-            $story = Story::findOrFail($storyId);
-            $story->comments_count += 1;
-            $story->save();
-        }
-       
-        $this->comment = ''; // Clear the input
+        $this->comment = ''; // Reset comment input
+        $this->commentStoryId = null; // Reset the tracked story
         $this->story->refresh(); // Refresh post data to include the new comment
     }
 
@@ -130,29 +139,9 @@ class StoryDetails extends Component
 
     public function toggleCommentLike($commentId)
     {
-        $userId = Auth::id();
 
-        $existingLike = CommentLike::where('user_id', $userId)
-            ->where('comment_id', $commentId)
-            ->first();
+        commentLike($commentId);
 
-        $comment = Comment::where('id', $commentId)->first();
-
-
-        if ($existingLike) {
-            // Unlike the comment
-            $existingLike->delete();
-            $comment->count -= 1;
-            $comment->save();
-        } else {
-            // Like the comment
-            CommentLike::create([
-                'user_id' => $userId,
-                'comment_id' => $commentId,
-            ]);
-            $comment->count += 1;
-            $comment->save();
-        }
     }
 
 

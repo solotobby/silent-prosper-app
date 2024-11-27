@@ -7,6 +7,7 @@ use App\Models\CommentLike;
 use App\Models\Story;
 use App\Models\SubscriptionPlan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -22,6 +23,7 @@ class UserProfile extends Component
     public $perPageComments = 5; // Number of comments to load per story
     public $hasActiveSubscription;
     public $subscription;
+    public $isFollowing; // State of following
 
 
     public function mount(User $user){
@@ -32,6 +34,24 @@ class UserProfile extends Component
         $this->subscription = $this->user->getSubscriptionDetails(); 
         // dd($this->user->isSubscribed());
 
+        $this->isFollowing = $this->checkIfFollowing();
+
+    }
+
+    public function toggleFollow()
+    {
+        if ($this->isFollowing) {
+            Auth::user()->followings()->detach($this->user->id);
+        } else {
+            Auth::user()->followings()->attach($this->user->id);
+        }
+
+        $this->isFollowing = !$this->isFollowing;
+    }
+
+    private function checkIfFollowing()
+    {
+        return Auth::user()->followings()->where('followed_id', $this->user->id)->exists();
     }
 
     public function addComment($storyId)
@@ -57,24 +77,31 @@ class UserProfile extends Component
 
     }
 
+    public function bookmarkStory($storyId){
+        $user = Auth::user();
+        $story = Story::findOrFail($storyId);
+       
+        if ($story->user_id === $user->id || $this->hasActiveSubscription($user)) {
+
+            addStoryBookmark($story);
+
+        }else{
+            return redirect()->route('subscription.page');
+        }
+         
+    }
+
+    public function hasActiveSubscription($user){
+        
+       return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
+       
+    }
+
     public function toggleLike($storyId)
     {
-        $userId = Auth::id();
-        $story = Story::findOrFail($storyId);
 
-        $like = $story->likes()->where('user_id', $userId)->first();
+        likeStory($storyId);
 
-        if ($like) {
-            // Unlike the story
-            $like->delete();
-            $story->likes_count -= 1;
-            $story->save();
-        } else {
-            // Like the story
-            $story->likes()->create(['user_id' => $userId]);
-            $story->likes_count += 1;
-            $story->save();
-        }
     }
 
     public function loadMore()
@@ -96,29 +123,8 @@ class UserProfile extends Component
 
     public function toggleCommentLike($commentId)
     {
-        $userId = Auth::id();
-
-        $existingLike = CommentLike::where('user_id', $userId)
-            ->where('comment_id', $commentId)
-            ->first();
-
-        $comment = Comment::where('id', $commentId)->first();
-
-        if ($existingLike) {
-            // Unlike the comment
-            $existingLike->delete();
-            $comment->count -= 1;
-            $comment->save();
-        } else {
-            // Like the comment
-            CommentLike::create([
-                'user_id' => $userId,
-                'comment_id' => $commentId,
-            ]);
-            $comment->count += 1;
-            $comment->save();
-        }
-
+        commentLike($commentId);
+        
     }
 
 

@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->hasMany(Story::class);
     }
 
+    public function userSubscription()
+    {
+        return $this->hasOne(SubscriptionPlan::class);
+    }
+
     public function subscriptionPlans()
     {
         return $this->hasMany(SubscriptionPlan::class);
@@ -67,6 +72,15 @@ class User extends Authenticatable
             ->where('ends_at', '>', now()) // Ensure it's not expired
             ->with('subscription') // Load related subscription details
             ->first(); // Return the latest active plan
+    }
+
+    public function getcurrentSubscriptionPlan()
+    {
+        return $this->hasOne(SubscriptionPlan::class)
+            ->where('is_active', true)
+            ->where('ends_at', '>', now())
+            ->with('subscription') // Include the subscription details
+            ->first();
     }
 
     public function getSubscriptionDetails()
@@ -90,14 +104,6 @@ class User extends Authenticatable
             'ends_at' => null,
         ];
     }
-
-    // public function subscriptions(){
-    //     return $this->belongsToMany(Subscription::class, 'subscription_plans', 'user_id');
-    // }
-
-    // public function isSubscribed(){
-    //     return $this->subscriptionPlan()->where('is_active', true)->exists()  && $this->subscriptionPlan[0]['ends_at']->isFuture();
-    // }
    
     public function scopeWithPostStats(Builder $query, $userId)
     {
@@ -117,15 +123,14 @@ class User extends Authenticatable
             }]);
     }
 
-  
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
+    }
 
-   
-        // $hasActiveSubscription = $this->subscription && $this->subscription->ends_at->isFuture();
-        // // $hasActiveSubscription = $user->subscription && $user->subscription->ends_at->isFuture();
-        // if($hasActiveSubscription){
-        //     return true;
-        // }else{
-        //     return false;
-        // }
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
+    }
    
 }

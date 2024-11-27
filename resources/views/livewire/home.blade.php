@@ -1,7 +1,7 @@
 <div>
   
     <div class="row">
-        <div class="col-md-8 col-sm-8">
+        <div class="col-md-12 col-sm-8">
             @if (session()->has('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
@@ -23,25 +23,15 @@
                 </form>
                 </div>
 
-                {{-- <form wire:submit.prevent="post">
-                <div class="card-body">
-                    <textarea wire:model="content" name="content" class="form-control form-control-alt @error('content') is-invalid @enderror" placeholder="It is a safe and anonymous to share your sexual experience" required></textarea>
-                    @error('content') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
-                
-                <div class="card-footer">
-                    <button class="btn btn-primary btn-block"> <i class="fa fa-pencil-alt opacity-50 me-1"></i> Post</button>
-                </div>
-                </form> --}}
             </div>
 
             @include('layouts.resources.stories', $stories)
 
         </div>
 
-        <div class="col-md-4 col-sm-4">
+        {{-- <div class="col-md-4 col-sm-4">
             srhdfgjdghj
-        </div>
+        </div> --}}
 
     </div>
 

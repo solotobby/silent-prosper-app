@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\Bookmark;
 use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Story;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
@@ -74,41 +76,37 @@ class Home extends Component
             'comment' => 'required|string|max:255',
         ]);
         
-        $comment = Comment::create([
-            'story_id' => $storyId,
-            'user_id' => Auth::id(),
-            'content' => $this->comment,
-        ]);
-        if($comment){
-            $story = Story::findOrFail($storyId);
-            $story->comments_count += 1;
-            $story->save();
-        }
-       
+        addStoryComment($storyId, $this->comment);
 
         $this->comment = ''; // Reset comment input
         $this->commentStoryId = null; // Reset the tracked story
 
     }
 
+    public function bookmarkStory($storyId){
+        $user = Auth::user();
+        $story = Story::findOrFail($storyId);
+       
+        if ($story->user_id === $user->id || hasActiveSubscription($user)) {
+
+            addStoryBookmark($story);
+
+        }else{
+            return redirect()->route('subscription.page');
+        }
+         
+    }
+
+    public function hasActiveSubscription($user){
+       return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
+       
+    }
+
     public function toggleLike($storyId)
     {
-        $userId = Auth::id();
-        $story = Story::findOrFail($storyId);
 
-        $like = $story->likes()->where('user_id', $userId)->first();
-
-        if ($like) {
-            // Unlike the story
-            $like->delete();
-            $story->likes_count -= 1;
-            $story->save();
-        } else {
-            // Like the story
-            $story->likes()->create(['user_id' => $userId]);
-            $story->likes_count += 1;
-            $story->save();
-        }
+        likeStory($storyId);
+        
     }
     
     public function loadMore()
@@ -123,6 +121,7 @@ class Home extends Component
         $this->commentSectionOpen[$storyId] = !($this->commentSectionOpen[$storyId] ?? false);
     }
 
+
     public function loadMoreComments()
     {
         $this->perPageComments += 3; // Increment the number of comments to load
@@ -130,28 +129,7 @@ class Home extends Component
 
     public function toggleCommentLike($commentId)
     {
-        $userId = Auth::id();
-
-        $existingLike = CommentLike::where('user_id', $userId)
-            ->where('comment_id', $commentId)
-            ->first();
-
-        $comment = Comment::where('id', $commentId)->first();
-
-        if ($existingLike) {
-            // Unlike the comment
-            $existingLike->delete();
-            $comment->count -= 1;
-            $comment->save();
-        } else {
-            // Like the comment
-            CommentLike::create([
-                'user_id' => $userId,
-                'comment_id' => $commentId,
-            ]);
-            $comment->count += 1;
-            $comment->save();
-        }
+        commentLike($commentId);
     }
 
 
@@ -160,7 +138,11 @@ class Home extends Component
         return view('livewire.home', [
             'stories' => Story::with(['likes', 'comments.user' => function ($query) {
                 $query->latest(); // Fetch comments in descending order
-            }])->latest()->paginate($this->perPage),
+            }
+            // 'user.subscriptionPlans.subscription' => function ($query) {
+            //     $query->where('is_active', true)->where('ends_at', '>', now());
+            // }
+            ])->latest()->paginate($this->perPage),
         ]);
     }
 }

@@ -1,14 +1,14 @@
 <div>
     {{-- Nothing in the world is as soft and yielding as water. --}}
     <div class="row">
-        <div class="col-md-8 col-sm-8">
+        <div class="col-md-12 col-sm-12">
 
 
             <div class="block block-rounded block-bordered">
                 <div class="block-header block-header-default">
                 <div>
                     <a class="img-link me-1" href="javascript:void(0)">
-                    <img class="img-avatar img-avatar32 img-avatar-thumb" src="{{ asset('src/assets/media/avatars/avatar6.jpg')}}" alt="">
+                    <img class="img-avatar img-avatar32 img-avatar-thumb border border-{{ @$subscriptionPlan->subscription->color_code }}" src="{{ asset('src/assets/media/avatars/avatar6.jpg')}}" alt="">
                     </a>
                     <a class="fw-semibold" href="{{ url('profile/'.$story->user->id) }}"> {{ $story->user->name }} </a>
                     <span class="fs-sm text-muted">{{ $story->created_at->diffForHumans()  }}</span>
@@ -63,10 +63,22 @@
                     </li>
 
                     <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">
-                        <i class="fa fa-eye opacity-50 me-1"></i> {{$story->views_count}}
-                    </a>
+                        <a class="nav-link" href="javascript:void(0)">
+                            <i class="fa fa-eye opacity-50 me-1"></i> {{$story->views_count}}
+                        </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" wire:click="bookmarkStory({{ $story->id }})">
+                          
+                          @if ($story->isBookmarkedBy(auth()->id()))
+                              <i class="fa fa-fw fa-bookmark opacity-100 me-1"></i>
+                          @else
+                              <i class="fa fa-fw fa-bookmark opacity-50 me-1"></i>
+                          @endif
+                            {{ $story->bookmark_counts }}
+                        </a>
+                      </li>
 
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="javascript:void(0)">
@@ -132,9 +144,9 @@
 
         </div>
 
-        <div class="col-md-4 col-sm-4">
+        {{-- <div class="col-md-4 col-sm-4">
             srhdfgjdghj
-        </div>
+        </div> --}}
     </div>
 
 </div>
