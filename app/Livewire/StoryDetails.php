@@ -84,20 +84,11 @@ class StoryDetails extends Component
         $user = Auth::user();
         $story = Story::findOrFail($storyId);
        
-        if ($story->user_id === $user->id || $this->hasActiveSubscription($user)) {
+        if ($story->user_id === $user->id || hasActiveSubscription($user)) {
 
-            $bookmark = $story->bookmarks()->where('user_id', $user->id)->first();
-           
-            if($bookmark){
-                $bookmark->delete();
-                $story->bookmark_counts -= 1;
-                $story->save();
-            }else{
-                $story->bookmarks()->create(['user_id' => $user->id]);
-                $story->bookmark_counts += 1;
-                $story->save();
-            }
+            addStoryBookmark($story);
 
+            $this->story->refresh();
 
         }else{
             return redirect()->route('subscription.page');
@@ -111,23 +102,14 @@ class StoryDetails extends Component
     }
 
 
-    public function toggleLike()
+    public function toggleLike($storyId)
     {
-        
-        $user = Auth::id();
 
-        if ($this->story->isLikedByUser($user)) {
-            $this->story->likes()->where('user_id', $user)->delete();
-           
-            $this->story->likes_count -= 1;
-            $this->story->save();
-        } else {
-            $this->story->likes()->create(['user_id' => $user]);
-            $this->story->likes_count += 1;
-            $this->story->save();
-        }
+       
+        likeStory($storyId);
 
-        $this->story->refresh(); // Refresh the post to reflect the new like count
+        $this->story->refresh();
+
     }
 
     public function toggleComments($storyId)
@@ -142,20 +124,11 @@ class StoryDetails extends Component
         $this->validate([
             'comment' => 'required|string|max:255',
         ]);
+        
+        addStoryComment($storyId, $this->comment);
 
-       $comment = Comment::create([
-            'story_id' => $storyId,
-            'user_id' => Auth::id(),
-            'content' => $this->comment,
-        ]);
-
-        if($comment){
-            $story = Story::findOrFail($storyId);
-            $story->comments_count += 1;
-            $story->save();
-        }
-       
-        $this->comment = ''; // Clear the input
+        $this->comment = ''; // Reset comment input
+        $this->commentStoryId = null; // Reset the tracked story
         $this->story->refresh(); // Refresh post data to include the new comment
     }
 
@@ -166,29 +139,9 @@ class StoryDetails extends Component
 
     public function toggleCommentLike($commentId)
     {
-        $userId = Auth::id();
 
-        $existingLike = CommentLike::where('user_id', $userId)
-            ->where('comment_id', $commentId)
-            ->first();
+        commentLike($commentId);
 
-        $comment = Comment::where('id', $commentId)->first();
-
-
-        if ($existingLike) {
-            // Unlike the comment
-            $existingLike->delete();
-            $comment->count -= 1;
-            $comment->save();
-        } else {
-            // Like the comment
-            CommentLike::create([
-                'user_id' => $userId,
-                'comment_id' => $commentId,
-            ]);
-            $comment->count += 1;
-            $comment->save();
-        }
     }
 
 

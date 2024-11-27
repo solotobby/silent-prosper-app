@@ -122,5 +122,15 @@ class User extends Authenticatable
                 $query->select(DB::raw('sum(comments_count)'));
             }]);
     }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
+    }
    
 }
