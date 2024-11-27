@@ -160,7 +160,11 @@ class Home extends Component
         return view('livewire.home', [
             'stories' => Story::with(['likes', 'comments.user' => function ($query) {
                 $query->latest(); // Fetch comments in descending order
-            }])->latest()->paginate($this->perPage),
+            }
+            // 'user.subscriptionPlans.subscription' => function ($query) {
+            //     $query->where('is_active', true)->where('ends_at', '>', now());
+            // }
+            ])->latest()->paginate($this->perPage),
         ]);
     }
 }

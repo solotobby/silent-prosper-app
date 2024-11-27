@@ -69,6 +69,15 @@ class User extends Authenticatable
             ->first(); // Return the latest active plan
     }
 
+    public function getcurrentSubscriptionPlan()
+    {
+        return $this->hasOne(SubscriptionPlan::class)
+            ->where('is_active', true)
+            ->where('ends_at', '>', now())
+            ->with('subscription') // Include the subscription details
+            ->first();
+    }
+
     public function getSubscriptionDetails()
     {
         $subscriptionPlan = $this->currentSubscriptionPlan();
@@ -90,14 +99,6 @@ class User extends Authenticatable
             'ends_at' => null,
         ];
     }
-
-    // public function subscriptions(){
-    //     return $this->belongsToMany(Subscription::class, 'subscription_plans', 'user_id');
-    // }
-
-    // public function isSubscribed(){
-    //     return $this->subscriptionPlan()->where('is_active', true)->exists()  && $this->subscriptionPlan[0]['ends_at']->isFuture();
-    // }
    
     public function scopeWithPostStats(Builder $query, $userId)
     {
@@ -116,16 +117,5 @@ class User extends Authenticatable
                 $query->select(DB::raw('sum(comments_count)'));
             }]);
     }
-
-  
-
-   
-        // $hasActiveSubscription = $this->subscription && $this->subscription->ends_at->isFuture();
-        // // $hasActiveSubscription = $user->subscription && $user->subscription->ends_at->isFuture();
-        // if($hasActiveSubscription){
-        //     return true;
-        // }else{
-        //     return false;
-        // }
    
 }

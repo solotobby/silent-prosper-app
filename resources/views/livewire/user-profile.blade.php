@@ -15,7 +15,7 @@
         <div class="bg-image pt-9" style="background-image: url('{{asset('src/assets/media/photos/photo19@2x.jpg')}}');"></div>
             <div class="px-4 py-3 bg-body-extra-light d-flex flex-column flex-md-row align-items-center">
                 <a class="d-block img-link mt-n5" href="#">
-                    <img class="img-avatar img-avatar128 img-avatar-thumb {{ $subscription['is_subscribed']== '1' ? 'avatar-success' : '' }} " src="{{asset('src/assets/media/avatars/avatar13.jpg')}}" alt="">
+                    <img class="img-avatar img-avatar128 img-avatar-thumb border border-{{ isset($subscription['color_code']) ? $subscription['color_code'] : "" }} " src="{{asset('src/assets/media/avatars/avatar13.jpg')}}" alt="">
                 </a>
             <div class="ms-3 flex-grow-1 text-center text-md-start my-3 my-md-0">
                 <h1 class="fs-4 fw-bold mb-1">{{ $user->name }}</h1>
@@ -28,7 +28,7 @@
 
                 </h2>
                 <h2 class="fs-sm fw-medium text-muted mt-2">
-                   
+                   {{ $subscription['is_subscribed'] }}
                     {{-- Referral Link: {{ url('/reg?referral_code='.auth()->user()->referral_code) }} --}}
                 </h2>
                
@@ -45,15 +45,15 @@
     </div>
 
     <div class="row">
-        <div class="col-md-8 col-sm-8">
+        <div class="col-md-12 col-sm-12">
 
             @include('layouts.resources.stories', $stories)
 
         </div>
-
+{{-- 
         <div class="col-md-4 col-sm-4">
 
             sidebar
-        </div>
+        </div> --}}
     </div>
 </div>
