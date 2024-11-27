@@ -20,6 +20,9 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::get('test', [HomeController::class, 'test'])->name('test');
+
+    Route::get('subscribe', [HomeController::class, 'subscribe']);
     Route::get('user/home', Home::class);
     Route::get('show/{query}', StoryDetails::class);
     Route::get('profile/{user}', UserProfile::class);

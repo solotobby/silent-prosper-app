@@ -15,4 +15,17 @@ class HomeController extends Controller
         return redirect('user/home');
         // return view('dashboard');
     }
+
+    public function test(){
+        // return createProduct();
+        // return getPlans();
+        // return createPlans();
+        //  return showPlanDetails('P-3H104703DN293015CM5DYGGI'); 
+        // return createSubscription('P-3H104703DN293015CM5DYGGI');
+        // return getSubscription('I-RDT2YTRE9J6A');
+    }
+
+    public function subscribe($plan){
+        
+    }
 }
