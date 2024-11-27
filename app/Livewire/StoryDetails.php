@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Story;
 use App\Models\StoryRead;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -32,19 +33,23 @@ class StoryDetails extends Component
         $user = Auth::user();
         if (Auth::check()) {
 
+           
+
             // Check if the user is the author of the story
             if ($this->story->user_id == $user->id) {
                 // Allow authors to read their own stories unlimitedly, but track views
                 return; // Skip further checks for story restrictions
             }
+            
+           
+                // Check if the user has an active subscription
+                // $hasActiveSubscription = @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
+            
+                if (!$this->hasActiveSubscription($user)) { //user not subscribed
 
-              // Check if the user has an active subscription
-            // $hasActiveSubscription = $user->subscription && $user->subscription->ends_at->isFuture();
-
-        //    if (!$hasActiveSubscription) {
                     $alreadyRead = StoryRead::where('user_id', Auth::id())
-                    ->where('story_id', $this->story->id)
-                    ->exists();
+                        ->where('story_id', $this->story->id)
+                        ->exists();
 
                     if (!$alreadyRead) {
                         // Count the total number of unique stories read by the user
@@ -62,18 +67,49 @@ class StoryDetails extends Component
                             'story_id' => $this->story->id,
                         ]);
                     }
-            // }else{
+                }else{
+                    //subscribed user
+                    StoryRead::firstOrCreate([
+                        'user_id' => $user->id,
+                        'story_id' => $this->story->id,
+                    ]);
 
-            //         StoryRead::firstOrCreate([
-            //             'user_id' => $user->id,
-            //             'story_id' => $this->story->id,
-            //         ]);
-
-            //  }
+                }
 
         }
 
     }
+
+    public function bookmarkStory($storyId){
+        $user = Auth::user();
+        $story = Story::findOrFail($storyId);
+       
+        if ($story->user_id === $user->id || $this->hasActiveSubscription($user)) {
+
+            $bookmark = $story->bookmarks()->where('user_id', $user->id)->first();
+           
+            if($bookmark){
+                $bookmark->delete();
+                $story->bookmark_counts -= 1;
+                $story->save();
+            }else{
+                $story->bookmarks()->create(['user_id' => $user->id]);
+                $story->bookmark_counts += 1;
+                $story->save();
+            }
+
+
+        }else{
+            return redirect()->route('subscription.page');
+        }
+         
+    }
+
+    public function hasActiveSubscription($user){
+       return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
+       
+    }
+
 
     public function toggleLike()
     {

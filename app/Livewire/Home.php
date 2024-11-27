@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\Bookmark;
 use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Story;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
@@ -89,6 +91,36 @@ class Home extends Component
         $this->comment = ''; // Reset comment input
         $this->commentStoryId = null; // Reset the tracked story
 
+    }
+
+    public function bookmarkStory($storyId){
+        $user = Auth::user();
+        $story = Story::findOrFail($storyId);
+       
+        if ($story->user_id === $user->id || $this->hasActiveSubscription($user)) {
+
+            $bookmark = $story->bookmarks()->where('user_id', $user->id)->first();
+           
+            if($bookmark){
+                $bookmark->delete();
+                $story->bookmark_counts -= 1;
+                $story->save();
+            }else{
+                $story->bookmarks()->create(['user_id' => $user->id]);
+                $story->bookmark_counts += 1;
+                $story->save();
+            }
+
+
+        }else{
+            return redirect()->route('subscription.page');
+        }
+         
+    }
+
+    public function hasActiveSubscription($user){
+       return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
+       
     }
 
     public function toggleLike($storyId)

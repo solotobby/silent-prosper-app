@@ -63,10 +63,22 @@
                     </li>
 
                     <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">
-                        <i class="fa fa-eye opacity-50 me-1"></i> {{$story->views_count}}
-                    </a>
+                        <a class="nav-link" href="javascript:void(0)">
+                            <i class="fa fa-eye opacity-50 me-1"></i> {{$story->views_count}}
+                        </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" wire:click="bookmarkStory({{ $story->id }})">
+                          
+                          @if ($story->isBookmarkedBy(auth()->id()))
+                              <i class="fa fa-fw fa-bookmark opacity-100 me-1"></i>
+                          @else
+                              <i class="fa fa-fw fa-bookmark opacity-50 me-1"></i>
+                          @endif
+                            {{ $story->bookmark_counts }}
+                        </a>
+                      </li>
 
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="javascript:void(0)">

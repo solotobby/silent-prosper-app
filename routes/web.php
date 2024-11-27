@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\BookmarkStory;
 use App\Livewire\Home;
 use App\Livewire\ShowPost;
 use App\Livewire\StoryDetails;
@@ -23,6 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('show/{query}', StoryDetails::class);
     Route::get('profile/{user}', UserProfile::class);
     Route::get('subcriptions', SubscriptionPlans::class)->name('subscription.page');
+    Route::get('bookmarks', BookmarkStory::class);
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
