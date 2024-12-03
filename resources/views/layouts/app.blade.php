@@ -679,7 +679,11 @@
         <!-- Sidebar Scrolling -->
         <div class="js-sidebar-scroll">
           <!-- Side Navigation -->
-          @include('layouts.sidebar')
+          @if(auth()->user()->hasRole('regular'))
+            @include('layouts.sidebar')
+          @else
+            @include('layouts.admin_sidebar')
+          @endif
           <!-- END Side Navigation -->
         </div>
         <!-- END Sidebar Scrolling -->

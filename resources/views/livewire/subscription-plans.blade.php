@@ -38,9 +38,12 @@
                     </div>
                   </div>
                   <div class="block-content block-content-full bg-body-light">
-                    <button wire:click="subscribe({{ json_encode($plan) }})" class="btn btn-hero btn-{{$plan->color_code}} px-4">
+                    <a href="{{ url('subscribe/'.$plan) }}" class="btn btn-hero btn-{{$plan->color_code}}">
+                      Get Started
+                    </a>
+                    {{-- <button wire:click="subscribe({{ json_encode($plan) }})" class="btn btn-hero btn-{{$plan->color_code}} px-4">
                         Get Started
-                    </button>
+                    </button> --}}
                     {{-- <span class="btn btn-hero btn-secondary px-4">Get Started</span> --}}
                   </div>
                  

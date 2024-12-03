@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'gender',
+        'role',
         'alias',
         'password',
     ];
@@ -53,6 +54,14 @@ class User extends Authenticatable
 
     public function stories(){
         return $this->hasMany(Story::class);
+    }
+
+    public function hasRole($role = []): bool
+    {
+        if (is_array($role)) {
+            return in_array($this->role, $role);
+        }
+        return $this->role == $role;
     }
 
     public function userSubscription()
