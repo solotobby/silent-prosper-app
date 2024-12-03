@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SubscriptionIntent;
 use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,27 +57,24 @@ class HomeController extends Controller
 
         $id = $params['subscription_id'];
 
-       $validate = DB::table('subscription_intents')->where(['user_id' => Auth::id(), 'subscription_id' => $id])->orderBy('id', 'DESC')->first();
+       $validate = SubscriptionIntent::where(['user_id' => Auth::id(), 'subscription_id' => $id])->orderBy('id', 'DESC')->first();
         if($validate){
               // Deactivate old subscription
-        SubscriptionPlan::where('user_id', Auth::id())->update(['is_active' => false]);
+            SubscriptionPlan::where('user_id', Auth::id())->update(['is_active' => false]);
 
-        // Create new subscription
-        SubscriptionPlan::create([
-            'user_id' => Auth::id(),
-            'subscription_id' => $validate->plan_id,
-            'is_active' => true,
-            'starts_at' => now(),
-            'ends_at' => now()->add($validate->duration),
-        ]);
+            // Create new subscription
+            SubscriptionPlan::create([
+                'user_id' => Auth::id(),
+                'subscription_id' => $validate->plan_id,
+                'is_active' => true,
+                'starts_at' => now(),
+                'ends_at' => now()->add($validate->duration),
+            ]);
 
-        // $validate->delete();
+            SubscriptionIntent::where('user_id', Auth::id())->delete();
 
-        session()->flash('success', 'You have successfully subscribed!');
-        return redirect()->route('home');
-
-
-
+            session()->flash('success', 'You have successfully subscribed!');
+            return redirect()->route('home');
         }
     }
 }

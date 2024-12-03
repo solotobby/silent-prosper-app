@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubscriptionIntent extends Model
 {
-    //
+    protected $fillable = ['user_id', 'subscription_id', 'plan_id', 'duration'];
 }
