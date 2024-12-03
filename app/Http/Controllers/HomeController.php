@@ -70,7 +70,7 @@ class HomeController extends Controller
             'ends_at' => now()->add($validate->duration),
         ]);
 
-        $validate->delete();
+        // $validate->delete();
 
         session()->flash('success', 'You have successfully subscribed!');
         return redirect()->route('home');
