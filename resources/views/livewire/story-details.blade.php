@@ -1,7 +1,101 @@
 <div>
     {{-- Nothing in the world is as soft and yielding as water. --}}
+        <!-- Hero -->
+        <div class="bg-image" style="background-image: url('{{asset('src/assets/media/photos/photo13@2x.jpg')}} ');">
+            <div class="bg-primary-dark-op">
+              <div class="content content-full content-top text-center">
+                <div class="pt-4 pb-3">
+                  <h1 class="fw-light text-white mb-1">{{$story->title}}</h1>
+                  {{-- <p>
+                    <span class="badge rounded-pill bg-primary fs-base px-3 py-2 me-2 m-1">
+                      <i class="fa fa-user-circle me-1"></i> by Lisa Smith
+                    </span>
+                    <span class="badge rounded-pill bg-primary fs-base px-3 py-2 m-1">
+                      <i class="fa fa-clock me-1"></i> 10 min read
+                    </span>
+                  </p> --}}
+
+                  <h2 class="h3 fw-light text-white-75"> by {{$story->user->name}}</h2>
+                </div>
+              </div>
+            </div>
+        </div>
+          <!-- END Hero -->
+
+
     <div class="row">
-        <div class="col-md-12 col-sm-12">
+
+        <div class="col-md-12 mt-3">
+            <div class="block block-rounded block-bordered">
+                <div class="block-header block-header-default">
+                  <h3 class="block-title">Description</h3>
+                </div>
+                <div class="block-content">
+                  <p>
+                    {{$story->description}}
+                  </p>
+                 
+                  
+                  <p class="text-muted">
+                    November 6, 2023
+                  </p>
+                </div>
+              </div>
+
+            <!-- Tasks, custom functionality is initialized in js/pages/be_pages_projects_tasks.min.js which was auto compiled from _js/pages/be_pages_projects_tasks.js -->
+            <div class="js-tasks">
+
+              <!-- Tasks List -->
+              <h2 class="content-heading pb-0 mb-3 border-0 d-flex justify-content-between align-items-center">
+                List of Chapters <span class="js-task-badge badge rounded-pill bg-primary animated fadeIn">{{ $story->chapters->count() }}</span>
+              </h2>
+              <div class="js-task-list">
+                @foreach ($story->chapters as $chapter)
+                    <!-- Task -->
+                    <a href="{{ url('read/'.$chapter->slug) }}">
+                        <div class="js-task block block-rounded mb-2 animated fadeIn" data-task-id="9" data-task-completed="false" data-task-starred="false">
+                            <table class="table table-borderless table-vcenter mb-0">
+                            <tr>
+                                <td class="text-center pe-0" style="width: 38px;">
+                                <div class="js-task-status form-check">
+                                    <input type="checkbox" class="form-check-input" id="tasks-cb-id9" name="tasks-cb-id9">
+                                    <label class="form-check-label" for="tasks-cb-id9"></label>
+                                </div>
+                                </td>
+                                <td class="js-task-content fw-semibold ps-0">
+                                {{$chapter->title}}
+                                </td>
+                                <td class="text-end" style="width: 300px;">
+                                <button type="button" class="js-task-star btn btn-sm btn-link text-warning">
+                                    <i class="far fa-star fa-fw"></i>
+                                   
+                                </button>
+                                <button type="button" class="js-task-remove btn btn-sm btn-link text-danger">
+                                    {{$chapter->created_at}}
+                                </button>
+                                </td>
+                            </tr>
+                            </table>
+                        </div>
+                    </a>
+                    <!-- END Task -->
+                @endforeach
+
+                @if(auth()->user()->id == $story->user->id && !$story->is_completed)
+                    <a href="{{ url('write/'.$story->slug) }}" class="btn btn-primary btn-sm">Continue Writing</a>
+                @endif
+            </div>
+            <!-- END Tasks -->
+          </div>
+
+    
+
+
+
+
+        
+        
+          {{-- <div class="col-md-12 col-sm-12">
 
 
             <div class="block block-rounded block-bordered">
@@ -80,11 +174,7 @@
                         </a>
                       </li>
 
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">
-                        <i class="fa fa-share-alt opacity-50 me-1"></i> Share
-                        </a>
-                    </li> --}}
+                 
                 </ul>
                 </div>
                 
@@ -120,7 +210,7 @@
                                     ({{ $comment->count }})
                                 </a>
 
-                                {{-- <a href="javascript:void(0)">Comment</a> --}}
+                              
                             </p>
                             
                             </div>
@@ -142,11 +232,9 @@
                 </div>
         
 
-        </div>
-
-        {{-- <div class="col-md-4 col-sm-4">
-            srhdfgjdghj
         </div> --}}
+
+       
     </div>
 
 </div>

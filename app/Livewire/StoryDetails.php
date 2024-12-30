@@ -14,7 +14,7 @@ use Livewire\WithPagination;
 class StoryDetails extends Component
 {
     
-    public $postQuery;
+    public $slug;
 
     use WithPagination;
 
@@ -25,15 +25,17 @@ class StoryDetails extends Component
     public $commentSectionOpen = []; // Tracks which story's comment section is open
 
 
-    public function mount($query){
-        $this->story = Story::with(['likes', 'comments.user'])->where('_id', $query)->first();//findOrFail();
+    public function mount($slug){
+        // 'likes', 'comments.user',
+        $this->story = Story::with(['chapters'])->where('slug', $slug)->first();//findOrFail();
+
         $this->story->views_count += 1;
         $this->story->save();
 
+
+
         $user = Auth::user();
         if (Auth::check()) {
-
-           
 
             // Check if the user is the author of the story
             if ($this->story->user_id == $user->id) {

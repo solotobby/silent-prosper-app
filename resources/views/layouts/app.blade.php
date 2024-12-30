@@ -44,18 +44,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>Silent Noize</title>
+    <title>Eclatspad | Read, Write and Dream</title>
 
-    <meta name="description" content="Monetize your posts, comments and views to earn daily">
-    <meta name="author" content="Payhankey">
+    <meta name="description" content="A platform where both writers and readers can connect with each other, explore, create,  and share captivating stories.">
+    <meta name="author" content="Eclatspad">
     <meta name="robots" content="index, follow, money, post, posts, comments, comment, views, view">
 
     <!-- Open Graph Meta -->
-    <meta property="og:title" content="Payhankey | Monetize your posts, comments and views to earn daily">
+    <meta property="og:title" content="Eclatspad | Read, Write and Dream">
     <meta property="og:site_name" content="Payhankey">
-    <meta property="og:description" content="Monetize your posts, comments and views to earn daily">
+    <meta property="og:description" content="A platform where both writers and readers can connect with each other, explore, create,  and share captivating stories.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https:payhankey.com">
+    <meta property="og:url" content="https:eclatspad.com">
     <meta property="og:image" content="">
 
     <!-- Icons -->
@@ -882,7 +882,8 @@
       <main id="main-container">
 
         <!-- Page Content -->
-        <div class="content content-full content-boxed">
+        {{-- <div class="content content-full content-boxed"> --}}
+        <div class="content content-full">
          
               <!-- Timeline -->
               {{ $slot }}
@@ -901,7 +902,7 @@
         <div class="content py-0">
           <div class="row fs-sm">
             <div class="col-sm-6 order-sm-2 mb-1 mb-sm-0 text-center text-sm-end">
-              Built with <i class="fa fa-heart text-danger"></i> by <a class="fw-semibold" target="_blank">Payhankey</a>
+              Built with <i class="fa fa-heart text-danger"></i> by <a class="fw-semibold" target="_blank">Freebyz Technologies</a>
             </div>
             <div class="col-sm-6 order-sm-1 text-center text-sm-start">
               {{-- <a class="fw-semibold" href="https://pixelcave.com/products/dashmix" target="_blank">Dashmix 5.8</a> &copy; <span data-toggle="year-copy"></span> --}}

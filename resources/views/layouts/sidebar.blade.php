@@ -6,10 +6,18 @@
             <span class="nav-main-link-name">Dashboard</span>
          
           </a>
-        <a class="nav-main-link" href="{{ url('bookmarks') }}">
+          
+
+          <a class="nav-main-link" href="{{ url('write') }}">
             <i class="nav-main-link-icon far fa-bookmark"></i>
-            <span class="nav-main-link-name">Bookmarks</span>
-        </a>
+            <span class="nav-main-link-name">Write</span>
+          </a>
+
+          <a class="nav-main-link" href="{{ url('bookmarks') }}">
+              <i class="nav-main-link-icon far fa-bookmark"></i>
+              <span class="nav-main-link-name">Book Shelf</span>
+          </a>
+       
           <a class="nav-main-link" href="{{ url('settings') }}">
               <i class="nav-main-link-icon si si-settings"></i>
               <span class="nav-main-link-name">Settings</span>
