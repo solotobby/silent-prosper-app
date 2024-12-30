@@ -6,9 +6,9 @@
             <div class="card-body">
             <form>
                 <div class="input-group">
-                  <input type="text" class="form-control form-control-alt" placeholder="What’s happening?">
+                  <input type="text" class="form-control form-control-alt" placeholder="Search a book title...">
                   <button type="submit" class="btn btn-primary border-0">
-                    <i class="fa fa-pencil-alt opacity-50 me-1"></i> Post
+                    <i class="fa fa-search opacity-50 me-1"></i>
                   </button>
                 </div>
             </form>

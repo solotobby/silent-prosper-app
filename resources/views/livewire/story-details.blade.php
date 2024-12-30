@@ -37,7 +37,7 @@
                  
                   
                   <p class="text-muted">
-                    November 6, 2023
+                    {{ \Carbon\Carbon::parse($story->created_at)->format('M d, Y') }}
                   </p>
                 </div>
               </div>
@@ -71,7 +71,7 @@
                                    
                                 </button>
                                 <button type="button" class="js-task-remove btn btn-sm btn-link text-danger">
-                                    {{$chapter->created_at}}
+                                    {{ \Carbon\Carbon::parse($chapter->created_at)->format('M d, Y') }}
                                 </button>
                                 </td>
                             </tr>
