@@ -18,7 +18,7 @@
               <span class="nav-main-link-name">Book Shelf</span>
           </a>
        
-          <a class="nav-main-link" href="{{ url('settings') }}">
+          {{-- <a class="nav-main-link" href="{{ url('settings') }}">
               <i class="nav-main-link-icon si si-settings"></i>
               <span class="nav-main-link-name">Settings</span>
           </a>
@@ -34,7 +34,7 @@
           <a class="nav-main-link" href="{{ url('how/to/earn') }}">
             <i class="nav-main-link-icon fa fa-usd"></i>
             <span class="nav-main-link-name">How to Earn</span>
-          </a>
+          </a> --}}
   
         </li>
         
