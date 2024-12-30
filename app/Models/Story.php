@@ -6,12 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Story extends Model
 {
-    protected $fillable = ['user_id','category_id', '_id', 'content', 'likes_count', 'comments_count', 'views_count'];
+    protected $fillable = ['user_id','category_id', '_id', 'title', 'content', 'likes_count', 'comments_count', 'views_count',
+         'is_completed', 'copyright', 'is_book', 'img', 'description', 'slug', 'is_published', 'is_under_review', 'is_xrated', 'audience'];
 
     public function user() {
 
         return $this->belongsTo(User::class);
         
+    }
+
+    public function chapters(){
+        return $this->hasMany(StoryChapter::class, 'story_id');
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 
     public function likes()

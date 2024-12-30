@@ -35,9 +35,9 @@
             </div>
             <div class="space-x-1">
                 @if (auth()->id() !== $user->id)
-                    <a href="javascript:void(0)" wire:click="toggleFollow" class="btn btn-sm btn-alt-{{ $isFollowing ? 'danger' : 'primary' }} space-x-1">
+                    <a href="javascript:void(0)" wire:click="toggleFollow" class="btn btn-sm btn-alt-{{ $isFollowing ? 'secondary' : 'primary' }} space-x-1">
                         <i class="fa fa-user-alt opacity-50"></i>
-                        <span> {{ $isFollowing ? 'Unfollow' : 'Follow' }}</span>
+                        <span> {{ $isFollowing ? 'Following' : 'Follow' }}</span>
                     </a>
                 @else
                     <a href="{{ url('settings') }}" class="btn btn-sm btn-alt-secondary space-x-1">

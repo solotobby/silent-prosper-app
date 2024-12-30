@@ -4,7 +4,7 @@
           $subscriptionPlan = $story->user->currentSubscriptionPlan();
           @endphp
 
-            <div wire:poll.visible.30s class="block block-rounded block-bordered">
+            <div wire:poll.visible.360s class="block block-rounded block-bordered">
                 <div class="block-header block-header-default">
                   <div>
                     <a class="img-link me-1" href="javascript:void(0)">

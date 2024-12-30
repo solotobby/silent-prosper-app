@@ -6,35 +6,27 @@
             <span class="nav-main-link-name">Dashboard</span>
          
           </a>
-          
-
-          <a class="nav-main-link" href="{{ url('write') }}">
+        <a class="nav-main-link" href="{{ url('bookmarks') }}">
             <i class="nav-main-link-icon far fa-bookmark"></i>
-            <span class="nav-main-link-name">Write</span>
-          </a>
-
-          <a class="nav-main-link" href="{{ url('bookmarks') }}">
-              <i class="nav-main-link-icon far fa-bookmark"></i>
-              <span class="nav-main-link-name">Book Shelf</span>
-          </a>
-       
-          <a class="nav-main-link" href="{{ url('settings') }}">
+            <span class="nav-main-link-name">Manage Subscriptions</span>
+        </a>
+          {{-- <a class="nav-main-link" href="{{ url('#') }}">
               <i class="nav-main-link-icon si si-settings"></i>
               <span class="nav-main-link-name">Settings</span>
           </a>
-          <a class="nav-main-link" href="{{ url('wallets') }}">
+          <a class="nav-main-link" href="{{ url('#') }}">
             <i class="nav-main-link-icon fa fa-wallet"></i>
             <span class="nav-main-link-name">Wallets</span>
           </a>
-          <a class="nav-main-link" href="{{ url('partner') }}">
+          <a class="nav-main-link" href="{{ url('#') }}">
             <i class="nav-main-link-icon fa fa-briefcase"></i>
             <span class="nav-main-link-name">Become a Partner</span>
           </a>
   
-          <a class="nav-main-link" href="{{ url('how/to/earn') }}">
+          <a class="nav-main-link" href="{{ url('#') }}">
             <i class="nav-main-link-icon fa fa-usd"></i>
             <span class="nav-main-link-name">How to Earn</span>
-          </a>
+          </a> --}}
   
         </li>
         

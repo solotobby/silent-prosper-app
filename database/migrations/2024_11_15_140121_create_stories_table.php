@@ -17,7 +17,16 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('_id');
             $table->string('title')->nullable();
-            $table->longText('content');
+            $table->text('description');
+            $table->boolean('is_completed')->default(false);
+            $table->boolean('is_published')->default(false);
+            $table->boolean('is_under_review')->default(true);
+            $table->boolean('copyright')->default(true);
+            $table->boolean('is_xrated')->default(false);
+            $table->boolean('is_book')->default(false);
+            $table->string('img')->nullable();
+            $table->text('slug');
+            $table->text('audience');
             $table->bigInteger('likes_count')->default('0');
             $table->bigInteger('comments_count')->default('0');
             $table->bigInteger('views_count')->default('0');
