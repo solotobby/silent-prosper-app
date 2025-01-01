@@ -34,13 +34,11 @@
                   <p>
                     {{$story->description}}
                   </p>
-                 
-                  
                   <p class="text-muted">
                     {{ \Carbon\Carbon::parse($story->created_at)->format('M d, Y') }}
                   </p>
                 </div>
-              </div>
+            </div>
 
             <!-- Tasks, custom functionality is initialized in js/pages/be_pages_projects_tasks.min.js which was auto compiled from _js/pages/be_pages_projects_tasks.js -->
             <div class="js-tasks">
