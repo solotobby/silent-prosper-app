@@ -12,6 +12,7 @@ class Read extends Component
     public $chapter;
 
     public function mount($slug){
+        // dd(readTime('3.634'));
         $this->chapter = StoryChapter::where('slug', $slug)->first();
         $this->chapter->visits += 1;
         $this->chapter->save();

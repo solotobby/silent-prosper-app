@@ -28,7 +28,7 @@ class Write extends Component
       
         $rand = rand(999,99999);
         $slug = Str::slug($this->title).'-'.$rand;
-        
+       
         $readtime = $this->calculateReadTime($this->body);
         StoryChapter::create([
             'story_id' => $this->story->id, 
@@ -54,8 +54,8 @@ class Write extends Component
     private function calculateReadTime($content)
     {
         $wordCount = str_word_count(strip_tags($content)); // Remove any HTML tags
-        $averageReadingSpeed = 200; // Words per minute
-        $readTime = $wordCount / $averageReadingSpeed; // Round up to nearest minute
+        $averageReadingSpeed = 190; // Words per minute
+        $readTime = number_format($wordCount / $averageReadingSpeed, 2); // Round up to nearest minute
         return $readTime;
     }
 
