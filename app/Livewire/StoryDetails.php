@@ -28,7 +28,7 @@ class StoryDetails extends Component
     public function mount($slug){
         // 'likes', 'comments.user',
         $this->story = Story::with(['chapters'])->where('slug', $slug)->first();//findOrFail();
-
+        
         $this->story->views_count += 1;
         $this->story->save();
 
