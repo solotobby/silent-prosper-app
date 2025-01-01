@@ -102,3 +102,34 @@ if (! function_exists('hasActiveSubscription')) {
 
     }
 }
+
+if (! function_exists('readTime')) {
+    function readTime($time){ 
+
+        $splitedTime = explode(".", $time);
+        $initial = $splitedTime[0];
+        $later = $splitedTime[1];
+
+        if($splitedTime[0] == 0){
+           
+            if($later > 60){
+                $rem = $later - 60;
+                return '1 min '.$rem.' secs';
+            }elseif($later==60){
+                return '1 min';
+            
+            }else{
+                return $splitedTime[1] .' secs';
+            }
+        }elseif($initial > 0 && $later > 60){
+
+            $remy = $later - 60;
+            $newinitial = $initial + 1;
+            return $newinitial.' min '.$remy.' secs';
+        }else{
+            return $initial. ' min '.$later.' secs';
+        }
+      
+    }
+}
+

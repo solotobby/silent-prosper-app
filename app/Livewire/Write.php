@@ -20,6 +20,7 @@ class Write extends Component
     public function mount($slug){
 
         $this->story = Story::where('slug', $slug)->first();
+       
 
     }
 
@@ -27,6 +28,7 @@ class Write extends Component
       
         $rand = rand(999,99999);
         $slug = Str::slug($this->title).'-'.$rand;
+        
         $readtime = $this->calculateReadTime($this->body);
         StoryChapter::create([
             'story_id' => $this->story->id, 
@@ -53,7 +55,7 @@ class Write extends Component
     {
         $wordCount = str_word_count(strip_tags($content)); // Remove any HTML tags
         $averageReadingSpeed = 200; // Words per minute
-        $readTime = ceil($wordCount / $averageReadingSpeed); // Round up to nearest minute
+        $readTime = $wordCount / $averageReadingSpeed; // Round up to nearest minute
         return $readTime;
     }
 
