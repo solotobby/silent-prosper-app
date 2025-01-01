@@ -14,7 +14,7 @@
                 <i class="fa fa-user-circle me-1"></i> by  {{ $chapter->user->name }}
               </span>
               <span class="badge rounded-pill bg-primary fs-base px-3 py-2 m-1">
-                <i class="fa fa-clock me-1"></i> 10 min read
+                <i class="fa fa-clock me-1"></i> {{ readTime($chapter->read_time) }} read
               </span>
             </p>
           </div>
