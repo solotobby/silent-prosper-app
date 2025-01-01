@@ -27,14 +27,15 @@ class Write extends Component
       
         $rand = rand(999,99999);
         $slug = Str::slug($this->title).'-'.$rand;
-
+        $readtime = $this->calculateReadTime($this->body);
         StoryChapter::create([
             'story_id' => $this->story->id, 
             'user_id' => Auth::id(), 
             'body'=>$this->body, 
             'title'=>$this->title,
             'slug' => $slug,
-            '_id' => $rand
+            '_id' => $rand,
+            'read_time' => $readtime
         ]);
 
         if(!$this->story->is_book){
@@ -46,6 +47,14 @@ class Write extends Component
         $this->reset(['body', 'title']);
         session()->flash('message', 'Story posted successfully!');
 
+    }
+
+    private function calculateReadTime($content)
+    {
+        $wordCount = str_word_count(strip_tags($content)); // Remove any HTML tags
+        $averageReadingSpeed = 200; // Words per minute
+        $readTime = ceil($wordCount / $averageReadingSpeed); // Round up to nearest minute
+        return $readTime;
     }
 
     public function render()
