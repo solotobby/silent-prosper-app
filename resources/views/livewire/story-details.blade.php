@@ -34,42 +34,38 @@
                   <p>
                     {{$story->description}}
                   </p>
-                 
-                  
                   <p class="text-muted">
                     {{ \Carbon\Carbon::parse($story->created_at)->format('M d, Y') }}
                   </p>
                 </div>
-              </div>
+            </div>
 
             <!-- Tasks, custom functionality is initialized in js/pages/be_pages_projects_tasks.min.js which was auto compiled from _js/pages/be_pages_projects_tasks.js -->
             <div class="js-tasks">
-
               <!-- Tasks List -->
               <h2 class="content-heading pb-0 mb-3 border-0 d-flex justify-content-between align-items-center">
                 List of Chapters <span class="js-task-badge badge rounded-pill bg-primary animated fadeIn">{{ $story->chapters->count() }}</span>
               </h2>
               <div class="js-task-list">
-                @foreach ($story->chapters as $chapter)
+                @foreach ($story['chapters'] as $chapter)
                     <!-- Task -->
                     <a href="{{ url('read/'.$chapter->slug) }}">
                         <div class="js-task block block-rounded mb-2 animated fadeIn" data-task-id="9" data-task-completed="false" data-task-starred="false">
                             <table class="table table-borderless table-vcenter mb-0">
                             <tr>
                                 <td class="text-center pe-0" style="width: 38px;">
-                                <div class="js-task-status form-check">
-                                    <input type="checkbox" class="form-check-input" id="tasks-cb-id9" name="tasks-cb-id9">
-                                    <label class="form-check-label" for="tasks-cb-id9"></label>
-                                </div>
+                                    <div class="js-task-status form-check">
+                                        <input type="checkbox" class="form-check-input" id="tasks-cb-id9" name="tasks-cb-id9">
+                                        <label class="form-check-label" for="tasks-cb-id9"></label>
+                                    </div>
                                 </td>
-                                <td class="js-task-content fw-semibold ps-0">
+                                <td class="js-task-content fw-semibold ps-0" style="width: 500px;">
                                 {{$chapter->title}}
                                 </td>
                                 <td class="text-end" style="width: 300px;">
-                                <button type="button" class="js-task-star btn btn-sm btn-link text-warning">
-                                    <i class="far fa-star fa-fw"></i>
-                                   
-                                </button>
+                                    {{-- <button type="button" class="js-task-star btn btn-sm btn-link text-warning">
+                                        <i class="far fa-star fa-fw"></i>
+                                    </button> --}}
                                 <button type="button" class="js-task-remove btn btn-sm btn-link text-danger">
                                     {{ \Carbon\Carbon::parse($chapter->created_at)->format('M d, Y') }}
                                 </button>

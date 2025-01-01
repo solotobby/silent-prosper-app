@@ -24,13 +24,18 @@
                     <div class="form-text">Visible on blog post list as a small description of the post.</div>
                     @error('description') <span class="text-danger">{{ $message }}</span> @enderror
                   </div>
+
                   <div class="mb-4">
                     <label class="form-label" for="dm-post-add-title">Story Type</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" value="1" id="dm-post-add-active" wire:model="is_book">
-                        <label class="form-check-label" for="dm-post-add-active">Set as a Book</label>
-                    </div>
+                    <select wire:model="is_book" class="form-control" required>
+                        <option value="">Select Story Type</option>
+                        <option value="1">Set as a Book</option>
+                        <option value="1">Set as Short Story</option>
+                       
+                    </select>
+                    @error('category') <span class="text-danger">{{ $message }}</span> @enderror
                   </div>
+
 
                   <div class="mb-4">
                     <label class="form-label" for="dm-post-add-title">Category</label>
