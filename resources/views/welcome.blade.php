@@ -1,5 +1,4 @@
 <h1>
-
     Welcome to Eclatspad!
     <br>
     <br>
