@@ -3,6 +3,7 @@
 use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Story;
+use App\Models\StoryChapter;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,13 +65,13 @@ if (! function_exists('addStoryComment')) {
     function addStoryComment($storyId, $comment){ 
 
         $comment = Comment::create([
-            'story_id' => $storyId,
+            'story_chapter_id' => $storyId,
             'user_id' => Auth::id(),
             'content' => $comment,
         ]);
         if($comment){
-            $story = Story::findOrFail($storyId);
-            $story->comments_count += 1;
+            $story = StoryChapter::findOrFail($storyId);
+            $story->comment_count += 1;
             $story->save();
         }
        

@@ -135,14 +135,17 @@ class Home extends Component
 
     public function render()
     {
-        return view('livewire.home', [
-            'stories' => Story::with(['likes', 'comments.user' => function ($query) {
-                $query->latest(); // Fetch comments in descending order
-            }
-            // 'user.subscriptionPlans.subscription' => function ($query) {
-            //     $query->where('is_active', true)->where('ends_at', '>', now());
-            // }
-            ])->latest()->paginate($this->perPage),
-        ]);
+        $stories = Story::all();
+        return view('livewire.home', ['stories' => $stories]);
+
+        // [
+        //     'stories' => Story::with(['likes', 'comments.user' => function ($query) {
+        //         $query->latest(); // Fetch comments in descending order
+        //     }
+        //     // 'user.subscriptionPlans.subscription' => function ($query) {
+        //     //     $query->where('is_active', true)->where('ends_at', '>', now());
+        //     // }
+        //     ])->latest()->paginate($this->perPage),
+        // ]);
     }
 }
