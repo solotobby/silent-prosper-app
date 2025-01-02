@@ -29,12 +29,10 @@
           <!-- Magnific Popup (.js-gallery class is initialized in Helpers.jqMagnific()) -->
           <!-- For more info and examples you can check out http://dimsemenov.com/plugins/magnific-popup/ -->
           <article class="js-gallery story">
-            
-            {!! $chapter->body !!}
-            
-            
+             {!! nl2br(e($chapter->body)) !!}
            </article>
           <!-- END Story -->
+
 
           <!-- Actions -->
           <div class="mt-5 d-flex justify-content-between push">
@@ -65,6 +63,10 @@
           </div>
           <!-- END Actions -->
 
+
+         
+
+
           <!-- Comments -->
           <div class="px-4 pt-4 rounded bg-body-extra-light">
             <p class="fs-sm">
@@ -74,11 +76,52 @@
               <a class="fw-semibold" href="javascript:void(0)">Amanda Powell</a>,
               <a class="fw-semibold" href="javascript:void(0)">and 72 others</a>
             </p>
-            <form action="be_pages_blog_story.html" method="POST" onsubmit="return false;">
-              <input type="text" class="form-control form-control-alt" placeholder="Write a comment..">
-            </form>
+              <form wire:submit.prevent="addComment({{ $chapter->id }})">
+                <input type="text" class="form-control form-control-alt" wire:model="comment" placeholder="Write a comment..">
+              </form>
             <div class="pt-3 fs-sm">
+
+              
+             
+              @forelse ($chapter->comments->sortByDesc('created_at')->take($perPageComments) as $comment)
+                        
               <div class="d-flex">
+                  <a class="flex-shrink-0 img-link me-2" href="javascript:void(0)">
+                  <img class="img-avatar img-avatar32 img-avatar-thumb" src="{{ asset('src/assets/media/avatars/avatar2.jpg')}}" alt="">
+                  </a>
+                  <div class="flex-grow-1">
+                  <p class="mb-1">
+                      <a class="fw-semibold" href="javascript:void(0)">{{ $comment->user->name }}</a>
+                      {{ $comment->content }}
+                      <br>
+                      <small class="text-muted d-block">Posted on {{ $comment->created_at->format('M d, Y h:i A') }}</small>
+                  </p>
+                  <p>
+                      {{-- <a href="javascript:void(0)"  wire:click="toggleCommentLike({{ $comment->id }})" class="me-1">
+                          @if ($comment->isLikedByUser(auth()->id()))
+                              Unlike
+                          @else
+                              Like
+                          @endif
+                          ({{ $comment->count }})
+                      </a> --}}
+
+                    
+                  </p>
+                  
+                  </div>
+              </div>
+              @empty
+                  <li>No comments yet. Be the first to comment!</li>
+                  <br>
+              @endforelse
+
+               <!-- Load More Button -->
+                @if ($chapter->comments->count() > $perPageComments)
+               <button class="btn btn-primary btn-sm mt-2" wire:click="loadMoreComments">Load More Comments</button>
+               @endif 
+
+              {{-- <div class="d-flex">
                 <a class="flex-shrink-0 img-link me-2" href="javascript:void(0)">
                   <img class="img-avatar img-avatar32 img-avatar-thumb" src="assets/media/avatars/avatar3.jpg" alt="">
                 </a>
@@ -91,58 +134,17 @@
                     <a class="me-1" href="javascript:void(0)">Like</a>
                     <a href="javascript:void(0)">Comment</a>
                   </p>
-                  <div class="d-flex">
-                    <a class="flex-shrink-0 img-link me-2" href="javascript:void(0)">
-                      <img class="img-avatar img-avatar32 img-avatar-thumb" src="assets/media/avatars/avatar11.jpg" alt="">
-                    </a>
-                    <div class="flex-grow-1">
-                      <p class="mb-1">
-                        <a class="fw-semibold" href="javascript:void(0)">Jesse Fisher</a>
-                        Odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                      </p>
-                      <p>
-                        <a class="me-1" href="javascript:void(0)">Like</a>
-                        <a href="javascript:void(0)">Comment</a>
-                      </p>
-                    </div>
-                  </div>
+                  
                 </div>
-              </div>
-              <div class="d-flex">
-                <a class="flex-shrink-0 img-link me-2" href="javascript:void(0)">
-                  <img class="img-avatar img-avatar32 img-avatar-thumb" src="assets/media/avatars/avatar15.jpg" alt="">
-                </a>
-                <div class="flex-grow-1">
-                  <p class="mb-1">
-                    <a class="fw-semibold" href="javascript:void(0)">Wayne Garcia</a>
-                    Leo mi nec lectus. Nam commodo turpis id lectus scelerisque vulputate. Integer sed dolor erat. Fusce erat ipsum, varius vel euismod sed, tristique et lectus? Etiam egestas fringilla enim, id convallis lectus laoreet at. Fusce purus nisi, gravida sed consectetur ut, interdum quis nisi. Quisque egestas nisl id lectus facilisis scelerisque? Proin rhoncus dui at ligula vestibulum ut facilisis ante sodales! Suspendisse potenti. Aliquam tincidunt sollicitudin sem nec ultrices.
-                  </p>
-                  <p>
-                    <a class="me-1" href="javascript:void(0)">Like</a>
-                    <a href="javascript:void(0)">Comment</a>
-                  </p>
-                  <div class="d-flex">
-                    <a class="flex-shrink-0 img-link me-2" href="javascript:void(0)">
-                      <img class="img-avatar img-avatar32 img-avatar-thumb" src="assets/media/avatars/avatar9.jpg" alt="">
-                    </a>
-                    <div class="flex-grow-1">
-                      <p class="mb-1">
-                        <a class="fw-semibold" href="javascript:void(0)">Brian Cruz</a>
-                        Odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                      </p>
-                      <p>
-                        <a class="me-1" href="javascript:void(0)">Like</a>
-                        <a href="javascript:void(0)">Comment</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </div> --}}
+
+             
             </div>
           </div>
           <!-- END Comments -->
         </div>
       </div>
+</div>
 
 
 </div>

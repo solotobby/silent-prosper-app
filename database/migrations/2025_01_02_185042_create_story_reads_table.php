@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('story_reads', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // User who read the post
-            $table->foreignId('story_id')->constrained()->onDelete('cascade'); // Post that was read
+            $table->foreignId('story_chapter_id')->constrained()->onDelete('cascade'); // Post that was read
             $table->timestamps();
         });
     }

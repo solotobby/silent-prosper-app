@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('read_time')->default('0');
             $table->string('_id');
             $table->string('slug');
-            $table->bigInteger('likes')->default('0');
-            $table->bigInteger('comments')->default('0');
-            $table->bigInteger('visits')->default('0');
+            $table->bigInteger('like_count')->default('0');
+            $table->bigInteger('comment_count')->default('0');
+            $table->bigInteger('visit_count')->default('0');
             $table->timestamps();
         });
     }

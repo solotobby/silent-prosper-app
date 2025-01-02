@@ -28,7 +28,7 @@ class StoryDetails extends Component
     public function mount($slug){
         // 'likes', 'comments.user',
         $this->story = Story::with(['chapters'])->where('slug', $slug)->first();//findOrFail();
-        
+
         $this->story->views_count += 1;
         $this->story->save();
 
@@ -150,9 +150,13 @@ class StoryDetails extends Component
 
     public function render()
     {
-        return view('livewire.story-details', [
-            'comments' => $this->story->comments()->latest()->paginate($this->perPageComments),
-        ]);
+        $story = Story::with(['chapters'])->where('slug', $this->slug)->first();
+       
+        return view('livewire.story-details', ['story' => $story]);
+        
+        // [
+        //     'comments' => $this->story->comments()->latest()->paginate($this->perPageComments),
+        // ]);
         // return view('livewire.story-details');
     }
 }

@@ -30,6 +30,7 @@ class Write extends Component
         $slug = Str::slug($this->title).'-'.$rand;
        
         $readtime = $this->calculateReadTime($this->body);
+        
         StoryChapter::create([
             'story_id' => $this->story->id, 
             'user_id' => Auth::id(), 
@@ -44,7 +45,6 @@ class Write extends Component
             $this->story->is_completed = true;
             $this->story->save();
         }
-       
 
         $this->reset(['body', 'title']);
         session()->flash('message', 'Story posted successfully!');
@@ -54,7 +54,7 @@ class Write extends Component
     private function calculateReadTime($content)
     {
         $wordCount = str_word_count(strip_tags($content)); // Remove any HTML tags
-        $averageReadingSpeed = 190; // Words per minute
+        $averageReadingSpeed = 200; // Words per minute
         $readTime = number_format($wordCount / $averageReadingSpeed, 2); // Round up to nearest minute
         return $readTime;
     }

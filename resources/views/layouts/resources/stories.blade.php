@@ -88,7 +88,7 @@
                 
 
                 @if ($commentSectionOpen[$story->id] ?? false)
-                <div class="block-content block-content-full bg-body-light">
+                  <div class="block-content block-content-full bg-body-light">
                    
                     <form wire:submit.prevent="addComment({{ $story->id }})">
                       <input type="text" class="form-control form-control-alt" wire:model="comment" placeholder="Write a comment..">
