@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Livewire\AdminDashboard;
 use App\Livewire\AdminHome;
 use App\Livewire\BookmarkStory;
+use App\Livewire\BookShelf;
 use App\Livewire\Home;
 use App\Livewire\Read;
 use App\Livewire\ShortStory;
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('profile/{user}', UserProfile::class);
     Route::get('subcriptions', SubscriptionPlans::class)->name('subscription.page');
     Route::get('bookmarks', BookmarkStory::class);
+    Route::get('shelf', BookShelf::class);
 
 
     Route::get('write', WriteStory::class);
