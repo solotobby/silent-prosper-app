@@ -13,7 +13,7 @@
             <span class="nav-main-link-name">Write</span>
           </a>
 
-          <a class="nav-main-link" href="{{ url('bookmarks') }}">
+          <a class="nav-main-link" href="{{ url('shelf') }}">
               <i class="nav-main-link-icon far fa-bookmark"></i>
               <span class="nav-main-link-name">Book Shelf</span>
           </a>
