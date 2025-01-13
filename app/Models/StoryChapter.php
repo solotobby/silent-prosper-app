@@ -26,5 +26,45 @@ class StoryChapter extends Model
         return $this->hasMany(StoryRead::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function isLikedByUser($userId)
+    {
+        return $this->likes()->where('user_id', $userId)->exists();
+    }
+
+    public function getLikesSummary()
+    {
+        $likesCount = $this->likes()->count();
+
+        if ($likesCount > 2) {
+            // Eager load 'user' relation to access user names
+            $lastTwoLikes = $this->likes()->latest()->take(2)->with('user')->get();
+
+            // Convert user names to clickable links
+            $userLinks = $lastTwoLikes->map(function ($like) {
+                return '<a class="fw-semibold" href="profile/' . $like->user->id . '">' . htmlspecialchars($like->user->name) . '</a>';
+            })->implode(', ');
+
+            $otherLikesCount = $likesCount - 2;
+
+            return "$userLinks and $otherLikesCount others liked this story.";
+        } else {
+            $allLikes = $this->likes()->with('user')->get();
+
+            // Convert all user names to clickable links
+            $userLinks = $allLikes->map(function ($like) {
+                return '<a class="fw-semibold" href="profile/' . $like->user->id . '">' . htmlspecialchars($like->user->name) . '</a>';
+            })->implode(', ');
+
+            return "$userLinks liked this story.";
+        }
+    }
+
+
+
 
 }

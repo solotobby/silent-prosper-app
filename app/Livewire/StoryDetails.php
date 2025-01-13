@@ -50,12 +50,12 @@ class StoryDetails extends Component
                 if (!$this->hasActiveSubscription($user)) { //user not subscribed
 
                     $alreadyRead = StoryRead::where('user_id', Auth::id())
-                        ->where('story_id', $this->story->id)
+                        ->where('story_chapter_id', $this->story->id)
                         ->exists();
 
                     if (!$alreadyRead) {
                         // Count the total number of unique stories read by the user
-                        $uniqueStoriesRead = StoryRead::where('user_id', Auth::id())->distinct('story_id')->count();
+                        $uniqueStoriesRead = StoryRead::where('user_id', Auth::id())->distinct('story_chapter_id')->count();
             
                         // If the user has already read 3 unique stories, redirect to the subscription page
                         if ($uniqueStoriesRead >= 2) {
@@ -63,17 +63,18 @@ class StoryDetails extends Component
                             return redirect()->route('subscription.page');
                         }
             
+                       
                         // Record this story as read
                         StoryRead::firstOrCreate([
                             'user_id' => Auth::id(),
-                            'story_id' => $this->story->id,
+                            'story_chapter_id' => $this->story->id,
                         ]);
                     }
                 }else{
                     //subscribed user
                     StoryRead::firstOrCreate([
                         'user_id' => $user->id,
-                        'story_id' => $this->story->id,
+                        'story_chapter_id' => $this->story->id,
                     ]);
 
                 }
