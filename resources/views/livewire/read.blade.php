@@ -33,29 +33,47 @@
            </article>
           <!-- END Story -->
 
+          <a class="nav-link" href="javascript:void(0)" wire:click="toggleLike({{ $chapter->id }})">
+           
+          </a>
 
           <!-- Actions -->
           <div class="mt-5 d-flex justify-content-between push">
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-alt-secondary" data-bs-toggle="tooltip" title="Like Story">
+              {{-- <button type="button" class="btn btn-alt-secondary" data-bs-toggle="tooltip" title="Like Story">
                 <i class="fa fa-thumbs-up text-primary"></i>
-              </button>
-              <button type="button" class="btn btn-alt-secondary" data-bs-toggle="tooltip" title="Recommend">
+              </button> --}}
+              <a wire:click="toggleLike({{ $chapter->id }})" class="btn btn-alt-secondary" data-bs-toggle="tooltip" title="Like Story">
+               
+                
+                @if ($chapter->isLikedByUser(auth()->id()))
                 <i class="fa fa-heart text-danger"></i>
-              </button>
+                
+                    {{-- <i class="fa fa-thumbs-down opacity-50 me-1"></i>  --}}
+                @else
+                <i class="fa fa-heart"></i>
+                    {{-- <i class="fa fa-thumbs-up opacity-50 me-1"></i>  --}}
+                @endif
+                {{-- {{ $chapter->like_count }} --}}
+
+              </a>
+
+             
+
             </div>
             <div class="btn-group" role="group">
               <button type="button" class="btn btn-alt-secondary dropdown-toggle" id="dropdown-blog-story" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-share-alt opacity-50 me-1"></i> Share
               </button>
               <div class="dropdown-menu dropdown-menu-end fs-sm" aria-labelledby="dropdown-blog-story">
-                <a class="dropdown-item" href="javascript:void(0)">
+                <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ url('read/'.$chapter->slug) }}" target="_blank">
                   <i class="fab fa-fw fa-facebook me-1"></i> Facebook
                 </a>
-                <a class="dropdown-item" href="javascript:void(0)">
+                <a class="dropdown-item" href="https://twitter.com/intent/tweet?url={{ url('read/'.$chapter->slug) }}" target="_blank">
                   <i class="fab fa-fw fa-twitter me-1"></i> Twitter
+                  {{-- &text={{ url('read/'.$chapter->title) }}" --}}
                 </a>
-                <a class="dropdown-item" href="javascript:void(0)">
+                <a class="dropdown-item" href="https://www.linkedin.com/sharing/share-offsite/?url={{ url('read/'.$chapter->slug) }}" target="_blank">
                   <i class="fab fa-fw fa-linkedin me-1"></i> LinkedIn
                 </a>
               </div>
@@ -69,13 +87,14 @@
 
           <!-- Comments -->
           <div class="px-4 pt-4 rounded bg-body-extra-light">
+            @if($chapter->like_count > 0)
+           
             <p class="fs-sm">
-              <i class="fa fa-thumbs-up text-info"></i>
+              {{-- <i class="fa fa-thumbs-up text-info"></i> --}}
               <i class="fa fa-heart text-danger"></i>
-              <a class="fw-semibold" href="javascript:void(0)">Jose Wagner</a>,
-              <a class="fw-semibold" href="javascript:void(0)">Amanda Powell</a>,
-              <a class="fw-semibold" href="javascript:void(0)">and 72 others</a>
+              {!! $chapter->getLikesSummary() !!}
             </p>
+            @endif
               <form wire:submit.prevent="addComment({{ $chapter->id }})">
                 <input type="text" class="form-control form-control-alt" wire:model="comment" placeholder="Write a comment..">
               </form>
@@ -118,7 +137,7 @@
 
                <!-- Load More Button -->
                 @if ($chapter->comments->count() > $perPageComments)
-               <button class="btn btn-primary btn-sm mt-2" wire:click="loadMoreComments">Load More Comments</button>
+               <button class="btn btn-primary btn-sm mb-3" wire:click="loadMoreComments">Load More Comments</button>
                @endif 
 
               {{-- <div class="d-flex">

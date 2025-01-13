@@ -12,5 +12,10 @@ class Like extends Model
     {
         return $this->belongsTo(Story::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     
 }

@@ -11,20 +11,20 @@ if (! function_exists('likeStory')) {
     function likeStory($storyId){
         
         $userId = Auth::id();
-        $story = Story::findOrFail($storyId);
+        $storyChapter = StoryChapter::findOrFail($storyId);
 
-        $like = $story->likes()->where('user_id', $userId)->first();
+        $like = $storyChapter->likes()->where('user_id', $userId)->first();
 
         if ($like) {
             // Unlike the story
             $like->delete();
-            $story->likes_count -= 1;
-            $story->save();
+            $storyChapter->like_count -= 1;
+            $storyChapter->save();
         } else {
             // Like the story
-            $story->likes()->create(['user_id' => $userId]);
-            $story->likes_count += 1;
-            $story->save();
+            $storyChapter->likes()->create(['user_id' => $userId]);
+            $storyChapter->like_count += 1;
+            $storyChapter->save();
         }
 
         return true;
