@@ -81,10 +81,6 @@
           </div>
           <!-- END Actions -->
 
-
-         
-
-
           <!-- Comments -->
           <div class="px-4 pt-4 rounded bg-body-extra-light">
             @if($chapter->like_count > 0)
