@@ -116,124 +116,7 @@
 			</div>
 		</div> --}}
 
-		{{-- <div class="mobile-sidebar d-block d-lg-none">
-			<div class="logo-m">
-				<a href="index.html"><img src="assets/img/logo/header-logo1.png" alt="vexon" /></a>
-			</div>
-			<div class="menu-close">
-				<i class="fa-solid fa-xmark"></i>
-			</div>
-			<div class="mobile-nav">
-				<ul>
-					<li class="has-dropdown">
-						<a href="#">Home </a>
-						<ul class="sub-menu">
-							<li><a href="index.html">Home 1</a></li>
-							<li><a href="index2.html">Home 2</a></li>
-							<li><a href="index3.html">Home 3</a></li>
-							<li><a href="index4.html">Home 4</a></li>
-						</ul>
-					</li>
-					<li class="has-dropdown">
-						<a href="#">Blog</a>
-						<ul class="sub-menu">
-							<li><a href="blog.html">Blog 01</a></li>
-							<li><a href="blog2.html">Blog 02</a></li>
-							<li><a href="blog3.html">Blog 03</a></li>
-						</ul>
-					</li>
-					<li class="has-dropdown">
-						<a href="#">Single Posts</a>
-						<ul class="sub-menu">
-							<li><a href="blog-details1.html">Standard Format</a></li>
-							<li><a href="blog-details2.html">Split Format</a></li>
-							<li><a href="blog-details3.html">Overlay Format</a></li>
-							<li><a href="blog-details-sidebar-left.html">Sidebar Left</a></li>
-							<li><a href="blog-details-sidebar-right.html">Sidebar Right</a></li>
-							<li><a href="blog-single.html">Single Post</a></li>
-						</ul>
-					</li>
-
-					<li class="has-dropdown">
-						<a href="#">Pages</a>
-						<ul class="sub-menu">
-							<li><a href="author.html">Author</a></li>
-							<li><a href="search.html">Search Result</a></li>
-							<li><a href="contact.html">Contact Us</a></li>
-							<li><a href="social-media.html">Social Media</a></li>
-							<li><a href="404.html">404</a></li>
-						</ul>
-					</li>
-
-					<li class="has-dropdown has-dropdown1">
-						<a href="#" class="main">Account</a>
-						<ul class="sub-menu">
-							<li><a href="blog.html">Blog 01</a></li>
-							<li><a href="blog2.html">Blog 02</a></li>
-							<li><a href="blog-details-sidebar-left.html">Details Left</a></li>
-							<li><a href="blog-details-sidebar-right.html">Details Right</a></li>
-							<li><a href="blog-single.html">Single Blog</a></li>
-						</ul>
-					</li>
-					<li><a href="contact.html">Contact Us</a></li>
-				</ul>
-
-				<div class="mobile-button">
-					<a class="theme-btn1" href="contact.html">Get A Quote <i class="fa-solid fa-arrow-right"></i></a>
-				</div>
-
-				<div class="footer-contact-area1 md:pl-0 pl-20 sm:pl-0 mt-30">
-					<h3 class="text-24 leading-26 font-semibold title1 pb-10">Get in touch</h3>
-					<div class="contact-box d-flex">
-						<div class="icon">
-							<img src="assets/img/icons/footer1-icon1.svg" alt="vexon" />
-						</div>
-						<div class="text">
-							<a href="mailto:contact@vexon.com">contact@vexon.com</a>
-						</div>
-					</div>
-
-					<div class="contact-box d-flex">
-						<div class="icon">
-							<img src="assets/img/icons/footer1-icon2.svg" alt="vexon" />
-						</div>
-						<div class="text">
-							<a href="#">
-								123 Innovation Drive,<br />
-								Tech City, ST 12345, USA
-							</a>
-						</div>
-					</div>
-
-					<div class="contact-box d-flex">
-						<div class="icon">
-							<img src="assets/img/icons/footer1-icon3.svg" alt="vexon" />
-						</div>
-						<div class="text">
-							<a href="tel:123-456-7890">123-456-7890</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="contact-infos">
-					<h3>Our Social Network</h3>
-					<ul class="social-icon">
-						<li>
-							<a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-						</li>
-						<li>
-							<a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-						</li>
-						<li>
-							<a href="#"><i class="fa-brands fa-youtube"></i></a>
-						</li>
-						<li>
-							<a href="#"><i class="fa-brands fa-instagram"></i></a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div> --}}
+		
 
 		<!--=====Mobile header end=======-->
 
@@ -261,6 +144,10 @@
                 				<div class="button mt-30">
 									<button type="submit" class="theme-btn1">Sign In</button>
 								</div>
+                                <div class="text-center">
+                                    <p class="text">Don't have an account? <a href="{{ url('register') }}">Sign Up Today.</a></p>
+									
+                                </div>
 								{{-- <div class="text-center">
 									<p class="text">Don’t have an account? <a href="#">Sign Up Today.</a> <br /><a href="#">Forgot Password</a></p>
 									<p class="or"><span>Or</span></p>

@@ -135,7 +135,7 @@ class Home extends Component
 
     public function render()
     {
-        $stories = Story::all();
+        $stories = Story::orderBy('created_at', 'DESC')->get();
         return view('livewire.home', ['stories' => $stories]);
 
         // [

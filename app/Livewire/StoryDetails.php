@@ -32,9 +32,8 @@ class StoryDetails extends Component
         $this->story->views_count += 1;
         $this->story->save();
 
-
-
         $user = Auth::user();
+
         if (Auth::check()) {
 
             // Check if the user is the author of the story
@@ -82,6 +81,8 @@ class StoryDetails extends Component
         }
 
     }
+
+   
 
     public function bookmarkStory($storyId){
         $user = Auth::user();

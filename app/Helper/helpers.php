@@ -15,16 +15,28 @@ if (! function_exists('likeStory')) {
 
         $like = $storyChapter->likes()->where('user_id', $userId)->first();
 
+        $story = Story::where('id', $storyChapter->story_id)->first();
+
         if ($like) {
             // Unlike the story
             $like->delete();
             $storyChapter->like_count -= 1;
             $storyChapter->save();
+
+            ///update story
+            $story->likes_count -= 1;
+            $story->save();
+
+
         } else {
             // Like the story
             $storyChapter->likes()->create(['user_id' => $userId]);
             $storyChapter->like_count += 1;
             $storyChapter->save();
+
+            //update story
+            $story->likes_count += 1;
+            $story->save();
         }
 
         return true;
@@ -70,8 +82,12 @@ if (! function_exists('addStoryComment')) {
             'content' => $comment,
         ]);
         if($comment){
-            $story = StoryChapter::findOrFail($storyId);
-            $story->comment_count += 1;
+            $storyChapter = StoryChapter::findOrFail($storyId);
+            $storyChapter->comment_count += 1;
+            $storyChapter->save();
+
+            $story = Story::where('id', $storyChapter->story_id)->first();
+            $story->comments_count += 1;
             $story->save();
         }
        

@@ -262,6 +262,7 @@
 						<div class="login-form">
 							<h3>Create an Account</h3>
 							<p>Get started  by filling the form</p>
+                            
                             @if (session('error'))
                                 <div class="alert alert-danger" role="alert">
                                     {{ session('error') }}
@@ -272,41 +273,45 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label" for="dm-post-add-title">Name</label>
-                                    <input type="text" name="name" class="form-control" id="dm-post-add-title" placeholder="Enter your name">
+                                    <input type="text" name="name" class="form-control" id="dm-post-add-title" required placeholder="Enter your name">
                                     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
+                                    <label class="form-label" for="dm-post-adds">Gender</label>
+                                    <br>
+                                    <input type="radio" name="gender" value="Male" id="checkbox1" /> 
+                                    <label aria-colspan="checkbox1" for="checkbox1">
+                                        Male </label>
+									
+                                    <input type="radio" name="gender" value="Female" id="checkbox1" /> 
+                                    <label aria-colspan="checkbox1" for="checkbox1">Female</label>
+									
+                                </div>
+
+                                <div class="mb-3">
                                     <label class="form-label" for="dm-post-add-title">Email Address</label>
-                                    <input type="email" name="email" class="form-control" id="dm-post-add-title" placeholder="Enter your email">
+                                    <input type="email" name="email" class="form-control" required id="dm-post-add-title" placeholder="Enter your email">
                                     @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="dm-post-add-title">Password</label>
-                                    <input type="password" name="password" class="form-control" id="dm-post-add-title" placeholder="Enter your email">
+                                    <input type="password" name="password" class="form-control" required id="dm-post-add-title" placeholder="Enter password">
                                     @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="dm-post-add-title">Confirm Password</label>
-                                    <input type="password" name="password_confirmation" class="form-control" id="dm-post-add-title" placeholder="Enter your email">
+                                    <input type="password" name="password_confirmation" required class="form-control" id="dm-post-add-title" placeholder="Enter password">
                                     {{-- @error('email') <span class="text-danger">{{ $message }}</span> @enderror --}}
                                 </div>
-
-								
-                                {{-- <div class="mb-4">
-									
-                                    <select name="gender" class="form-control"  required>
-                                        <option value=""> Select Gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </select>
-									
-								</div> --}}
 
                                 <div class="button mt-30">
 									<button type="submit" class="theme-btn1">Sign Up</button>
 								</div>
+                                <div class="text-center">
+                                    <p class="text">Already have an Account? <a href="{{ url('login') }}">Sign In Today.</a></p>
+                                </div>
 								{{-- <div class="text-center">
 									<p class="text">Don’t have an account? <a href="#">Sign Up Today.</a> <br /><a href="#">Forgot Password</a></p>
 									<p class="or"><span>Or</span></p>
