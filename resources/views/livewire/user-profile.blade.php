@@ -100,6 +100,11 @@
                                     {{-- <a class="btn btn-alt-secondary" href="javascript:void(0)" data-bs-toggle="tooltip" title="Edit">
                                         <i class="fa fa-fw fa-"></i>
                                     </a> --}}
+
+                                     <a class="btn btn-alt-secondary" href="javascript:void(0)" data-bs-toggle="tooltip" title="Set Completed">
+                                        <i class="fa fa-fw fa-check"></i>
+                                    </a>
+
                                 @endif
                             </div>
 

@@ -3105,6 +3105,14 @@ h5 {
   line-height: var(--f-fs-font-fs28); /* 175% */
   padding-top: 20px;
 }
+.login-form .select {
+  color: var(--vtc-text-gray1);
+  font-size: var(--f-fs-font-fs16);
+  font-style: normal;
+  font-weight: var(--f-fw-medium);
+  line-height: var(--f-fs-font-fs28); /* 175% */
+  padding-top: 20px;
+}
 .login-form .text a {
   display: inline-block;
   color: var(--vtc-text-black3);

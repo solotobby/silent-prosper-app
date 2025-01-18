@@ -17,7 +17,7 @@
         </div>
 
          <!-- Cover Link Stories -->
-         <h2 class="content-heading">Cover Link Stories</h2>
+         {{-- <h2 class="content-heading">Cover Link Stories</h2> --}}
          <div class="row items-push">
             @foreach ($stories as $story)
                 <div class="col-md-6 col-xl-4">
@@ -34,10 +34,10 @@
                     </p>
                     <p class="fs-sm">
                         <span class="text-white fw-semibold me-1">
-                        <i class="fa fa-fw fa-eye text-white-50"></i> 400
+                            <i class="fa fa-fw fa-eye text-white-50"></i> {{ $story->views_count }}
                         </span>
                         <span class="text-white fw-semibold me-1">
-                        <i class="fa fa-fw fa-heart text-white-50"></i> 89
+                            <i class="fa fa-fw fa-heart text-white-50"></i> {{ $story->likes_count }}
                         </span>
                         {{-- <span class="text-white fw-semibold me-1">
                         <i class="fa fa-fw fa-comments text-white-50"></i> 44
@@ -45,7 +45,7 @@
                     </p>
                     </div>
                     <p class="fs-lg fw-bold text-white mb-1">
-                   {{$story->title}}
+                        {{$story->title}}
                     </p>
                     <p class="fw-medium text-white-75">
                         {{$story->user->name}} &middot; 12 min
@@ -70,43 +70,11 @@
             @include('layouts.resources.stories', $stories)
 
         </div> --}}
+    
 
     </div>
 
-     <!-- Bootstrap Modal -->
-     <div class="modal fade" id="storyModal" tabindex="-1" aria-labelledby="storyModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="storyModalLabel">Create a Post</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Livewire form -->
-                    <form wire:submit.prevent="post">
-                        <div class="form-group">
-                            <label for="content">Content</label>
-                            <textarea id="content" class="form-control" wire:model="content" rows="4" placeholder="Write something..."></textarea>
-                            @error('content') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="form-group mt-3">
-                            <label for="category">Category</label>
-                            <select id="category" class="form-control" wire:model="category_id">
-                                <option value="">Select a category</option>
-                                {{-- @foreach ($categories as $id => $name)
-                                    <option value="{{ $id }}">{{ $name }}</option>
-                                @endforeach --}}
-                            </select>
-                            @error('category_id') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-
-                        <button type="submit" class="btn btn-primary mt-3">Post</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+     
 
 
     <script>
