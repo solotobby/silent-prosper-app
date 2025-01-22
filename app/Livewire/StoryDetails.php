@@ -23,14 +23,19 @@ class StoryDetails extends Component
     public $perPageComments = 3; // Number of comments to display per page
     public $commentStoryId; // To track the story being commented on
     public $commentSectionOpen = []; // Tracks which story's comment section is open
-
+    public $reads;
 
     public function mount($slug){
         // 'likes', 'comments.user',
         $this->story = Story::with(['chapters'])->where('slug', $slug)->first();//findOrFail();
-
         $this->story->views_count += 1;
         $this->story->save();
+
+        //fetch read 
+        $this->reads = StoryRead::where('user_id', Auth::id())->where('story_id', $this->story->id)->pluck('story_chapter_id')
+        ->toArray();
+
+       
 
         $user = Auth::user();
 
@@ -159,7 +164,7 @@ class StoryDetails extends Component
 
     public function render()
     {
-        $story = Story::with(['chapters'])->where('slug', $this->slug)->first();
+        $story = Story::with(['chapters', 'reads'])->where('slug', $this->slug)->first();
        
         return view('livewire.story-details', ['story' => $story]);
         
