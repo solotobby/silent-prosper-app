@@ -9,9 +9,9 @@
 
     <h3>Paypal Subscription mgt</h3>
     @if(!$setting)
-    <button class="btn btn-primary" wire:click='createProduct'>
-        Create Product 
-    </button>
+        <a class="btn btn-primary" wire:click="setupProduct">
+            Setup Product
+        </a>
     @else
        Paypal Product ID: {{ $setting->paypal_product_id }}
     @endif

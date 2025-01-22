@@ -26,7 +26,7 @@ if (! function_exists('createProduct')) {
             'type' => 'SERVICE', // Type of product: SERVICE or PHYSICAL
             'category' => 'SOFTWARE', // Example category
             'image_url' => 'https://yourapp.com/images/premium-product.png',
-            'home_url' => 'https://yourapp.com',
+            'home_url' => url('/subscriptions'),
         ];
 
         $res = Http::withHeaders([
@@ -149,7 +149,7 @@ if (! function_exists('createSubscription')) {
                 'shipping_preference' => 'NO_SHIPPING',
                 'user_action' => 'SUBSCRIBE_NOW', // Directs the user to confirm the subscription
                 'return_url' => url('validate/subscription/plan'), // Redirect after successful approval
-                'cancel_url' => 'https://yourapp.com/subscription-cancel', // Redirect if user cancels
+                'cancel_url' => url('subscriptions'), // Redirect if user cancels
             ],
         ];
         $response = Http::withHeaders([

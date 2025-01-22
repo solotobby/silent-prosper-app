@@ -20,9 +20,10 @@ class AdminHome extends Component
         $this->setting  = Setting::query()->orderBy('created_at')->first();
     }
 
-    public function createProduct(){
-       $this->createProduct = createProduct();
-        Setting::create(['paypal_product_id' => $this->createProduct['id'], 'paypal_product_name' => $this->createProduct['name']]);
+    public function setupProduct(){
+        $this->createProduct = createProduct();
+        Setting::firstOrCreate(['paypal_product_id' => $this->createProduct['id'], 'paypal_product_name' => $this->createProduct['name']]);
+        $this->dispatch('refresh');
     }
 
     public function setupPlan($subId){

@@ -43,7 +43,7 @@ class HomeController extends Controller
 
         if($res['status'] == 'APPROVAL_PENDING'){
             
-            DB::table('subscription_intents')->insert(['user_id' => Auth::id(), 'subscription_id' => $res['id'], 'plan_id'=>$decodedPlan['id'], 'duration'=>$decodedPlan['duration']]);
+            DB::table('subscription_intents')->insert(['user_id' => Auth::id(), 'subscription_id' => $res['id'], 'plan_id'=>$decodedPlan['id'], 'duration'=>$decodedPlan['duration'], 'created_at' => now(), 'updated_at' => now()]);
 
             return redirect($res['links'][0]['href']);
         }

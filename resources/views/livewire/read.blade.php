@@ -101,12 +101,12 @@
               @forelse ($chapter->comments->sortByDesc('created_at')->take($perPageComments) as $comment)
                         
               <div class="d-flex">
-                  <a class="flex-shrink-0 img-link me-2" href="javascript:void(0)">
+                  <a class="flex-shrink-0 img-link me-2" href="{{ url('profile/'.$comment->user->id) }}">
                   <img class="img-avatar img-avatar32 img-avatar-thumb" src="{{ asset('src/assets/media/avatars/avatar2.jpg')}}" alt="">
                   </a>
                   <div class="flex-grow-1">
                   <p class="mb-1">
-                      <a class="fw-semibold" href="javascript:void(0)">{{ $comment->user->name }}</a>
+                      <a class="fw-semibold" href="{{ url('profile/'.$comment->user->id) }}">{{ $comment->user->name }}</a>
                       {{ $comment->content }}
                       <br>
                       <small class="text-muted d-block">Posted on {{ $comment->created_at->format('M d, Y h:i A') }}</small>
@@ -132,9 +132,11 @@
               @endforelse
 
                <!-- Load More Button -->
-                @if ($chapter->comments->count() > $perPageComments)
-               <button class="btn btn-primary btn-sm mb-3" wire:click="loadMoreComments">Load More Comments</button>
-               @endif 
+              @if ($chapter->comments->count() > $perPageComments)
+                <a wire:click="loadMoreComments" class="mb-5" href="javascript:void(0)">Load More Comments</a>
+                <br><br>
+                  {{-- <button class="btn btn-primary btn-sm mb-3" wire:click="loadMoreComments">Load More Comments</button> --}}
+              @endif 
 
               {{-- <div class="d-flex">
                 <a class="flex-shrink-0 img-link me-2" href="javascript:void(0)">
@@ -157,8 +159,21 @@
             </div>
           </div>
           <!-- END Comments -->
+
+          @if($nextChapter)
+              <a href="{{ url('read/'.$nextChapter->slug) }}" class="btn btn-primary mt-3">
+                Continue to Next Chapter
+              </a>
+          @else
+            <a  class="btn btn-primary mt-3 disabled">
+              Story has ended
+            </a>
+          @endif
+         
         </div>
+       
       </div>
+
 </div>
 
 
