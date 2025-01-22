@@ -6,6 +6,12 @@
             <span class="nav-main-link-name">Dashboard</span>
          
           </a>
+
+          <a class="nav-main-link" href="{{ url('profile/'.auth()->user()->id) }}">
+            <i class="nav-main-link-icon fa fa-briefcase"></i>
+            <span class="nav-main-link-name">My Stories</span>
+         
+          </a>
           
 
           <a class="nav-main-link" href="{{ url('write') }}">

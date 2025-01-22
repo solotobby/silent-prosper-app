@@ -7,9 +7,18 @@
             <a class="btn btn-alt-secondary" href="{{ url('profile/'.$story->user_id) }}">
               <i class="fa fa-arrow-left me-1"></i> My Stories
             </a>
-            
+
+            <div class="block-options">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" value="" wire:model="is_completed" id="dm-post-edit-active" name="dm-post-edit-active">
+                <label class="form-check-label" for="dm-post-edit-active">Set as Completed</label>
+              </div>
+            </div>
             
           </div>
+
+          
+
           <div class="block-content">
             <div class="row justify-content-center push">
                 {{-- @if($story->is_book)
@@ -28,13 +37,13 @@
                 @if(!$story->is_book)
                     <div class="mb-4">
                         <label class="form-label" for="dm-post-add-title">Title</label>
-                        <input type="text" class="form-control" id="dm-post-add-title" wire:model="title" value="{{ $story->title }}">
+                        <input type="text" class="form-control" id="dm-post-add-title" wire:model="title" value="{{ $story->title }}"required>
                         @error('title') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 @else
                     <div class="mb-4">
                         <label class="form-label" for="dm-post-add-title">Title</label>
-                        <input type="text" class="form-control" id="dm-post-add-title" wire:model="title" placeholder="Chapter Title">
+                        <input type="text" class="form-control" id="dm-post-add-title" wire:model="title" placeholder="Chapter Title" required>
                         @error('title') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 @endif
@@ -51,12 +60,13 @@
           <div class="block-content bg-body-light">
             <div class="row justify-content-center push">
               <div class="col-md-10">
-                <button type="submit" class="btn btn-alt-primary">
+                <button type="submit" class="btn btn-alt-primary" {{ $story->is_completed == 1 ? 'disabled' : '' }} >
                   <i class="fa fa-fw fa-plus opacity-50 me-1"></i> Submit Story
                 </button>
               </div>
             </div>
           </div>
+          
         </div>
       </form>
 

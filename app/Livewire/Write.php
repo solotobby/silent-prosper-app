@@ -15,17 +15,17 @@ class Write extends Component
     public $story;
     public $title;
     public $body;
+    public $is_completed;
 
 
     public function mount($slug){
 
         $this->story = Story::where('slug', $slug)->first();
        
-
     }
 
     public function post(){
-      
+
         $rand = rand(999,99999);
         $slug = Str::slug($this->title).'-'.$rand;
        
@@ -41,10 +41,15 @@ class Write extends Component
             'read_time' => $readtime
         ]);
 
-        if(!$this->story->is_book){
-            $this->story->is_completed = true;
+        if($this->is_completed == true){
+            $this->story->is_completed = 1;
             $this->story->save();
         }
+
+        // if(!$this->story->is_book){
+        //     $this->story->is_completed = true;
+        //     $this->story->save();
+        // }
 
         $this->reset(['body', 'title']);
         session()->flash('message', 'Story posted successfully!');

@@ -81,6 +81,8 @@
                 @if(auth()->user()->id == $story->user->id && !$story->is_completed)
                     <a href="{{ url('write/'.$story->slug) }}" class="btn btn-primary btn-sm">Continue Writing</a>
                 @endif
+
+                
             </div>
             <!-- END Tasks -->
           </div>

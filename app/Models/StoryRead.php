@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StoryRead extends Model
 {
-    protected $fillable = ['user_id', 'story_chapter_id'];
+    protected $fillable = ['user_id', 'story_chapter_id', 'story_id'];
 
     public function user()
     {
