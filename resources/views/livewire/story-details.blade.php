@@ -53,12 +53,23 @@
                         <div class="js-task block block-rounded mb-2 animated fadeIn" data-task-id="9" data-task-completed="false" data-task-starred="false">
                             <table class="table table-borderless table-vcenter mb-0">
                             <tr>
-                                <td class="text-center pe-0" style="width: 38px;">
-                                    <div class="js-task-status form-check">
-                                        <input type="checkbox" class="form-check-input" id="tasks-cb-id9" name="tasks-cb-id9">
-                                        <label class="form-check-label" for="tasks-cb-id9"></label>
-                                    </div>
-                                </td>
+                                @if (!in_array($chapter->id, $reads))
+                                    <td class="text-center pe-0" style="width: 38px;">
+                                        <div class="js-task-status form-check">
+                                            <input type="checkbox" class="form-check-input" id="tasks-cb-id9" disabled>
+                                            <label class="form-check-label" for="tasks-cb-id9"></label>
+                                        </div>
+                                    </td>
+                                @else
+                                    <td class="text-center pe-0" style="width: 38px;">
+                                        <div class="js-task-status form-check">
+                                            <input type="checkbox" class="form-check-input" id="tasks-cb-id9"  checked disabled>
+                                            <label class="form-check-label" for="tasks-cb-id9"></label>
+                                        </div>
+                                    </td>
+                                @endif
+
+                               
                                 <td class="js-task-content fw-semibold ps-0" style="width: 500px;">
                                 {{$chapter->title}}
                                 </td>

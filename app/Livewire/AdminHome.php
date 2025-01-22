@@ -3,7 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\Setting;
+use App\Models\Story;
+use App\Models\StoryRead;
 use App\Models\Subscription;
+use App\Models\User;
 use Livewire\Component;
 
 class AdminHome extends Component
@@ -13,11 +16,28 @@ class AdminHome extends Component
     public $subscriptions;
     public $plans;
     public $setting;
+    public $users;
+    public $stories;
+    public $storyRead;
+    public $subscriptionsPlans;
     
 
     public function mount(){
         $this->subscriptions = Subscription::all();
         $this->setting  = Setting::query()->orderBy('created_at')->first();
+        $this->users = User::where('role', 'regular')->count();
+        $this->stories = Story::query()->count();
+        $this->storyRead = StoryRead::query()->count();
+
+        $this->subscriptionsPlans = \DB::table('subscriptions')
+            ->join('subscription_plans', 'subscriptions.id', '=', 'subscription_plans.subscription_id')
+            ->select('subscriptions.plan_name', 'subscriptions.color_code', \DB::raw('COUNT(subscription_plans.user_id) as total_users'))
+            ->groupBy(['subscriptions.plan_name', 'subscriptions.color_code'])
+                // ->select('subscription_id', \DB::raw('COUNT(user_id) as total_users'))
+                // ->groupBy('subscription_id')
+                ->get();
+        
+
     }
 
     public function setupProduct(){
