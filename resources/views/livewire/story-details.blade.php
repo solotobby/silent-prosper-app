@@ -48,8 +48,6 @@
               </h2>
               <div class="js-task-list">
                 @foreach ($story['chapters'] as $chapter)
-
-               
                     <!-- Task -->
                     <a href="{{ url('read/'.$chapter->slug) }}">
                         <div class="js-task block block-rounded mb-2 animated fadeIn" data-task-id="9" data-task-completed="false" data-task-starred="false">
@@ -69,7 +67,6 @@
                                             <label class="form-check-label" for="tasks-cb-id9"></label>
                                         </div>
                                     </td>
-                              
                                 @endif
 
                                
