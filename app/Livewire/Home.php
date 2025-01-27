@@ -16,12 +16,12 @@ class Home extends Component
     #[Validate('required|string')]
     public $content = '';
 
-   
+    public $search = ''; // Add search property
     public $category_id; // For category selection
     public $categories; // Categories list
     public $comment; // For adding comments
     public $selectedStory; // For targeted commenting
-    public $perPage = 5; // Initial number of stories p
+    public $perPage = 12; // Initial number of stories p
     public $commentStoryId; // To track the story being commented on
     public $commentSectionOpen = []; // Tracks which story's comment section is open
     public $perPageComments = 3; // Number of comments to load per story
@@ -31,24 +31,24 @@ class Home extends Component
     protected $story;
 
 
-    public function mount(Story $story)
-    {
-        $this->story = $story; // Inject the Story model
-        $this->content = ''; // Initialize content
+    // public function mount(Story $story)
+    // {
+    //     $this->story = $story; // Inject the Story model
+    //     $this->content = ''; // Initialize content
 
-        $this->category_id = null;
-        $this->comment = '';
-        $this->selectedStory = null;
+    //     $this->category_id = null;
+    //     $this->comment = '';
+    //     $this->selectedStory = null;
 
-        // Fetch categories (static example or from DB)
-        $this->categories = [
-            1 => 'Category 1',
-            2 => 'Category 2',
-            3 => 'Category 3',
-        ];
+    //     // Fetch categories (static example or from DB)
+    //     $this->categories = [
+    //         1 => 'Category 1',
+    //         2 => 'Category 2',
+    //         3 => 'Category 3',
+    //     ];
 
 
-    }
+    // }
 
     public function post(){
          // Validate input
@@ -135,7 +135,15 @@ class Home extends Component
 
     public function render()
     {
-        $stories = Story::orderBy('created_at', 'DESC')->get();
+        $stories = Story::query()
+            ->when($this->search, function ($query) {
+                $query->where('title', '%' . $this->search . '%');
+            })
+            ->with(['category', 'user'])
+            ->orderBy('created_at', 'DESC')
+            ->paginate($this->perPage);
+
+        // $stories = Story::orderBy('created_at', 'DESC')->get();
         return view('livewire.home', ['stories' => $stories]);
 
         // [

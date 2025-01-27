@@ -43,7 +43,7 @@ class HomeController extends Controller
 
         if($res['status'] == 'APPROVAL_PENDING'){
             
-            DB::table('subscription_intents')->insert(['user_id' => Auth::id(), 'subscription_id' => $res['id'], 'plan_id'=>$decodedPlan['id'], 'duration'=>$decodedPlan['duration'], 'created_at' => now(), 'updated_at' => now()]);
+            DB::table('subscription_intents')->insert(['user_id' => Auth::id(), 'subscription_id' => $res['id'], 'plan_id'=>$decodedPlan['id'], 'duration'=>$decodedPlan['interval'], 'created_at' => now(), 'updated_at' => now()]);
 
             return redirect($res['links'][0]['href']);
         }
@@ -60,13 +60,14 @@ class HomeController extends Controller
        $validate = SubscriptionIntent::where(['user_id' => Auth::id(), 'subscription_id' => $id])->orderBy('id', 'DESC')->first();
         if($validate){
               // Deactivate old subscription
-            SubscriptionPlan::where('user_id', Auth::id())->update(['is_active' => false]);
+            SubscriptionPlan::where('user_id', Auth::id())->update(['status' => 'inactive']);
 
             // Create new subscription
             SubscriptionPlan::create([
                 'user_id' => Auth::id(),
                 'subscription_id' => $validate->plan_id,
-                'is_active' => true,
+                'status' => 'active',
+                'paypal_subscription_id' => $id,
                 'starts_at' => now(),
                 'ends_at' => now()->add($validate->duration),
             ]);

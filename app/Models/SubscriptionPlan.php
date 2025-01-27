@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubscriptionPlan extends Model
 {
-    protected $fillable = ['user_id', 'subscription_id',  'starts_at', 'ends_at', 'is_active'];
+    protected $fillable = ['user_id', 'subscription_id', 'paypal_subscription_id', 'starts_at', 'ends_at', 'status'];
 
     public function user(){
         return $this->belongsTo(User::class);

@@ -32,7 +32,7 @@ if (! function_exists('createProduct')) {
         $res = Http::withHeaders([
             'Content-Type' => 'application/json',
         ])->withBasicAuth(env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET'))
-        ->post(env('PAYPAL_URL').'catalogs/products', $payload)->throw();
+          ->post(env('PAYPAL_URL').'catalogs/products', $payload)->throw();
 
         return json_decode($res->getBody()->getContents(), true);
 

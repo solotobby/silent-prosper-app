@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
 {
-    protected $fillable = [ 'plan_name', 'price', 'color_code', 'duration', 'parameter'];
+    protected $fillable = ['plan_name', 'price', 'color_code', 'interval', 'parameter'];
 
     protected $casts = [
         'ends_at' => 'datetime',

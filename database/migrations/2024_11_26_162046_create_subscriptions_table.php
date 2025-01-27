@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('plan_name');
             $table->decimal('price', 10, 2);
             $table->string('color_code');
-            $table->string('duration');
+            $table->string('interval');
             $table->longText('parameters')->nullable();
             $table->timestamps();
         });
