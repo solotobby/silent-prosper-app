@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('subscription_id')->constrained()->onDelete('cascade');
+            $table->string('paypal_subscription_id')->nullable();
             $table->date('starts_at');
             $table->date('ends_at');
-            $table->boolean('is_active')->default(true);
+            $table->enum('status', ['active', 'inactive', 'cancelled']);
             $table->timestamps();
         });
     }

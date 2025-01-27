@@ -77,7 +77,7 @@ class User extends Authenticatable
     public function currentSubscriptionPlan()
     {
         return $this->subscriptionPlans()
-            ->where('is_active', true)
+            ->where('status', 'active')
             ->where('ends_at', '>', now()) // Ensure it's not expired
             ->with('subscription') // Load related subscription details
             ->first(); // Return the latest active plan
@@ -86,7 +86,7 @@ class User extends Authenticatable
     public function getcurrentSubscriptionPlan()
     {
         return $this->hasOne(SubscriptionPlan::class)
-            ->where('is_active', true)
+            ->where('status', 'active')
             ->where('ends_at', '>', now())
             ->with('subscription') // Include the subscription details
             ->first();

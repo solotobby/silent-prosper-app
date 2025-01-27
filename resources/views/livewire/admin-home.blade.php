@@ -23,7 +23,7 @@
             Plan name: {{ $sub->plan_name }}<br>
             Amount: {{ $sub->price }}<br>
             Color Code: {{ $sub->color_code }}<br>
-            Duration: {{ $sub->duration }}<br>
+            Duration: {{ $sub->interval }}<br>
             <button class="btn btn-secondary btn-sm" wire:click='setupPlan({{ $sub->id }})'>
                 Setup Plan 
             </button>
