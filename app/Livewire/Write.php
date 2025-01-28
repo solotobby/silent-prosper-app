@@ -64,9 +64,7 @@ class Write extends Component
         return $readTime;
     }
 
-    public function completedStory($slug){
-        dd($slug);
-    }
+    
 
     public function render()
     {

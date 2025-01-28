@@ -6,6 +6,7 @@ use App\Livewire\AdminDashboard;
 use App\Livewire\AdminHome;
 use App\Livewire\BookmarkStory;
 use App\Livewire\BookShelf;
+use App\Livewire\EditStory;
 use App\Livewire\Home;
 use App\Livewire\Read;
 use App\Livewire\ShortStory;
@@ -28,6 +29,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::get('test', [HomeController::class, 'test'])->name('test');
+    Route::get('edit/story/{slug}', [HomeController::class, 'EditStory']);
 
     Route::get('subscribe/{plan}', [HomeController::class, 'subscribe']);
     Route::get('validate/subscription/plan', [HomeController::class, 'subscribePlan']);
@@ -38,6 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('subcriptions', SubscriptionPlans::class)->name('subscription.page');
     Route::get('bookmarks', BookmarkStory::class);
     Route::get('shelf', BookShelf::class);
+    Route::get('edit/{slug}', EditStory::class);
+
 
 
     Route::get('write', WriteStory::class);
