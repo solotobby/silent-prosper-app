@@ -50,4 +50,13 @@ class Story extends Model
     {
         return $this->hasMany(StoryRead::class);
     }
+
+    public function bookShelf(){
+        return $this->hasMany(BookShelf::class);
+    }
+
+    public function isBookShelfedByUser($userId)
+    {
+        return $this->bookShelf()->where('user_id', $userId)->exists();
+    }
 }

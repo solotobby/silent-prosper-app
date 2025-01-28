@@ -16,6 +16,11 @@
                   </p> --}}
 
                   <h2 class="h3 fw-light text-white-75"> by {{$story->user->name}}</h2>
+                  @if(!$story->isBookShelfedByUser(auth()->user()->id))
+                        <button class="btn btn-warning" wire:click="addBookShelf({{ $story->id }})">Add to BookShelf</button>
+                  @else
+                        <button class="btn btn-warning" wire:click="addBookShelf({{ $story->id }})">Remove from BookShelf</button>
+                  @endif
                 </div>
               </div>
             </div>
@@ -26,6 +31,13 @@
     <div class="row">
 
         <div class="col-md-12 mt-3">
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+
+
             <div class="block block-rounded block-bordered">
                 <div class="block-header block-header-default">
                   <h3 class="block-title">Description</h3>

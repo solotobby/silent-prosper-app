@@ -136,6 +136,10 @@ class Read extends Component
         $this->perPageComments += 5; // Increase the number of comments displayed
     }
 
+    public function addBookShelf($storyId){
+        dd($storyId);
+    }
+
 
 
     public function render()
