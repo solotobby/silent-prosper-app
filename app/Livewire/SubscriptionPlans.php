@@ -32,6 +32,7 @@ class SubscriptionPlans extends Component
             'user_id' => $user->id,
             'subscription_id' => $plan['id'],
             'is_active' => true,
+            'status' => 'active',
             'starts_at' => now(),
             'ends_at' => now()->add($plan['duration']),
         ]);

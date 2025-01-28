@@ -98,8 +98,8 @@ if (! function_exists('createPlans')) {
                 'payment_failure_threshold' => 6,
             ],
             'taxes' => [
-                'percentage' => '0', // Tax percentage
-                'inclusive' => false,
+                'percentage' => '20', // Tax percentage
+                'inclusive' => true,
             ],
         ];
 
@@ -126,8 +126,6 @@ if (! function_exists('showPlanDetails')) {
 
          return json_decode($response->getBody()->getContents(), true);
 
-
-
     }
 }
 
@@ -144,7 +142,7 @@ if (! function_exists('createSubscription')) {
                 'email_address' => $user->email, //$subscriberDetails['email'],
             ],
             'application_context' => [
-                'brand_name' => 'Your App Name',
+                'brand_name' => 'ECLATSPAD',
                 'locale' => 'en-GB',
                 'shipping_preference' => 'NO_SHIPPING',
                 'user_action' => 'SUBSCRIBE_NOW', // Directs the user to confirm the subscription
