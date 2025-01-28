@@ -43,6 +43,7 @@
               {{-- <button type="button" class="btn btn-alt-secondary" data-bs-toggle="tooltip" title="Like Story">
                 <i class="fa fa-thumbs-up text-primary"></i>
               </button> --}}
+
               <a wire:click="toggleLike({{ $chapter->id }})" class="btn btn-alt-secondary" data-bs-toggle="tooltip" title="Like Story">
                
                 

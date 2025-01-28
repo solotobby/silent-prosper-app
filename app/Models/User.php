@@ -56,6 +56,10 @@ class User extends Authenticatable
         return $this->hasMany(Story::class);
     }
 
+    public function bookShelfedStories(){
+        return $this->hasMany(BookShelf::class, 'user_id');
+    }
+
     public function hasRole($role = []): bool
     {
         if (is_array($role)) {

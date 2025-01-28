@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\BookShelf;
 use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Story;
@@ -158,9 +159,23 @@ class StoryDetails extends Component
 
     }
 
-    
+    public function addBookShelf($storyId){
 
+        $story = Story::findOrFail($storyId);
 
+        $bookshelf = $story->bookShelf()->where('user_id', Auth::id())->first();
+        if($bookshelf){
+            $bookshelf->delete();
+             session()->flash('message', 'Story removed from BookShelf successfully!');
+             $this->story->refresh();
+        }else{
+            $story->bookShelf()->create(['user_id' =>Auth::id()]);
+             session()->flash('message', 'Story added to BookShelf successfully!');
+             $this->story->refresh();
+        }
+        // BookShelf::create(['user_id' => Auth::id(), 'story_id' => $storyId]);
+       
+    }
 
     public function render()
     {
