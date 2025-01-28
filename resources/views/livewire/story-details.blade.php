@@ -15,12 +15,22 @@
                     </span>
                   </p> --}}
 
-                  <h2 class="h3 fw-light text-white-75"> by {{$story->user->name}}</h2>
-                  @if(!$story->isBookShelfedByUser(auth()->user()->id))
-                        <button class="btn btn-warning" wire:click="addBookShelf({{ $story->id }})">Add to BookShelf</button>
+                  <h2 class="h3 fw-light text-white-75"> by <a href="{{ url('profile/'.$story->user->id) }}"> <span class="text-white">{{$story->user->name}}</span></a></h2>
+
+                 
+                  @if($story->user->id === auth()->user()->id)
+                        {{-- <button class="btn btn-danger" wire:click="deleteStory({{ $story->id }})">Delete Story</button> --}}
+                        <a class="btn btn-alt-secondary" href="{{ url('edit/story/'.$story->slug) }}">Edit Story</a>
+
                   @else
-                        <button class="btn btn-warning" wire:click="addBookShelf({{ $story->id }})">Remove from BookShelf</button>
+                        @if(!$story->isBookShelfedByUser(auth()->user()->id))
+                                <button class="btn btn-alt-secondary" wire:click="addBookShelf({{ $story->id }})">Add to BookShelf</button>
+                        @else
+                                <button class="btn btn-alt-warning" wire:click="addBookShelf({{ $story->id }})">Remove from BookShelf</button>
+                        @endif
+
                   @endif
+
                 </div>
               </div>
             </div>

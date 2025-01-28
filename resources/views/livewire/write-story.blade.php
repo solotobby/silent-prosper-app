@@ -5,7 +5,7 @@
         <form wire:submit.prevent="story" enctype="multipart/form-data">
           <div class="block">
             <div class="block-header block-header-default">
-              <a class="btn btn-alt-secondary" href="">
+              <a class="btn btn-alt-secondary" href="{{ url('profile/'.auth()->user()->id) }}">
                 <i class="fa fa-arrow-left me-1"></i> My Stories
               </a>
               

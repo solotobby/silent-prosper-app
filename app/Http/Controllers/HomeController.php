@@ -35,6 +35,10 @@ class HomeController extends Controller
         // return getSubscription('I-RDT2YTRE9J6A');
     }
 
+    public function editStory($slug){
+        return $slug;
+    }
+
     public function subscribe($plan){
 
         $decodedPlan = json_decode($plan, true); // Decode as an associative array
