@@ -41,6 +41,11 @@
                     <a href="{{ url('subscribe/'.$plan) }}" class="btn btn-hero btn-{{$plan->color_code}}">
                       Get Started
                     </a>
+                    {{-- <br>  <br>
+                    <a href="{{ url('create/subscription/'.$plan) }}" class="btn btn-hero btn-{{$plan->color_code}}">
+                      Get Started(New)
+                    </a> --}}
+                    
                     {{-- <button wire:click="subscribe({{ json_encode($plan) }})" class="btn btn-hero btn-{{$plan->color_code}} px-4">
                         Get Started
                     </button> --}}
