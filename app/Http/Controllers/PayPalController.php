@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Subscriptions\PayPalSubscriptions;
+use App\Subscriptions\PayPal;
 use Illuminate\Http\Request;
 
 class PayPalController extends Controller
 {
     protected $paypalSubscriptions;
 
-    public function __construct(PayPalSubscriptions $paypalSubscriptions)
+    public function __construct(PayPal $paypalSubscriptions)
     {
-        dd($paypalSubscriptions);
         $this->paypalSubscriptions = $paypalSubscriptions;
     }
 
     public function createSubscription($subscribe){
-        return $subscribe;
-        // $this->paypalSubscriptions->create();
+      
+        return $this->paypalSubscriptions->create($subscribe, 0, 'paypal', 0);
     }
 }

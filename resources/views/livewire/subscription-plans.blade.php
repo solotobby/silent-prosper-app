@@ -5,6 +5,19 @@
         <!-- Modern Design -->
         <h2 class="content-heading">Subscription Plans <small>Same Price different duration</small></h2>
         <div class="row">
+          {{-- @if (session()->has('message'))
+              <div class="alert alert-success">
+                  {{ session('message') }}
+              </div>
+          @endif --}}
+
+          @if (session('info'))
+              <div class="alert alert-info" role="alert">
+                  {{ session('info') }}
+              </div>
+          @endif
+
+
             @foreach ($plans as $plan)
             <div class="col-md-6 col-xl-4">
                 <!-- Freelancer Plan -->
@@ -41,8 +54,8 @@
                     <a href="{{ url('subscribe/'.$plan) }}" class="btn btn-hero btn-{{$plan->color_code}}">
                       Get Started
                     </a>
-                    {{-- <br>  <br>
-                    <a href="{{ url('create/subscription/'.$plan) }}" class="btn btn-hero btn-{{$plan->color_code}}">
+                    
+                    {{-- <a href="{{ url('create/subscription/'.$plan->id) }}" class="btn btn-hero btn-{{$plan->color_code}}">
                       Get Started(New)
                     </a> --}}
                     

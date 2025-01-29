@@ -35,14 +35,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('subscribe/{plan}', [HomeController::class, 'subscribe']);
     Route::get('validate/subscription/plan', [HomeController::class, 'subscribePlan']);
+    Route::get('subscriptions/closed', [HomeController::class, 'subscriptionClosed']);
     Route::post('webhook/handle', [WebhookController::class, 'handle']);
-    //Paypal
-    Route::get('create/subscription/{plan}', [PayPalController::class, 'createSubscription']);
-
+   
     Route::get('user/home', Home::class);
     Route::get('show/{slug}', StoryDetails::class);
     Route::get('profile/{user}', UserProfile::class);
-    Route::get('subcriptions', SubscriptionPlans::class)->name('subscription.page');
+    Route::get('subscriptions', SubscriptionPlans::class)->name('subscription.page');
     Route::get('bookmarks', BookmarkStory::class);
     Route::get('shelf', BookShelf::class);
     Route::get('edit/{slug}', EditStory::class);

@@ -6,22 +6,73 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
+
+
+if (! function_exists('getAccessToken')) {
+    function getAccessToken(){
+
+            $clientId = env('PAYPAL_CLIENT_ID');
+            $clientSecret = env('PAYPAL_CLIENT_SECRET');
+
+            // PayPal API endpoint
+            $url = 'https://api-m.sandbox.paypal.com/v1/oauth2/token'; // Use live URL for production
+
+            // Encode credentials to Base64
+            $base64Credentials = base64_encode("{$clientId}:{$clientSecret}");
+
+            // Make the HTTP request
+            $response = Http::withHeaders([
+                'Authorization' => "Basic {$base64Credentials}",
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ])->asForm()->post($url, [
+                'grant_type' => 'client_credentials',
+            ]);
+
+            // Check if the request was successful
+            if ($response->successful()) {
+                return $response->json()['access_token']; // Return the access token and other data
+            } else {
+                // Handle error
+                return [
+                    'error' => true,
+                    'message' => $response->body(),
+                ];
+            }
+
+
+        }
+    }
+
+
 if (! function_exists('getPlans')) {
     function getPlans(){
-        $res = Http::withHeaders([
-            'Content-Type' => 'application/json',
-        ])->withBasicAuth(env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET'))
-        ->get(env('PAYPAL_URL').'billing/plans')->throw();
+        // $res = Http::withHeaders([
+        //     'Content-Type' => 'application/json',
+        // ])->withBasicAuth(env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET'))
+        // ->get(env('PAYPAL_URL').'billing/plans')->throw();
 
-        return json_decode($res->getBody()->getContents(), true);
+        $accessToken = getAccessToken();
+        $url = env('PAYPAL_URL').'billing/plans';
+        // Make the HTTP request
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$accessToken}",
+            'Content-Type' => 'application/json',
+        ])->get($url)->throw();
+
+
+        return json_decode($response->getBody()->getContents(), true);
     }
 }
 
 if (! function_exists('createProduct')) {
     function createProduct(){
 
+        $accessToken = getAccessToken();
+        $url = env('PAYPAL_URL').'catalogs/products';
+
         $payload =[
-            'name' => 'Premium Content Access',
+            'name' => 'Eclatspad Premium Content Access',
             'description' => 'Subscription to premium stories and features',
             'type' => 'SERVICE', // Type of product: SERVICE or PHYSICAL
             'category' => 'SOFTWARE', // Example category
@@ -29,12 +80,17 @@ if (! function_exists('createProduct')) {
             'home_url' => url('/subscriptions'),
         ];
 
-        $res = Http::withHeaders([
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$accessToken}",
             'Content-Type' => 'application/json',
-        ])->withBasicAuth(env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET'))
-          ->post(env('PAYPAL_URL').'catalogs/products', $payload)->throw();
+        ])->post($url, $payload)->throw();
 
-        return json_decode($res->getBody()->getContents(), true);
+        // $res = Http::withHeaders([
+        //     'Content-Type' => 'application/json',
+        // ])->withBasicAuth(env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET'))
+        //   ->post(env('PAYPAL_URL').'catalogs/products', $payload)->throw();
+
+        return json_decode($response->getBody()->getContents(), true);
 
     }
 }
@@ -42,29 +98,8 @@ if (! function_exists('createProduct')) {
 if (! function_exists('createPlans')) {
     function createPlans($plan){
 
-        // $plans = [
-        //     [
-        //         'name' => 'Monthly Plan',
-        //         'description' => 'Subscription charged monthly.',
-        //         'price' => '1.5',
-        //         'interval_unit' => 'MONTH',
-        //         'interval_count' => 1, // Every 1 month
-        //     ],
-        //     [
-        //         'name' => '6-Months Plan',
-        //         'description' => 'Subscription charged every 6 months.',
-        //         'price' => '9',
-        //         'interval_unit' => 'MONTH',
-        //         'interval_count' => 6, // Every 6 months
-        //     ],
-        //     [
-        //         'name' => 'Yearly Plan',
-        //         'description' => 'Subscription charged yearly.',
-        //         'price' => '18',
-        //         'interval_unit' => 'YEAR',
-        //         'interval_count' => 1, // Every 1 year
-        //     ],
-        // ];
+        $url = env('PAYPAL_URL').'billing/plans';
+        $accessToken = getAccessToken();
 
         $payload =  [
             "product_id"=> $plan['product_id'],
@@ -99,16 +134,15 @@ if (! function_exists('createPlans')) {
             ],
             'taxes' => [
                 'percentage' => '20', // Tax percentage
-                'inclusive' => true,
+                'inclusive' => false,
             ],
         ];
 
+       
         $response = Http::withHeaders([
+            'Authorization' => "Bearer {$accessToken}",
             'Content-Type' => 'application/json',
-        ])->withBasicAuth(env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET'))
-        ->post(env('PAYPAL_URL').'billing/plans', 
-            $payload
-        )->throw();
+        ])->post($url, $payload)->throw();
 
         return json_decode($response->getBody()->getContents(), true);
        
@@ -131,6 +165,9 @@ if (! function_exists('showPlanDetails')) {
 
 if (! function_exists('createSubscription')) {
     function createSubscription($planId){
+
+        $accessToken = getAccessToken();
+
         $user = Auth::user();
         $payload = [
             'plan_id' => $planId,
@@ -147,13 +184,22 @@ if (! function_exists('createSubscription')) {
                 'shipping_preference' => 'NO_SHIPPING',
                 'user_action' => 'SUBSCRIBE_NOW', // Directs the user to confirm the subscription
                 'return_url' => url('validate/subscription/plan'), // Redirect after successful approval
-                'cancel_url' => url('subscriptions'), // Redirect if user cancels
+                'cancel_url' => url('subscriptions/closed'), // Redirect if user cancels
             ],
         ];
+
+        $url = env('PAYPAL_URL').'billing/subscriptions';
+        // Make the HTTP request
         $response = Http::withHeaders([
+            'Authorization' => "Bearer {$accessToken}",
             'Content-Type' => 'application/json',
-        ])->withBasicAuth(env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET'))
-        ->post(env('PAYPAL_URL').'billing/subscriptions', $payload)->throw(); //billing/plans/{id}
+        ])->post($url, $payload)->throw();
+
+
+        // $response = Http::withHeaders([
+        //     'Content-Type' => 'application/json',
+        // ])->withBasicAuth(env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET'))
+        // ->post(env('PAYPAL_URL').'billing/subscriptions', $payload)->throw(); //billing/plans/{id}
 
          return json_decode($response->getBody()->getContents(), true);
 
