@@ -78,9 +78,19 @@ class HomeController extends Controller
             ]);
 
             SubscriptionIntent::where('user_id', Auth::id())->delete();
-
-            session()->flash('success', 'You have successfully subscribed!');
             return redirect()->route('home');
+            session()->flash('success', 'You have successfully subscribed!');
+            
         }
+    }
+
+    public function subscriptionClosed(){
+        $url = request()->fullUrl();
+        $url_components = parse_url($url);
+        parse_str($url_components['query'], $params);
+        $id = $params['subscription_id'];
+        SubscriptionIntent::where('user_id', Auth::id())->where('subscription_id', $id)->delete();
+        return redirect()->route('subscription.page')->with(['info', 'Subscription Exited!']);
+        // session()->flash('success', 'Subscription Exited!');
     }
 }
