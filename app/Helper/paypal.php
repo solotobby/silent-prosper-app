@@ -6,6 +6,45 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
+
+
+if (! function_exists('getAccessToken')) {
+    function getAccessToken(){
+
+            $clientId = env('PAYPAL_CLIENT_ID');
+            $clientSecret = env('PAYPAL_CLIENT_SECRET');
+
+            // PayPal API endpoint
+            $url = 'https://api-m.sandbox.paypal.com/v1/oauth2/token'; // Use live URL for production
+
+            // Encode credentials to Base64
+            $base64Credentials = base64_encode("{$clientId}:{$clientSecret}");
+
+            // Make the HTTP request
+            $response = Http::withHeaders([
+                'Authorization' => "Basic {$base64Credentials}",
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ])->asForm()->post($url, [
+                'grant_type' => 'client_credentials',
+            ]);
+
+            // Check if the request was successful
+            if ($response->successful()) {
+                return $response->json()['access_token']; // Return the access token and other data
+            } else {
+                // Handle error
+                return [
+                    'error' => true,
+                    'message' => $response->body(),
+                ];
+            }
+
+
+        }
+    }
+
+
 if (! function_exists('getPlans')) {
     function getPlans(){
         $res = Http::withHeaders([
@@ -131,6 +170,10 @@ if (! function_exists('showPlanDetails')) {
 
 if (! function_exists('createSubscription')) {
     function createSubscription($planId){
+
+
+        $accessToken = getAccessToken();
+        
         $user = Auth::user();
         $payload = [
             'plan_id' => $planId,
@@ -150,10 +193,19 @@ if (! function_exists('createSubscription')) {
                 'cancel_url' => url('subscriptions'), // Redirect if user cancels
             ],
         ];
+
+        $url = env('PAYPAL_URL').'billing/subscriptions';
+        // Make the HTTP request
         $response = Http::withHeaders([
+            'Authorization' => "Bearer {$accessToken}",
             'Content-Type' => 'application/json',
-        ])->withBasicAuth(env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET'))
-        ->post(env('PAYPAL_URL').'billing/subscriptions', $payload)->throw(); //billing/plans/{id}
+        ])->post($url, $payload)->throw();
+
+
+        // $response = Http::withHeaders([
+        //     'Content-Type' => 'application/json',
+        // ])->withBasicAuth(env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET'))
+        // ->post(env('PAYPAL_URL').'billing/subscriptions', $payload)->throw(); //billing/plans/{id}
 
          return json_decode($response->getBody()->getContents(), true);
 

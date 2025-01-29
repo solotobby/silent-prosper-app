@@ -41,8 +41,8 @@
                     <a href="{{ url('subscribe/'.$plan) }}" class="btn btn-hero btn-{{$plan->color_code}}">
                       Get Started
                     </a>
-                    {{-- <br>  <br>
-                    <a href="{{ url('create/subscription/'.$plan) }}" class="btn btn-hero btn-{{$plan->color_code}}">
+                    
+                    {{-- <a href="{{ url('create/subscription/'.$plan->id) }}" class="btn btn-hero btn-{{$plan->color_code}}">
                       Get Started(New)
                     </a> --}}
                     

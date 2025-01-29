@@ -27,8 +27,9 @@ class HomeController extends Controller
     }
 
     public function test(){
+        return getAccessToken();
         // return createProduct();
-        return getPlans();
+        // return getPlans();
         // return createPlans();
         //  return showPlanDetails('P-3H104703DN293015CM5DYGGI'); 
         // return createSubscription('P-3H104703DN293015CM5DYGGI');
