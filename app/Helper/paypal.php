@@ -166,7 +166,7 @@ if (! function_exists('showPlanDetails')) {
 if (! function_exists('createSubscription')) {
     function createSubscription($planId){
 
-       return $accessToken = getAccessToken();
+       $accessToken = getAccessToken();
 
         $user = Auth::user();
         $payload = [
