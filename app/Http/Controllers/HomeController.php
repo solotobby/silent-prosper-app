@@ -44,7 +44,7 @@ class HomeController extends Controller
 
         $decodedPlan = json_decode($plan, true); // Decode as an associative array
 
-        $res = createSubscription($decodedPlan['parameters']);
+        return $res = createSubscription($decodedPlan['parameters']);
 
         if($res['status'] == 'APPROVAL_PENDING'){
             
