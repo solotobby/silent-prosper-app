@@ -16,7 +16,7 @@ if (! function_exists('getAccessToken')) {
             $clientSecret = env('PAYPAL_CLIENT_SECRET');
 
             // PayPal API endpoint
-            $url = 'https://api-m.sandbox.paypal.com/v1/oauth2/token'; // Use live URL for production
+            $url = env('PAYPAL_URL').'oauth2/token'; // Use live URL for production
 
             // Encode credentials to Base64
             $base64Credentials = base64_encode("{$clientId}:{$clientSecret}");
@@ -166,7 +166,7 @@ if (! function_exists('showPlanDetails')) {
 if (! function_exists('createSubscription')) {
     function createSubscription($planId){
 
-        $accessToken = getAccessToken();
+       return $accessToken = getAccessToken();
 
         $user = Auth::user();
         $payload = [
