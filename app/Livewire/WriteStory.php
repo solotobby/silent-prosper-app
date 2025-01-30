@@ -9,6 +9,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Spatie\Image\Image;
+use Illuminate\Support\Facades\Storage;
 
 class WriteStory extends Component
 {
@@ -50,16 +51,22 @@ class WriteStory extends Component
             
         ]);
 
-
-        // $imagePath = $this->img ? $this->img->store('images', 'public') : null;
+        // $imageName = time().'.'.$this->img->extension();
+        // $imagePath = $this->img ? $this->img->store(public_path('images/'.$imageName)) : null; //$this->img->store('images', 'public') : null;
        
-        $imageName = time().'.'.$this->img->extension();
-        Image::load($this->img->path())
-                ->optimize()
-                ->save(public_path('images/'). $imageName);
+        // $imageName = time().'.'.$this->img->extension();
+        // Image::load($this->img->path())
+        //         ->optimize()
+        //         ->save(public_path('images/'). $imageName);
 
-        $imageUrl = 'images/'.$imageName;
+        // $imageUrl = 'images/'.$imageName;
         // dd($imageName);
+
+        // $filePathBanner = 'banners/' . $imageName;
+    
+        $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
+
+        $path = Storage::disk('s3')->url($path);
 
         $rand = rand(999,99999);
         $slug = Str::slug($this->title).'-'.$rand;
@@ -70,7 +77,7 @@ class WriteStory extends Component
             'title' => $this->title, 
             'description' => $this->description, 
             'slug' => $slug,
-            'img' => $imageUrl, //$imagePath,
+            'img' => $path,
             'is_book' => $this->is_book == 1 ? true : false,
             'is_xrated' => $this->is_xrated == 1 ? true : false,
             'audience' => 'All'
