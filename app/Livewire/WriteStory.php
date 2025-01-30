@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Spatie\Image\Image;
 
 class WriteStory extends Component
 {
@@ -50,8 +51,16 @@ class WriteStory extends Component
         ]);
 
 
-        $imagePath = $this->img ? $this->img->store('images', 'public') : null;
+        // $imagePath = $this->img ? $this->img->store('images', 'public') : null;
        
+        $imageName = time().'.'.$this->img->extension();
+        Image::load($this->img->path())
+                ->optimize()
+                ->save(public_path('images/'). $imageName);
+
+        $imageUrl = 'images/'.$imageName;
+        // dd($imageName);
+
         $rand = rand(999,99999);
         $slug = Str::slug($this->title).'-'.$rand;
         Story::create([
@@ -61,7 +70,7 @@ class WriteStory extends Component
             'title' => $this->title, 
             'description' => $this->description, 
             'slug' => $slug,
-            'img' => $imagePath,
+            'img' => $imageUrl, //$imagePath,
             'is_book' => $this->is_book == 1 ? true : false,
             'is_xrated' => $this->is_xrated == 1 ? true : false,
             'audience' => 'All'
