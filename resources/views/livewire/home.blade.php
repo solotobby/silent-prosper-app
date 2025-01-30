@@ -25,7 +25,7 @@
                     <!-- Story #9 -->
                     {{-- <a class="block block-rounded bg-image h-100 mb-0" style="background-image: url('assets/media/photos/photo9.jpg');" href="javascript:void(0)"> --}}
                 
-                    <a class="block block-rounded bg-image h-100 mb-0" style="background-image: url({{asset('src/assets/media/photos/photo9.jpg')}});" href="{{url('show/'.$story->slug)}}">
+                    <a class="block block-rounded bg-image h-100 mb-0" style="background-image: url({{asset($story->img)}});" href="{{url('show/'.$story->slug)}}">
                     <div class="block-content bg-black-50">
                         <div class="mb-5 mb-sm-7 d-sm-flex justify-content-sm-between align-items-sm-center">
                         <p>

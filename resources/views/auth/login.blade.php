@@ -146,7 +146,12 @@
 								</div>
                                 <div class="text-center">
                                     <p class="text">Don't have an account? <a href="{{ url('register') }}">Sign Up Today.</a></p>
-									
+									{{-- <p class="text"><a href="{{ url('register') }}">Forgot Password.</a></p> --}}
+									@if (Route::has('password.request'))
+										<a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+											{{ __('Forgot your password?') }}
+										</a>
+									@endif
                                 </div>
 								{{-- <div class="text-center">
 									<p class="text">Don’t have an account? <a href="#">Sign Up Today.</a> <br /><a href="#">Forgot Password</a></p>
