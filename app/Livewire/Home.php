@@ -16,7 +16,9 @@ class Home extends Component
     #[Validate('required|string')]
     public $content = '';
 
-    public $search = ''; // Add search property
+    public $q = '';
+    // protected $queryString = ['search' => ['except' => '']];
+
     public $category_id; // For category selection
     public $categories; // Categories list
     public $comment; // For adding comments
@@ -50,101 +52,132 @@ class Home extends Component
 
     // }
 
-    public function post(){
-         // Validate input
-         $this->validate([
-            'content' => 'required|string', // Add your validation rules
-        ]);
+    // public function post(){
+    //      // Validate input
+    //      $this->validate([
+    //         'content' => 'required|string', // Add your validation rules
+    //     ]);
 
 
-        Story::create(['user_id' => Auth::user()->id, '_id' => rand(999,99999), 'category_id' => 1, 'content' => $this->content]);
+    //     Story::create(['user_id' => Auth::user()->id, '_id' => rand(999,99999), 'category_id' => 1, 'content' => $this->content]);
 
-        $this->reset('content');
+    //     $this->reset('content');
 
-        $this->dispatch('close-modal');
+    //     $this->dispatch('close-modal');
 
-        // Optionally, show a success message
-        session()->flash('message', 'Story posted successfully!');
-        $this->dispatch('storyCreated');
+    //     // Optionally, show a success message
+    //     session()->flash('message', 'Story posted successfully!');
+    //     $this->dispatch('storyCreated');
        
 
-    }
+    // }
 
-    public function addComment($storyId)
-    {
-        $this->validate([
-            'comment' => 'required|string|max:255',
-        ]);
+    // public function addComment($storyId)
+    // {
+    //     $this->validate([
+    //         'comment' => 'required|string|max:255',
+    //     ]);
         
-        addStoryComment($storyId, $this->comment);
+    //     addStoryComment($storyId, $this->comment);
 
-        $this->comment = ''; // Reset comment input
-        $this->commentStoryId = null; // Reset the tracked story
+    //     $this->comment = ''; // Reset comment input
+    //     $this->commentStoryId = null; // Reset the tracked story
 
-    }
+    // }
 
-    public function bookmarkStory($storyId){
-        $user = Auth::user();
-        $story = Story::findOrFail($storyId);
+    // public function bookmarkStory($storyId){
+    //     $user = Auth::user();
+    //     $story = Story::findOrFail($storyId);
        
-        if ($story->user_id === $user->id || hasActiveSubscription($user)) {
+    //     if ($story->user_id === $user->id || hasActiveSubscription($user)) {
 
-            addStoryBookmark($story);
+    //         addStoryBookmark($story);
 
-        }else{
-            return redirect()->route('subscription.page');
-        }
+    //     }else{
+    //         return redirect()->route('subscription.page');
+    //     }
          
-    }
+    // }
 
-    public function hasActiveSubscription($user){
-       return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
+    // public function hasActiveSubscription($user){
+    //    return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
        
-    }
+    // }
 
-    public function toggleLike($storyId)
-    {
+    // public function toggleLike($storyId)
+    // {
 
-        likeStory($storyId);
+    //     likeStory($storyId);
         
-    }
+    // }
     
-    public function loadMore()
-    {
+    // public function loadMore()
+    // {
        
-        $this->perPage += 5; // Load 5 more stories
-    }
+    //     $this->perPage += 5; // Load 5 more stories
+    // }
 
-    public function toggleComments($storyId)
-    {
-        // Toggle the comment section for the given story ID
-        $this->commentSectionOpen[$storyId] = !($this->commentSectionOpen[$storyId] ?? false);
-    }
+    // public function toggleComments($storyId)
+    // {
+    //     // Toggle the comment section for the given story ID
+    //     $this->commentSectionOpen[$storyId] = !($this->commentSectionOpen[$storyId] ?? false);
+    // }
 
 
-    public function loadMoreComments()
-    {
-        $this->perPageComments += 3; // Increment the number of comments to load
-    }
+    // public function loadMoreComments()
+    // {
+    //     $this->perPageComments += 3; // Increment the number of comments to load
+    // }
 
-    public function toggleCommentLike($commentId)
-    {
-        commentLike($commentId);
-    }
+    // public function toggleCommentLike($commentId)
+    // {
+    //     commentLike($commentId);
+    // }
+
+    // public function updatingSearch()
+    // {
+    //     $this->resetPage();
+    // }
 
 
     public function render()
     {
-        $stories = Story::query()
-            ->when($this->search, function ($query) {
-                $query->where('title', '%' . $this->search . '%');
-            })
-            ->with(['category', 'user'])
-            ->orderBy('created_at', 'DESC')
-            ->paginate($this->perPage);
+     
+        if($this->q){
+           $stories = Story::where('title', 'LIKE', '%' . $this->q . '%')->latest()->get();
+        //    $stories= Story::query()
+        //     ->when($this->search, function ($query) {
+        //         $query->where(function ($q) {
+        //             $q->where('title', 'like', '%' . $this->search . '%');
+        //                 // ->orWhere('content', 'like', '%' . $this->search . '%');
+        //         });
+        //     })->latest()->get();
+        }else{
+            $stories = Story::orderBy('created_at', 'DESC')->get();
+        }
 
-        // $stories = Story::orderBy('created_at', 'DESC')->get();
-        return view('livewire.home', ['stories' => $stories]);
+        return view('livewire.home', [
+            'stories' => $stories
+                // ->latest()
+                // ->paginate(10)
+        ]);
+
+
+        // $stories = Story::query()
+        //     ->when($this->search, function ($query) {
+        //         $query->where('title', '%' . $this->search . '%');
+        //     })
+        //     ->with(['category', 'user'])
+        //     ->orderBy('created_at', 'DESC')
+        //     ->paginate($this->perPage);
+
+        // // $stories = Story::orderBy('created_at', 'DESC')->get();
+        // return view('livewire.home', ['stories' => $stories]);
+
+
+
+
+
 
         // [
         //     'stories' => Story::with(['likes', 'comments.user' => function ($query) {

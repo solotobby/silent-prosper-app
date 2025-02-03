@@ -4,20 +4,32 @@
         <div class="card mb-4">
 
             <div class="card-body">
-            <form>
+           
                 <div class="input-group">
-                  <input type="text"  wire:model.debounce.200ms="search" class="form-control form-control-alt" placeholder="Search a book title...">
-                  <button type="submit" class="btn btn-primary border-0">
+                  <input type="text"
+                  wire:model.live="q"
+                  class="form-control form-control-alt" 
+                  placeholder="Search a book title...">
+
+                  {{-- <button type="submit" class="btn btn-primary border-0">
                     <i class="fa fa-search opacity-50 me-1"></i>
-                  </button>
+                  </button> --}}
                 </div>
-            </form>
+            
             </div>
 
-        </div>
+        </div> 
 
          <!-- Cover Link Stories -->
          {{-- <h2 class="content-heading">Cover Link Stories</h2> --}}
+
+          <!-- Loading Indicator -->
+    <div wire:loading class="text-gray-500 mb-4">
+        Searching...
+    </div>
+
+ 
+
          <div class="row items-push">
             @if($stories->count())
                 @foreach ($stories as $story)
@@ -60,9 +72,9 @@
                 <div class="alert alert-info">There are no stories</div>
             @endif
 
-            <div class="mt-4">
+            {{-- <div class="mt-4">
                 {{ $stories->links() }}
-            </div>
+            </div> --}}
 
            
          </div>
