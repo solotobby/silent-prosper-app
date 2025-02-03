@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -44,10 +45,18 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        if($user){
+            event(new Registered($user));
+            
+            // Mail::send('emails.test', ['user' => $user], function ($m) use ($user) {
+            //     $m->to($user->email, $user->name)->subject('AWS SES Test!');
+            // });
 
-        Auth::login($user);
+            Auth::login($user);
+    
+            return redirect(route('home', absolute: false));
+        }
 
-        return redirect(route('home', absolute: false));
+        
     }
 }
