@@ -10,6 +10,10 @@
             <i class="nav-main-link-icon far fa-bookmark"></i>
             <span class="nav-main-link-name">Manage Subscriptions</span>
         </a>
+        <a class="nav-main-link" href="{{ route('story.list') }}">
+          <i class="nav-main-link-icon si si-settings"></i>
+          <span class="nav-main-link-name">Stories</span>
+        </a>
           {{-- <a class="nav-main-link" href="{{ url('#') }}">
               <i class="nav-main-link-icon si si-settings"></i>
               <span class="nav-main-link-name">Settings</span>
