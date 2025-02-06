@@ -71,7 +71,7 @@ if (! function_exists('createProduct')) {
         $accessToken = getAccessToken();
         $url = env('PAYPAL_URL').'catalogs/products';
 
-        $payload =[
+       return $payload =[
             'name' => 'Eclatspad Premium Content Access',
             'description' => 'Subscription to premium stories and features',
             'type' => 'SERVICE', // Type of product: SERVICE or PHYSICAL
@@ -80,7 +80,7 @@ if (! function_exists('createProduct')) {
             'home_url' => url('/subscriptions'),
         ];
 
-        $response = Http::withHeaders([
+         $response = Http::withHeaders([
             'Authorization' => "Bearer {$accessToken}",
             'Content-Type' => 'application/json',
         ])->post($url, $payload)->throw();
@@ -91,6 +91,23 @@ if (! function_exists('createProduct')) {
         //   ->post(env('PAYPAL_URL').'catalogs/products', $payload)->throw();
 
         return json_decode($response->getBody()->getContents(), true);
+
+    }
+}
+
+if (! function_exists('listProduct')) {
+    function listProduct(){
+
+        $accessToken = getAccessToken();
+        $url = env('PAYPAL_URL').'catalogs/products';
+
+         $response = Http::withHeaders([
+            'Authorization' => "Bearer {$accessToken}",
+            'Content-Type' => 'application/json',
+        ])->get($url)->throw();
+
+        return json_decode($response->getBody()->getContents(), true);
+
 
     }
 }

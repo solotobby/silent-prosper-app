@@ -30,7 +30,7 @@
                     <select wire:model="is_book" class="form-control" required>
                         <option value="">Select Story Type</option>
                         <option value="1">Set as a Book</option>
-                        <option value="1">Set as Short Story</option>
+                        <option value="0">Set as Short Story</option>
                        
                     </select>
                     @error('category') <span class="text-danger">{{ $message }}</span> @enderror

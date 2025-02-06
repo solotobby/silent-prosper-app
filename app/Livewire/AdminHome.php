@@ -41,7 +41,9 @@ class AdminHome extends Component
     }
 
     public function setupProduct(){
+        dd(listProduct());
         $this->createProduct = createProduct();
+        
         Setting::firstOrCreate(['paypal_product_id' => $this->createProduct['id'], 'paypal_product_name' => $this->createProduct['name']]);
         $this->dispatch('refresh');
     }

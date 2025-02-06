@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebhookController;
+use App\Livewire\Admin\ListStory;
 use App\Livewire\AdminDashboard;
 use App\Livewire\AdminHome;
 use App\Livewire\BookmarkStory;
@@ -63,6 +64,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
    
     Route::get('admin/home',  AdminHome::class);
+    
+    Route::get('admin/story/list', ListStory::class)->name('story.list');
+    
+
 });
 
 require __DIR__.'/auth.php';
