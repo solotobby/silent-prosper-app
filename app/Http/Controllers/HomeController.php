@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Story;
 use App\Models\SubscriptionIntent;
 use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
@@ -24,6 +25,13 @@ class HomeController extends Controller
         }
        
         // return view('dashboard');
+    }
+
+    public function publishStory($slug){
+        $story = Story::where('slug', $slug)->first();
+        $story->is_published = 1;
+        $story->save();
+        return redirect('admin/story/list');
     }
 
     public function test(){
