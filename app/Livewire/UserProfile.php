@@ -130,8 +130,14 @@ class UserProfile extends Component
 
     public function render()
     {
-        $stories = Story::where('user_id', $this->user->id)->orderBy('created_at', 'DESC')->get();
+        if(auth()->user()->id === $this->user->id){
+            $stories = Story::where('user_id', $this->user->id)->latest()->get();
+        }else{
+            $stories = Story::where('user_id', $this->user->id)->where('is_published', true)->latest()->get();
+        }
+        
         return view('livewire.user-profile', ['stories' => $stories]); 
+        
         // [
         //     'stories' => Story::with(['likes', 'comments.user' => function ($query) {
         //         $query->latest(); // Fetch comments in descending order

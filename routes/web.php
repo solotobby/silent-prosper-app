@@ -11,6 +11,7 @@ use App\Livewire\BookShelf;
 use App\Livewire\EditStory;
 use App\Livewire\Home;
 use App\Livewire\Read;
+use App\Livewire\Settings;
 use App\Livewire\ShortStory;
 use App\Livewire\ShowPost;
 use App\Livewire\StoryDetails;
@@ -45,6 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('bookmarks', BookmarkStory::class);
     Route::get('shelf', BookShelf::class);
     Route::get('edit/{slug}', EditStory::class);
+    Route::get('settings', Settings::class);
 
 
 

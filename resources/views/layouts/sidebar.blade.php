@@ -15,7 +15,7 @@
           
 
           <a class="nav-main-link" href="{{ url('write') }}">
-            <i class="nav-main-link-icon far fa-bookmark"></i>
+            <i class="nav-main-link-icon si si-note"></i>
             <span class="nav-main-link-name">Write</span>
           </a>
 

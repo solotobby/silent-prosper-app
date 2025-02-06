@@ -68,13 +68,16 @@
                     <!-- END Story #9 -->
                     </div>
                 @endforeach
+
+                <div class="mt-4">
+                    {{ $stories->links() }}
+                </div>
+                
             @else 
                 <div class="alert alert-info">There are no stories</div>
             @endif
 
-            {{-- <div class="mt-4">
-                {{ $stories->links() }}
-            </div> --}}
+            
 
            
          </div>

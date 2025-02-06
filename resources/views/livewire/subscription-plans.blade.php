@@ -1,9 +1,23 @@
 <div>
     {{-- In work, do what you enjoy. --}}
 
+<!-- Hero -->
+<div class="bg-image" style="background-image: url('{{asset('src/assets/media/photos/photo11@2x.jpg')}}');">
+  <div class="bg-black-75">
+    <div class="content content-boxed text-center">
+      <div class="py-5">
+        <h1 class="fs-2 fw-normal text-white mb-2">
+          <i class="fa fa-arrow-up me-1"></i> Upgrade Plan
+        </h1>
+        <h2 class="fs-4 fw-normal text-white-75">Get Unlimited Access to stories. Same Price different duration!</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END Hero -->
 
         <!-- Modern Design -->
-        <h2 class="content-heading">Subscription Plans <small>Same Price different duration</small></h2>
+        <h2 class="content-heading"></h2>
         <div class="row">
           {{-- @if (session()->has('message'))
               <div class="alert alert-success">
