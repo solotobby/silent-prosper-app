@@ -144,7 +144,7 @@ class Home extends Component
     {
      
         if($this->q){
-           $stories = Story::where('title', 'LIKE', '%' . $this->q . '%')->latest()->get();
+           $stories = Story::where('is_published', true)->where('title', 'LIKE', '%' . $this->q . '%')->latest()->paginate($this->perPage);
         //    $stories= Story::query()
         //     ->when($this->search, function ($query) {
         //         $query->where(function ($q) {
@@ -153,7 +153,7 @@ class Home extends Component
         //         });
         //     })->latest()->get();
         }else{
-            $stories = Story::orderBy('created_at', 'DESC')->get();
+            $stories = Story::where('is_published', true)->orderBy('created_at', 'DESC')->paginate($this->perPage);
         }
 
         return view('livewire.home', [

@@ -37,7 +37,7 @@ class WriteStory extends Component
         $this->validate([
             'description' => 'required|string',
             'title' => 'required|string',
-            'img' => 'image|max:1024',
+            'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'category' => 'required',
            
         ], [
@@ -80,7 +80,8 @@ class WriteStory extends Component
             'img' => $path,
             'is_book' => $this->is_book == 1 ? true : false,
             'is_xrated' => $this->is_xrated == 1 ? true : false,
-            'audience' => 'All'
+            'audience' => 'All',
+            'is_published' => false
         ]);
 
         return redirect('write/'.$slug);

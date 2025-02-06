@@ -1,7 +1,9 @@
 <div>
     {{-- Nothing in the world is as soft and yielding as water. --}}
         <!-- Hero -->
-        <div class="bg-image" style="background-image: url('{{asset('src/assets/media/photos/photo13@2x.jpg')}} ');">
+        {{-- <div class="bg-image" style="background-image: url('{{asset('src/assets/media/photos/photo13@2x.jpg')}} ');"> --}}
+        
+        <div class="bg-image" style="background-image: url('{{$story->img}}');">
             <div class="bg-primary-dark-op">
               <div class="content content-full content-top text-center">
                 <div class="pt-4 pb-3">
