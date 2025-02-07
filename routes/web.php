@@ -13,6 +13,7 @@ use App\Livewire\BookmarkStory;
 use App\Livewire\BookShelf;
 use App\Livewire\EditStory;
 use App\Livewire\Home;
+use App\Livewire\LandingPage;
 use App\Livewire\Read;
 use App\Livewire\Settings;
 use App\Livewire\ShortStory;
