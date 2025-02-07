@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,6 +50,7 @@ class RegisteredUserController extends Controller
 
         if($user){
             Profile::create(['user_id' => $user->id]);
+            Wallet::create(['user_id' => $user->id, 'balance' => 0.0, 'points' => 0.0]);
 
             event(new Registered($user));
             

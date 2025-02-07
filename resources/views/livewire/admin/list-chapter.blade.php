@@ -31,6 +31,8 @@
         <a class="btn btn-secondary mt-2" href="{{ url('publish/story/'.$story->slug) }}">
             <i class="fa fa-fw fa-location-arrow opacity-50"></i> Happy!...Publish Story
         </a>
+
+        
     @endif
 
 </div>
