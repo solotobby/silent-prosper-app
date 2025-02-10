@@ -52,7 +52,7 @@
 
     <!-- Open Graph Meta -->
     <meta property="og:title" content="Eclatspad | Read, Write and Dream">
-    <meta property="og:site_name" content="Payhankey">
+    <meta property="og:site_name" content="Eclatspad">
     <meta property="og:description" content="A platform where both writers and readers can connect with each other, explore, create,  and share captivating stories.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https:eclatspad.com">
@@ -729,13 +729,15 @@
                   <a class="dropdown-item" href="{{ url('profile/'.auth()->user()->id) }}">
                     <i class="far fa-fw fa-user me-1"></i> Profile
                   </a>
+                  
                   {{-- <a class="dropdown-item d-flex align-items-center justify-content-between" href="be_pages_generic_inbox.html">
                     <span><i class="far fa-fw fa-envelope me-1"></i> Inbox</span>
                     <span class="badge bg-primary rounded-pill">3</span>
-                  </a> --}}
+                  </a> 
                   <a class="dropdown-item" href="{{ url('analytics') }}">
                     <i class="si si-bar-chart me-1"></i> Analytics
-                  </a>
+                  </a>--}}
+
                   <div role="separator" class="dropdown-divider"></div>
 
                   <!-- Toggle Side Overlay -->

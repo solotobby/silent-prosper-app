@@ -14,7 +14,7 @@
           </a>
           
 
-          <a class="nav-main-link" href="{{ url('write') }}">
+          <a class="nav-main-link" href="{{ url('create/story') }}">
             <i class="nav-main-link-icon si si-note"></i>
             <span class="nav-main-link-name">Write</span>
           </a>

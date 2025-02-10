@@ -284,8 +284,8 @@
                                     <label aria-colspan="checkbox1" for="checkbox1">
                                         Male </label>
 									
-                                    <input type="radio" name="gender" value="Female" id="checkbox1" /> 
-                                    <label aria-colspan="checkbox1" for="checkbox1">Female</label>
+                                    <input type="radio" name="gender" value="Female" id="checkbox2" /> 
+                                    <label aria-colspan="checkbox2" for="checkbox2">Female</label>
 									
                                 </div>
 

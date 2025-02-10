@@ -33,8 +33,9 @@
             </a>
             
             @if($nextChapter)
+            {{-- http://localhost:8006/admin/story/chapter/read/chapter-1-42661 --}}
             {{-- <button type="button" class="btn btn-secondary">Right Button</button> --}}
-              <a href="{{ url('read/'.$nextChapter->slug) }}" class="btn btn-primary mt-2 ">
+              <a href="{{ url('admin/story/chapter/read/'.$nextChapter->slug) }}" class="btn btn-primary mt-2 ">
                 Continue to Next Chapter
               </a>
             @else

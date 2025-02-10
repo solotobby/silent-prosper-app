@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProfileController;
@@ -29,6 +30,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('about', [GeneralController::class, 'about']);
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -54,7 +56,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 
-    Route::get('write', WriteStory::class);
+    Route::get('create/story', WriteStory::class);
+    Route::get('edit/story/{slug}', WriteStory::class);
     Route::get('write/{slug}', Write::class);
     Route::get('read/{slug}', Read::class);
     
