@@ -16,7 +16,7 @@
         <meta property="og:type" content="website">
         <meta property="og:url" content="https:eclatspad.com">
         <meta property="og:image" content="">
-    </head>
+    
 
 		<!--=====FAB ICON=======-->
 		<link rel="shortcut icon" href="assets/img/logo/title1.svg" type="image/x-icon" />
@@ -37,6 +37,7 @@
 		<!--=====JQUERY=======-->
 		<script src="assets/js/jquery-3-7-1.min.js"></script>
 	</head>
+	
 	<body>
 		<div class="paginacontainer">
 			<div class="progress-wrap">
@@ -77,7 +78,7 @@
 						<div class="col-12">
 							<div class="header-elements">
 								<div class="site-logo">
-									<a href="index.html">
+									<a href="{{url('/')}}">
 										<img src="assets/img/logo/header-logo1.png" alt="vexon" />
 									</a>
 								</div>
@@ -87,7 +88,7 @@
 										
 
 										<li class="dropdown-menu-parrent">
-											<a href="#" class="main1">Our Story</a>
+											<a href="{{ url('about')}}" class="main1">Our Story</a>
 											
 										</li>
                                         <li class="dropdown-menu-parrent">
@@ -140,7 +141,7 @@
 				<div class="col-12">
 					<div class="mobile-header-elements">
 						<div class="mobile-logo">
-							<a href="index1.html"><img src="assets/img/logo/header-logo1.png" alt="vexon" /></a>
+							<a href="{{url('/')}}"><img src="assets/img/logo/header-logo1.png" alt="vexon" /></a>
 						</div>
 						<div class="mobile-nav-icon">
 							<i class="fa-duotone fa-bars-staggered"></i>

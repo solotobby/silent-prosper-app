@@ -11,7 +11,7 @@
             <div class="block-options">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" value="" wire:model="is_completed" id="dm-post-edit-active" name="dm-post-edit-active">
-                <label class="form-check-label" for="dm-post-edit-active">Set as Completed</label>
+                <label class="form-check-label" for="dm-post-edit-active">Set Chapter as Last</label>
               </div>
             </div>
             
