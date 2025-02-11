@@ -153,12 +153,11 @@
 										</a>
 									@endif
                                 </div>
-								{{-- <div class="text-center">
-									<p class="text">Don’t have an account? <a href="#">Sign Up Today.</a> <br /><a href="#">Forgot Password</a></p>
+								<div class="text-center">
 									<p class="or"><span>Or</span></p>
-									<a href="#" class="google-btn"><img src="assets/img/icons/google.svg" alt="vexon" /> Sign Up With Google</a>
-									<a href="#" class="google-btn mt-20"><img src="assets/img/icons/facebook.svg" alt="vexon" /> Sign Up With Facebook</a>
-								</div> --}}
+									<a href="{{  route('auth.google') }}" class="google-btn"><img src="assets/img/icons/google.svg" alt="vexon" /> Sign In With Google</a>
+									{{-- <a href="#" class="google-btn mt-20"><img src="assets/img/icons/facebook.svg" alt="vexon" /> Sign Up With Facebook</a> --}}
+								</div>
 							</form>
 						</div>
 					</div>

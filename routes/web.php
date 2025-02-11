@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\GoogleSocialiteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProfileController;
@@ -35,6 +36,10 @@ Route::get('about', [GeneralController::class, 'about']);
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::controller(GoogleSocialiteController::class)->group(function(){
+    Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+    Route::get('auth/google/callback', 'handleGoogleCallback');
+});
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::get('test', [HomeController::class, 'test'])->name('test');
