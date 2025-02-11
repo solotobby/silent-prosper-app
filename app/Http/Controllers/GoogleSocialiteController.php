@@ -63,7 +63,7 @@ class GoogleSocialiteController extends Controller
             }
         
         } catch (Exception $e) {
-            return redirect(route('/login', absolute: false));
+            return redirect(url('login'));
             // dd($e->getMessage());
         }
     }
