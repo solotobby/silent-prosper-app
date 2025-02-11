@@ -60,11 +60,11 @@ class GoogleSocialiteController extends Controller
                     return redirect(route('home', absolute: false));
                 }
 
-                
             }
         
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return redirect(route('/login', absolute: false));
+            // dd($e->getMessage());
         }
     }
 
