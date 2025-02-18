@@ -1,6 +1,6 @@
 <div>
     {{-- Do your work, then step back. --}}
-    <h2 class="content-heading">Unpublished Stories</h2>
+    <h2 class="content-heading">{{ucfirst($status)}} Stories</h2>
     <table class="table">
         <thead class="thead-dark table-responsive">
           <tr>

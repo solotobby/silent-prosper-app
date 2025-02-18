@@ -31,7 +31,7 @@ class HomeController extends Controller
         $story = Story::where('slug', $slug)->first();
         $story->is_published = 1;
         $story->save();
-        return redirect('admin/story/list');
+        return redirect('admin/story/list/published');
     }
 
     public function test(){

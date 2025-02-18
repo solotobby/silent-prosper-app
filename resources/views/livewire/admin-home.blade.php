@@ -105,7 +105,7 @@
         </div>
         <div class="col-md-6 col-xl-3">
             {{-- bg-primary --}}
-        <a class="block block-rounded block-link-shadow " href="javascript:void(0)">
+        <a class="block block-rounded block-link-shadow " href="{{url('admin/users')}}">
             <div class="block-content block-content-full d-flex align-items-center justify-content-between">
             <div>
                 <i class="fa fa-2x fa-arrow-alt-circle-up text-primary-lighters"></i>

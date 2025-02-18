@@ -46,18 +46,18 @@ class StoryChapter extends Model
 
             // Convert user names to clickable links
             $userLinks = $lastTwoLikes->map(function ($like) {
-                return '<a class="fw-semibold" href="profile/' . $like->user->id . '">' . htmlspecialchars($like->user->name) . '</a>';
+                return '<a class="fw-semibold" href="profile/' . $like->user->username . '">' . htmlspecialchars($like->user->name) . '</a>';
             })->implode(', ');
 
             $otherLikesCount = $likesCount - 2;
 
             return "$userLinks and $otherLikesCount others liked this story.";
         } else {
-            $allLikes = $this->likes()->with('user')->get();
+            $allLikes = $this->likes()->latest()->with('user')->get();
 
             // Convert all user names to clickable links
             $userLinks = $allLikes->map(function ($like) {
-                return '<a class="fw-semibold" href="profile/' . $like->user->id . '">' . htmlspecialchars($like->user->name) . '</a>';
+                return '<a class="fw-semibold" href="profile/' . $like->user->username . '">' . htmlspecialchars($like->user->name) . '</a>';
             })->implode(', ');
 
             return "$userLinks liked this story.";
