@@ -14,7 +14,7 @@
               <h2 class="h4 fw-bold text-white-75">
                 <span>@</span>{{ auth()->user()->username }}
               </h2>
-              <a class="btn btn-secondary" href="{{ url('profile/'.auth()->user()->id) }}">
+              <a class="btn btn-secondary" href="{{ url('profile/'.auth()->user()->username) }}">
                 <i class="fa fa-fw fa-arrow-left opacity-50"></i> Back to Profile
               </a>
             </div>

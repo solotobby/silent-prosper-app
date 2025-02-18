@@ -19,7 +19,7 @@
                       <a class="text-dark" href="{{url('show/'.$story->slug)}}">{{ $story->title }} </a>
                     </h4>
                     <div class="fs-sm mb-2">
-                      <a href="{{ url('profile/'.$story->user->id)}}">{{  $story->user->id == auth()->user()->id ? 'Me' : $story->user->name}}</a> on {{ $story->created_at->format('M d, Y') }} · <em class="text-muted">13 min</em>
+                      <a href="{{ url('profile/'.$story->user->username)}}">{{  $story->user->id == auth()->user()->id ? 'Me' : $story->user->name}}</a> on {{ $story->created_at->format('M d, Y') }} · <em class="text-muted">13 min</em>
                     </div>
                     <p class="mb-0">
                         {!! \Illuminate\Support\Str::words($story->description, 35) !!}

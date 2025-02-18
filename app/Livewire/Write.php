@@ -22,15 +22,12 @@ class Write extends Component
     public function mount($slug = null){
 
         $this->slug = $slug;
-
+        //continue writing
         if($slug){
             $this->story = Story::where('slug', $slug)->first();
             // $this->title = $this->story->chapter->title;
         }
-       
 
-
-       
     }
 
     public function post(){

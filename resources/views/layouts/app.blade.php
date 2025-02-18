@@ -726,7 +726,7 @@
                   gfkhgj
                 </div>
                 <div class="p-2">
-                  <a class="dropdown-item" href="{{ url('profile/'.auth()->user()->id) }}">
+                  <a class="dropdown-item" href="{{ url('profile/'.auth()->user()->username) }}">
                     <i class="far fa-fw fa-user me-1"></i> Profile
                   </a>
                   

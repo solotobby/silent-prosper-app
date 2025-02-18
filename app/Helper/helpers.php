@@ -150,3 +150,20 @@ if (! function_exists('readTime')) {
     }
 }
 
+if(! function_exists('setStoryCompleted')){
+    function setStoryCompleted($slug){
+       $slug = Story::where('slug', $slug)->first();
+       if($slug->is_completed == 1){
+        $slug->is_completed = 0;
+        $slug->save();
+
+       }else{
+        $slug->is_completed = 1;
+        $slug->save();
+       }
+
+       return $slug;
+       
+    }
+}
+

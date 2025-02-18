@@ -17,7 +17,7 @@
                     </span>
                   </p> --}}
 
-                  <h2 class="h3 fw-light text-white-75"> by <a href="{{ url('profile/'.$story->user->id) }}"> <span class="text-white">{{$story->user->name}}</span></a></h2>
+                  <h2 class="h3 fw-light text-white-75"> by <a href="{{ url('profile/'.$story->user->username) }}"> <span class="text-white">{{$story->user->name}}</span></a></h2>
 
                  
                   @if($story->user->id === auth()->user()->id)
@@ -48,6 +48,11 @@
                     {{ session('message') }}
                 </div>
             @endif
+            @if (session('success'))
+                  <div class="alert alert-success" role="alert">
+                      {{ session('success') }}
+                  </div>
+            @endif
 
 
             <div class="block block-rounded block-bordered">
@@ -70,56 +75,87 @@
               <h2 class="content-heading pb-0 mb-3 border-0 d-flex justify-content-between align-items-center">
                 List of Chapters <span class="js-task-badge badge rounded-pill bg-primary animated fadeIn">{{ $story->chapters->count() }}</span>
               </h2>
-              <div class="js-task-list">
-                @foreach ($story['chapters'] as $chapter)
-                    <!-- Task -->
-                    <a href="{{ url('read/'.$chapter->slug) }}">
-                        <div class="js-task block block-rounded mb-2 animated fadeIn" data-task-id="9" data-task-completed="false" data-task-starred="false">
-                            <table class="table table-borderless table-vcenter mb-0">
-                            <tr>
-                                @if (!in_array($chapter->id, $reads))
-                                    <td class="text-center pe-0" style="width: 38px;">
-                                        <div class="js-task-status form-check">
-                                            <input type="checkbox" class="form-check-input" id="tasks-cb-id9" disabled>
-                                            <label class="form-check-label" for="tasks-cb-id9"></label>
-                                        </div>
-                                    </td>
-                                @else
-                                    <td class="text-center pe-0" style="width: 38px;">
-                                        <div class="js-task-status form-check">
-                                            <input type="checkbox" class="form-check-input" id="tasks-cb-id9"  checked disabled>
-                                            <label class="form-check-label" for="tasks-cb-id9"></label>
-                                        </div>
-                                    </td>
-                                @endif
-
-                               
-                                <td class="js-task-content fw-semibold ps-0" style="width: 500px;">
-                                {{$chapter->title}}
-                                </td>
-                                <td class="text-end" style="width: 300px;">
-                                    {{-- <button type="button" class="js-task-star btn btn-sm btn-link text-warning">
-                                        <i class="far fa-star fa-fw"></i>
-                                    </button> --}}
-                                <button type="button" class="js-task-remove btn btn-sm btn-link text-danger">
-                                    {{ \Carbon\Carbon::parse($chapter->created_at)->format('M d, Y') }}
-                                </button>
-                                </td>
-                            </tr>
-                            </table>
-                        </div>
-                    </a>
-                    <!-- END Task -->
-                @endforeach
-
-               
-                @if(auth()->user()->id == $story->user->id && !$story->is_completed)
-                    <a href="{{ url('write/'.$story->slug) }}" class="btn btn-primary btn-sm">Continue Writing</a>
-                @endif
-
-                
             </div>
-            <!-- END Tasks -->
+
+           <!-- Lessons -->
+           <div class="block block-rounded block-bordered">
+            <div class="block-content">
+              <table class="table table-striped table-borderless table-vcenter">
+                <tbody>
+                    @foreach ($story['chapters'] as $chapter)
+                  <tr>
+                    @if (!in_array($chapter->id, $reads))
+                        <td class="text-center w-25 d-none d-md-table-cell">
+                        <a class="item item-circle bg-primary text-white fs-2 mx-auto" href="{{ url('read/'.$chapter->slug) }}">
+                            <span class="fa fa-file-alt"></span>
+                        </a>
+                        </td>
+                    @else
+                        <td class="text-center w-25 d-none d-md-table-cell">
+                        <a class="item item-circle bg-primary text-white fs-2 mx-auto" href="{{ url('read/'.$chapter->slug) }}">
+                            <span class="fa fa-check"></span>
+                        </a>
+                        </td>
+                    @endif
+
+                   
+
+
+                    <td>
+                      <div class="py-4">
+                        <div class="fs-sm fw-bold text-uppercase mb-2">
+                          <span class="text-muted me-3">{{ \Carbon\Carbon::parse($chapter->created_at)->format('M d, Y') }}</span>
+                          {{-- <span class="text-primary">
+                                <i class="fa fa-clock"></i> 20:34
+                          </span> --}}
+                        </div>
+                        <a class="link-fx h4 mb-2 d-inline-block text-dark" href="{{ url('read/'.$chapter->slug) }}">
+                          {{ $chapter->title }}
+                        </a>
+                        <span class="text-primary">
+                            @if (!in_array($chapter->id, $reads))
+                                {{-- <i class="fa fa-file"></i> --}}
+                            @else
+                                <i class="fa fa-check"></i>
+                            @endif
+                          </span>
+                        <p class="text-muted mb-0">
+                            {!! \Illuminate\Support\Str::words($chapter->body, 35) !!}
+                        </p>
+                        @if(auth()->user()->id == $story->user->id)
+                            <a href="{{ url('edit/story/chapter/'.$chapter->slug) }}" class="btn btn-primary btn-sm mt-2"> Edit Chapter</a>
+                        @endif
+                      </div>
+                    </td>
+                  </tr>
+                  @endforeach
+                  
+                </tbody>
+              </table>
+
+
+              
+
+            </div>
+
+            
+
+          </div>
+          <!-- END Lessons -->
+
+
+          @if(auth()->user()->id == $story->user->id && !$story->is_completed)
+              <a href="{{ url('write/'.$story->slug) }}" class="btn btn-primary btn-sm">Continue Writing</a>
+              
+              <a href=" {{ url('update/story/completed/'.$story->slug) }}" class="btn btn-secondary btn-sm">Set Story as Completed</a>
+                {{-- @else
+                    <a href="" class="btn btn-secondary btn-sm">Add More Chapters</a> --}}
+             @endif
+            @if(auth()->user()->id == $story->user->id && $story->is_completed)
+            <a href=" {{ url('update/story/completed/'.$story->slug) }}" class="btn btn-alt-primary btn-sm">Unset Story as Completed</a>
+            @endif
+
+
           </div>
 
     
