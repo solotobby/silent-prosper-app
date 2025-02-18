@@ -40,8 +40,8 @@ class Settings extends Component
         ], [
             'username.required' => 'The username field is required.',
             'username.string' => 'The username must be a valid string.',
-            // 'username.unique' => 'The username already exist.',
-            'name.required' => 'The name field is required.',
+            'username.unique' => 'The username already exist.',
+            // 'name.required' => 'The name field is required.',
             'name.string' => 'The name must be string.',
         ]);
         

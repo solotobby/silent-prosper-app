@@ -6,9 +6,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebhookController;
+use App\Livewire\Admin\Category;
 use App\Livewire\Admin\ListChapter;
 use App\Livewire\Admin\ListStory;
 use App\Livewire\Admin\ReadStory;
+use App\Livewire\Admin\User;
 use App\Livewire\AdminDashboard;
 use App\Livewire\AdminHome;
 use App\Livewire\BookmarkStory;
@@ -80,10 +82,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
    
     Route::get('admin/home',  AdminHome::class);
-    
-    Route::get('admin/story/list', ListStory::class)->name('story.list');
+    Route::get('admin/story/list/{status}', ListStory::class);
+    // Route::get('admin/story/list/unpublished', ListStory::class);
     Route::get('admin/story/chapter/{query}', ListChapter::class)->name('story.chapter');
     Route::get('admin/story/chapter/read/{query}', ReadStory::class)->name('story.read');
+    Route::get('admin/categories', Category::class);
+    Route::get('admin/users', User::class);
 
     Route::get('publish/story/{slug}', [HomeController::class, 'publishStory']);
     

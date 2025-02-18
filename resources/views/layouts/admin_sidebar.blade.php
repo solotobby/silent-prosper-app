@@ -6,14 +6,11 @@
             <span class="nav-main-link-name">Dashboard</span>
          
           </a>
-        <a class="nav-main-link" href="{{ url('bookmarks') }}">
-            <i class="nav-main-link-icon far fa-bookmark"></i>
-            <span class="nav-main-link-name">Manage Subscriptions</span>
-        </a>
-        <a class="nav-main-link" href="{{ route('story.list') }}">
+       
+        {{-- <a class="nav-main-link" href="{{ route('story.list') }}">
           <i class="nav-main-link-icon si si-settings"></i>
           <span class="nav-main-link-name">Stories</span>
-        </a>
+        </a> --}}
           {{-- <a class="nav-main-link" href="{{ url('#') }}">
               <i class="nav-main-link-icon si si-settings"></i>
               <span class="nav-main-link-name">Settings</span>
@@ -33,6 +30,31 @@
           </a> --}}
   
         </li>
+        <li class="nav-main-item">
+          <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+            <i class="nav-main-link-icon fa fa-list"></i>
+            <span class="nav-main-link-name">Story</span>
+          </a>
+          <ul class="nav-main-submenu">
+            <li class="nav-main-item">
+              <a class="nav-main-link" href="{{ url('admin/story/list/published') }}">
+                <span class="nav-main-link-name">Published</span>
+              </a>
+              <a class="nav-main-link" href="{{ url('admin/story/list/unpublished') }}">
+                <span class="nav-main-link-name">Unpublished</span>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+        <a class="nav-main-link" href="{{ url('admin/categories') }}">
+          <i class="nav-main-link-icon fa fa-th"></i>
+          <span class="nav-main-link-name">Categories</span>
+        </a>
+        <a class="nav-main-link" href="{{ url('admin/users') }}">
+          <i class="nav-main-link-icon fa fa-users"></i>
+          <span class="nav-main-link-name">User</span>
+        </a>
         
         {{-- <li class="nav-main-heading">Pages</li>
         <li class="nav-main-item">
