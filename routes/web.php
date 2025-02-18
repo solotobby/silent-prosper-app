@@ -14,6 +14,7 @@ use App\Livewire\AdminHome;
 use App\Livewire\BookmarkStory;
 use App\Livewire\BookShelf;
 use App\Livewire\EditStory;
+use App\Livewire\EditStoryChapter;
 use App\Livewire\Home;
 use App\Livewire\LandingPage;
 use App\Livewire\Read;
@@ -49,10 +50,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('validate/subscription/plan', [HomeController::class, 'subscribePlan']);
     Route::get('subscriptions/closed', [HomeController::class, 'subscriptionClosed']);
     Route::post('webhook/handle', [WebhookController::class, 'handle']);
+
+    Route::get('update/story/completed/{slug}', [HomeController::class, 'updateStoryCompleted']);
    
     Route::get('user/home', Home::class);
     Route::get('show/{slug}', StoryDetails::class);
-    Route::get('profile/{user}', UserProfile::class);
+    Route::get('profile/{username}', UserProfile::class);
     Route::get('subscriptions', SubscriptionPlans::class)->name('subscription.page');
     Route::get('bookmarks', BookmarkStory::class);
     Route::get('shelf', BookShelf::class);
@@ -63,7 +66,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('create/story', WriteStory::class);
     Route::get('edit/story/{slug}', WriteStory::class);
-    Route::get('write/{slug}', Write::class);
+   
+    Route::get('write/{slug}', Write::class); 
+    Route::get('edit/story/chapter/{slug}', EditStoryChapter::class);
     Route::get('read/{slug}', Read::class);
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

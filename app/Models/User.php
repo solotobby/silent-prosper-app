@@ -120,10 +120,10 @@ class User extends Authenticatable
         ];
     }
    
-    public function scopeWithPostStats(Builder $query, $userId)
+    public function scopeWithPostStats(Builder $query, $username)
     {
 
-        return $query->where('id', $userId)
+        return $query->where('username', $username)
             ->withCount(['stories as total_likes' => function ($query) {
                 $query->select(DB::raw('sum(likes_count)'));
            

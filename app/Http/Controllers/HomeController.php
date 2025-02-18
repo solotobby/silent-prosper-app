@@ -48,6 +48,8 @@ class HomeController extends Controller
         return $slug;
     }
 
+
+
     public function subscribe($plan){
 
         $decodedPlan = json_decode($plan, true); // Decode as an associative array
@@ -100,5 +102,11 @@ class HomeController extends Controller
         SubscriptionIntent::where('user_id', Auth::id())->where('subscription_id', $id)->delete();
         return redirect()->route('subscription.page')->with(['info', 'Subscription Exited!']);
         // session()->flash('success', 'Subscription Exited!');
+    }
+
+
+    public function updateStoryCompleted($slug){
+        setStoryCompleted($slug);
+        return back()->with('success', 'Story Updated Successfully');
     }
 }

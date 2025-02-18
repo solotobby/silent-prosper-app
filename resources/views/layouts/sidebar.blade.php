@@ -7,7 +7,7 @@
          
           </a>
 
-          <a class="nav-main-link" href="{{ url('profile/'.auth()->user()->id) }}">
+          <a class="nav-main-link" href="{{ url('profile/'.auth()->user()->username) }}">
             <i class="nav-main-link-icon fa fa-briefcase"></i>
             <span class="nav-main-link-name">My Stories</span>
          

@@ -24,12 +24,14 @@ class UserProfile extends Component
     public $hasActiveSubscription;
     public $subscription;
     public $isFollowing; // State of following
+    public $username;
 
 
-    public function mount(User $user){
+    public function mount($username){
      
+        $this->username = $username;
         //$this->hasActiveSubscription = $user->subscription && $user->subscription->ends_at->isFuture();
-        $this->user = User::withPostStats($this->user->id)->first();
+        $this->user = User::withPostStats($this->username)->first();
       
         $this->subscription = $this->user->getSubscriptionDetails(); 
         // dd($this->user->isSubscribed());

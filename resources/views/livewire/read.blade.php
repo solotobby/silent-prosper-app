@@ -102,12 +102,12 @@
               @forelse ($chapter->comments->sortByDesc('created_at')->take($perPageComments) as $comment)
                         
               <div class="d-flex">
-                  <a class="flex-shrink-0 img-link me-2" href="{{ url('profile/'.$comment->user->id) }}">
+                  <a class="flex-shrink-0 img-link me-2" href="{{ url('profile/'.$comment->user->username) }}">
                   <img class="img-avatar img-avatar32 img-avatar-thumb" src="{{ asset('src/assets/media/avatars/avatar2.jpg')}}" alt="">
                   </a>
                   <div class="flex-grow-1">
                   <p class="mb-1">
-                      <a class="fw-semibold" href="{{ url('profile/'.$comment->user->id) }}">{{ $comment->user->name }}</a>
+                      <a class="fw-semibold" href="{{ url('profile/'.$comment->user->username) }}">{{ $comment->user->name }}</a>
                       {{ $comment->content }}
                       <br>
                       <small class="text-muted d-block">Posted on {{ $comment->created_at->format('M d, Y h:i A') }}</small>

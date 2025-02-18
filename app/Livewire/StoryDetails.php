@@ -88,76 +88,74 @@ class StoryDetails extends Component
 
     }
 
-    public function setCompleted(){
-        // dd($slug);
-    }
+ 
 
    
 
-    public function bookmarkStory($storyId){
-        $user = Auth::user();
-        dd($user);
-        $story = Story::findOrFail($storyId);
+    // public function bookmarkStory($storyId){
+    //     $user = Auth::user();
+    //     dd($user);
+    //     $story = Story::findOrFail($storyId);
        
-        if ($story->user_id === $user->id || hasActiveSubscription($user)) {
+    //     if ($story->user_id === $user->id || hasActiveSubscription($user)) {
 
-            addStoryBookmark($story);
+    //         addStoryBookmark($story);
 
-            $this->story->refresh();
+    //         $this->story->refresh();
 
-        }else{
-            return redirect()->route('subscription.page');
-        }
+    //     }else{
+    //         return redirect()->route('subscription.page');
+    //     }
          
-    }
+    // }
 
-    public function hasActiveSubscription($user){
-       return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
+    // public function hasActiveSubscription($user){
+    //    return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
        
-    }
+    // }
 
 
-    public function toggleLike($storyId)
-    {
+    // public function toggleLike($storyId)
+    // {
 
        
-        likeStory($storyId);
+    //     likeStory($storyId);
 
-        $this->story->refresh();
+    //     $this->story->refresh();
 
-    }
+    // }
 
-    public function toggleComments($storyId)
-    {
-        // Toggle the comment section for the given story ID
-        $this->commentSectionOpen[$storyId] = !($this->commentSectionOpen[$storyId] ?? false);
-    }
+    // public function toggleComments($storyId)
+    // {
+    //     // Toggle the comment section for the given story ID
+    //     $this->commentSectionOpen[$storyId] = !($this->commentSectionOpen[$storyId] ?? false);
+    // }
 
 
-    public function addComment($storyId)
-    {
-        $this->validate([
-            'comment' => 'required|string|max:255',
-        ]);
+    // public function addComment($storyId)
+    // {
+    //     $this->validate([
+    //         'comment' => 'required|string|max:255',
+    //     ]);
         
-        addStoryComment($storyId, $this->comment);
+    //     addStoryComment($storyId, $this->comment);
 
-        $this->comment = ''; // Reset comment input
-        $this->commentStoryId = null; // Reset the tracked story
-        $this->story->refresh(); // Refresh post data to include the new comment
-    }
+    //     $this->comment = ''; // Reset comment input
+    //     $this->commentStoryId = null; // Reset the tracked story
+    //     $this->story->refresh(); // Refresh post data to include the new comment
+    // }
 
-    public function loadMoreComments()
-    {
-        $this->perPageComments += 5; // Increase the number of comments displayed
-    }
+    // public function loadMoreComments()
+    // {
+    //     $this->perPageComments += 5; // Increase the number of comments displayed
+    // }
 
-    public function toggleCommentLike($commentId)
-    {
+    // public function toggleCommentLike($commentId)
+    // {
 
-        commentLike($commentId);
+    //     commentLike($commentId);
 
-    }
+    // }
 
     public function addBookShelf($storyId){
 
@@ -176,6 +174,8 @@ class StoryDetails extends Component
         // BookShelf::create(['user_id' => Auth::id(), 'story_id' => $storyId]);
        
     }
+
+   
 
     public function render()
     {
