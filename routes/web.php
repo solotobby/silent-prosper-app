@@ -35,6 +35,8 @@ Route::get('/', function () {
 });
 
 Route::get('about', [GeneralController::class, 'about']);
+Route::get('privacy-policies', [GeneralController::class, 'privacy']);
+Route::get('terms-conditions', [GeneralController::class, 'terms']);
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
