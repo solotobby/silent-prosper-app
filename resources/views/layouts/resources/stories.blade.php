@@ -1,10 +1,12 @@
 
-<div class="col-xl-12">
+
+ 
+
   @if($stories->count() > 0)
     <!-- Story -->
     @foreach ($stories as $story)
         
-        <div class="block block-rounded">
+        <div class="block block-rounded" wire:key="story-{{ $story->id }}">
             <div class="block-content p-0 overflow-hidden">
               <div class="row g-0">
                 <div class="col-md-4 col-lg-5 overflow-hidden d-flex align-items-center">
@@ -42,14 +44,9 @@
                           <i class="fa fa-fw fa-list"></i> {{$story->chapters->count()}}
                         </a>
                         @if($story->user->id == auth()->user()->id)
-                            {{-- <a class="btn btn-alt-secondary" href="javascript:void(0)" data-bs-toggle="tooltip" title="Edit">
-                                <i class="fa fa-fw fa-"></i>
-                            </a> --}}
-
-                             <a class="btn btn-alt-secondary" href="javascript:void(0)" data-bs-toggle="tooltip" title="Set Completed">
-                                <i class="fa fa-fw fa-check"></i>
+                             <a class="btn btn-alt-secondary" href="" wire:click="deleteStory({{ $story->id }})" data-bs-toggle="tooltip" title="Delete Story">
+                                <i class="fa fa-fw fa-trash-alt"></i>
                             </a>
-
                         @endif
                     </div>
 
@@ -69,7 +66,7 @@
         </div>
     @endif
 
-</div>
+{{-- </div> --}}
 
 
 

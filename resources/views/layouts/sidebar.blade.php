@@ -20,7 +20,7 @@
           </a>
 
           <a class="nav-main-link" href="{{ url('shelf') }}">
-              <i class="nav-main-link-icon far fa-bookmark"></i>
+              <i class="nav-main-link-icon fa fa-swatchbook"></i>
               <span class="nav-main-link-name">Book Shelf</span>
           </a>
        

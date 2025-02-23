@@ -61,14 +61,21 @@
     </div>
 
     <div class="row">
-      
-      @include('layouts.resources.stories', $stories)
+        <div class="col-xl-12">
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+
+            @include('layouts.resources.stories', $stories)
 
         {{-- <div class="col-md-12 col-sm-12">
 
             @include('layouts.resources.stories', $stories)
 
         </div> --}}
+        </div>
 
     </div>
 </div>
