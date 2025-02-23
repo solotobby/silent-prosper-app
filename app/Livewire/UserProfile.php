@@ -10,6 +10,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
+use Nette\Utils\ArrayList;
 
 class UserProfile extends Component
 {
@@ -25,11 +27,15 @@ class UserProfile extends Component
     public $subscription;
     public $isFollowing; // State of following
     public $username;
+   
+    public $stories;
+    protected $listeners = ['refreshUserProfile' => '$refresh']; // Add this line
 
 
     public function mount($username){
-     
+
         $this->username = $username;
+        
         //$this->hasActiveSubscription = $user->subscription && $user->subscription->ends_at->isFuture();
         $this->user = User::withPostStats($this->username)->first();
       
@@ -37,6 +43,8 @@ class UserProfile extends Component
         // dd($this->user->isSubscribed());
 
         $this->isFollowing = $this->checkIfFollowing();
+
+        $this->stories = $this->storyList();
 
     }
 
@@ -56,89 +64,110 @@ class UserProfile extends Component
         return Auth::user()->followings()->where('followed_id', $this->user->id)->exists();
     }
 
-    public function addComment($storyId)
-    {
-        $this->validate([
-            'comment' => 'required|string|max:255',
-        ]);
-        
-        $comment = Comment::create([
-            'story_id' => $storyId,
-            'user_id' => Auth::id(),
-            'content' => $this->comment,
-        ]);
-        if($comment){
-            $story = Story::findOrFail($storyId);
-            $story->comments_count += 1;
-            $story->save();
-        }
+    public function deleteStory($storyId){
+        $story = Story::where('id', $storyId)->first();
+        $usr = $story->img;  
+        $filename = 'eclatspad/'.basename($usr);
+    
+        Storage::disk('s3')->delete($filename);
+        $story->delete();
+        session()->flash('message', 'Story deleted!');
        
-
-        $this->comment = ''; // Reset comment input
-        $this->commentStoryId = null; // Reset the tracked story
-
+        return redirect()->to('/profile/'.$story->user->username);
+        // $this->dispatch('refreshUserProfile');
+        // redirect('profile/'.$story->user->username);
+       
     }
 
-    public function bookmarkStory($storyId){
-        $user = Auth::user();
-        $story = Story::findOrFail($storyId);
+    // public function addComment($storyId)
+    // {
+    //     $this->validate([
+    //         'comment' => 'required|string|max:255',
+    //     ]);
+        
+    //     $comment = Comment::create([
+    //         'story_id' => $storyId,
+    //         'user_id' => Auth::id(),
+    //         'content' => $this->comment,
+    //     ]);
+    //     if($comment){
+    //         $story = Story::findOrFail($storyId);
+    //         $story->comments_count += 1;
+    //         $story->save();
+    //     }
        
-        if ($story->user_id === $user->id || $this->hasActiveSubscription($user)) {
 
-            addStoryBookmark($story);
+    //     $this->comment = ''; // Reset comment input
+    //     $this->commentStoryId = null; // Reset the tracked story
 
-        }else{
-            return redirect()->route('subscription.page');
-        }
+    // }
+
+    // public function bookmarkStory($storyId){
+    //     $user = Auth::user();
+    //     $story = Story::findOrFail($storyId);
+       
+    //     if ($story->user_id === $user->id || $this->hasActiveSubscription($user)) {
+
+    //         addStoryBookmark($story);
+
+    //     }else{
+    //         return redirect()->route('subscription.page');
+    //     }
          
-    }
+    // }
 
-    public function hasActiveSubscription($user){
+    // public function hasActiveSubscription($user){
         
-       return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
+    //    return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
        
-    }
+    // }
 
-    public function toggleLike($storyId)
-    {
+    // public function toggleLike($storyId)
+    // {
 
-        likeStory($storyId);
+    //     likeStory($storyId);
 
-    }
+    // }
 
-    public function loadMore()
-    {
+    // public function loadMore()
+    // {
        
-        $this->perPage += 10; // Load 10 more stories
-    }
+    //     $this->perPage += 10; // Load 10 more stories
+    // }
 
-    public function toggleComments($storyId)
-    {
-        // Toggle the comment section for the given story ID
-        $this->commentSectionOpen[$storyId] = !($this->commentSectionOpen[$storyId] ?? false);
-    }
+    // public function toggleComments($storyId)
+    // {
+    //     // Toggle the comment section for the given story ID
+    //     $this->commentSectionOpen[$storyId] = !($this->commentSectionOpen[$storyId] ?? false);
+    // }
 
-    public function loadMoreComments()
-    {
-        $this->perPageComments += 5; // Increment the number of comments to load
-    }
+    // public function loadMoreComments()
+    // {
+    //     $this->perPageComments += 5; // Increment the number of comments to load
+    // }
 
-    public function toggleCommentLike($commentId)
-    {
-        commentLike($commentId);
+    // public function toggleCommentLike($commentId)
+    // {
+    //     commentLike($commentId);
         
+    // }
+
+    public function storyList() {
+        if(auth()->user()->id === $this->user->id){
+           return $stories = Story::where('user_id', $this->user->id)->latest()->get();
+        }else{
+           return $stories = Story::where('user_id', $this->user->id)->where('is_published', true)->latest()->get();
+        }
     }
 
 
     public function render()
     {
-        if(auth()->user()->id === $this->user->id){
-            $stories = Story::where('user_id', $this->user->id)->latest()->get();
-        }else{
-            $stories = Story::where('user_id', $this->user->id)->where('is_published', true)->latest()->get();
-        }
+        $stories = $this->storyList();
         
-        return view('livewire.user-profile', ['stories' => $stories]); 
+        return view('livewire.user-profile',
+            ['stories' => $stories]
+        ); 
         
         // [
         //     'stories' => Story::with(['likes', 'comments.user' => function ($query) {
