@@ -26,6 +26,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon.png') }}">
     <!-- END Icons -->
 
+   <!-- Trix CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/trix/2.0.0/trix.min.css" rel="stylesheet">
+  
     <!-- Stylesheets -->
     <!-- Page JS Plugins CSS -->
     {{-- <link rel="stylesheet" href="{{ asset('src/assets/js/plugins/highlightjs/styles/atom-one-dark.css') }}"> --}}
@@ -37,6 +40,8 @@
 
     <!-- Dashmix framework -->
     <link rel="stylesheet" id="css-main" href="{{ asset('src/assets/css/dashmix.css') }}">
+
+   
 
         <!-- Google tag (gtag.js) -->
     {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-E30RCECSBG"></script>

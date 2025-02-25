@@ -18,6 +18,24 @@ class GeneralController extends Controller
         return view('details', ['story' => $story]);
     }
 
+    public function search(Request $request){
+
+        $result = Story::where([
+            [function ($query) use ($request) {
+                if (($search = $request->q)) {
+                    $query->orWhere('title', 'LIKE', '%' . $search . '%')
+                        // ->orWhere('email', 'LIKE', '%' . $search . '%')
+                        // ->orWhere('phone', 'LIKE', '%' . $search . '%')
+                        // ->orWhere('referral_code', 'LIKE', '%' . $search . '%')
+                        ->get();
+                }
+            }]
+        ])->get();
+
+        return view('search_result', ['result' => $result]);
+
+    }
+
     public function about(){
         return view('about');
     }

@@ -6,11 +6,11 @@
 
 <div class="hero1">
 	<div class="container">
-		<div class="hero1-bg bg-cover" style="background-image: url(assets/img/bg/hero1-bg.jpg)">
+		<div class="hero1-bg bg-cover" style="background-image: url({{ asset('assets/img/bg/hero1-bg.jpg')}})">
 			<div class="row align-items-center">
 				<div class="col-lg-5">
 					<div class="main-image reveal">
-						<img src="assets/img/hero/hero1-image.png" alt="vexon" />
+						<img src="{{ asset('assets/img/hero/hero1-image.png') }}" alt="vexon" />
 					</div>
 				</div>
 				<div class="col-lg-6">
@@ -43,6 +43,7 @@
 
 				<div class="blog1-posts-area">
 					<div class="row">
+						@if($stories->count() > 0)
 						@foreach ($stories as $story)
 							<div class="col-md-4" data-aos="fade-up" data-aos-offset="50" data-aos-duration="400" data-aos-delay="0">
 								<div class="blog1-single-box">
@@ -77,6 +78,11 @@
 								</div>
 							</div>
 						@endforeach
+						@else
+							<div class="alert alert-info">
+								There are no stories at the moment.
+							</div>
+						@endif
 						
 {{-- 
 						<div class="col-md-6" data-aos="fade-up" data-aos-offset="50" data-aos-duration="400" data-aos-delay="100">
@@ -343,7 +349,7 @@
 							</div>
 						</div>
 					</div> --}}
-					
+
 				</div>
 			</div>
 		</div>
