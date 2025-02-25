@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Eclatspad | Read, Write and Dream</title>
+		<title>Eclatspad |  Write, Read and Dream</title>
 
         <meta name="description" content="A platform where both writers and readers can connect with each other, explore, create,  and share captivating stories.">
         <meta name="author" content="Eclatspad">
@@ -19,23 +19,24 @@
     
 
 		<!--=====FAB ICON=======-->
-		<link rel="shortcut icon" href="assets/img/logo/title1.svg" type="image/x-icon" />
+		<link rel="shortcut icon" href="{{ asset('assets/img/logo/title1.svg')}}" type="image/x-icon" />
 
 		<!--=====CSS=======-->
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="assets/css/fontawesome.css" />
-		<link rel="stylesheet" href="assets/css/magnific-popup.css" />
-		<link rel="stylesheet" href="assets/css/nice-select.css" />
-		<link rel="stylesheet" href="assets/css/slick-slider.css" />
-		<link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
-		<link rel="stylesheet" href="assets/css/aos.css" />
+		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+		<link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}" />
+		<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}" />
+		<link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}" />
+		<link rel="stylesheet" href="{{ asset('assets/css/slick-slider.css') }}" />
+		<link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}" />
+		<link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}" />
 		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-		<link rel="stylesheet" href="assets/css/mobile-menu.css" />
-		<link rel="stylesheet" href="assets/css/utility.css" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="{{ asset('assets/css/mobile-menu.css') }}" />
+		<link rel="stylesheet" href="{{ asset('assets/css/utility.css') }} " />
+		<link rel="stylesheet" href="{{ asset('assets/css/main.css') }} "/>
 
 		<!--=====JQUERY=======-->
-		<script src="assets/js/jquery-3-7-1.min.js"></script>
+		<script src="{{ asset('assets/js/jquery-3-7-1.min.js') }}"></script>
+		
         <meta name="google-site-verification" content="8RaIFC4lLLLKzYQN7h-kQXi7wQrmZTWXCIOhfSxIiak" />
 	</head>
 	
@@ -52,7 +53,7 @@
 
 		<!--=====PRELOADER START=======-->
 
-		<div class="sec-preloader">
+		{{-- <div class="sec-preloader">
 			<div class="overlay-preloader flex cac vac" id="preloader">
 				<div>
 					<div class="loader preloader flex vac">
@@ -65,7 +66,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --}}
 
 		<!--=====PRELOADER START=======-->
 
@@ -84,25 +85,25 @@
 		<!--===== FOOTER AREA END=======-->
 
 		<!--=== js === -->
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/fontawesome.js"></script>
-		<script src="assets/js/mobile-menu.js"></script>
-		<script src="assets/js/jquery.magnific-popup.js"></script>
-		<script src="assets/js/owl.carousel.min.js"></script>
-		<script src="assets/js/jquery.countup.js"></script>
-		<script src="assets/js/slick-slider.js"></script>
-		<script src="assets/js/circle-progress.js"></script>
-		<script src="assets/js/jquery.nice-select.js"></script>
-		<script src="assets/js/gsap.min.js"></script>
-		<script src="assets/js/ScrollTrigger.min.js"></script>
-		<script src="assets/js/swiper-bundle.js"></script>
-		<script src="assets/js/Splitetext.js"></script>
-		<script src="assets/js/text-animation.js"></script>
-		<script src="assets/js/aos.js"></script>
-		<script src="assets/js/SmoothScroll.js"></script>
-		<script src="assets/js/jaquery-ripples.js"></script>
-		<script src="assets/js/jquery.lineProgressbar.js"></script>
-		<script src="assets/js/animation.js"></script>
-		<script src="assets/js/main.js"></script>
+		<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('assets/js/fontawesome.js') }}"></script>
+		<script src="{{ asset('assets/js/mobile-menu.js') }}"></script>
+		<script src="{{ asset('assets/js/jquery.magnific-popup.js') }}"></script>
+		<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+		<script src="{{ asset('assets/js/jquery.countup.js') }}"></script>
+		<script src="{{ asset('assets/js/slick-slider.js') }}"></script>
+		<script src="{{ asset('assets/js/circle-progress.js') }}"></script>
+		<script src="{{ asset('assets/js/jquery.nice-select.js') }}"></script>
+		<script src="{{ asset('assets/js/gsap.min.js') }}"></script>
+		<script src="{{ asset('assets/js/ScrollTrigger.min.js') }}"></script>
+		<script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
+		<script src="{{ asset('assets/js/Splitetext.js') }}"></script>
+		<script src="{{ asset('assets/js/text-animation.js') }}"></script>
+		<script src="{{ asset('assets/js/aos.js') }}"></script>
+		<script src="{{ asset('assets/js/SmoothScroll.js') }}"></script>
+		<script src="{{ asset('assets/js/jaquery-ripples.js') }}"></script>
+		<script src="{{ asset('assets/js/jquery.lineProgressbar.js') }}"></script>
+		<script src="{{ asset('assets/js/animation.js') }}"></script>
+		<script src="{{ asset('assets/js/main.js') }}"></script>
 	</body>
 </html>

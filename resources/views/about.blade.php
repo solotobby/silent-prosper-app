@@ -70,14 +70,7 @@
 				<div class="heading1-w">
 					<h2>Ready to Elevate Your Social Media Game?</h2>
 					<p class="mt-16">Unlock the tools and insights you need to thrive on social media with Vexon. Join our community for expert tips, trending strategies, and resources that empower you to stand out and succeed.</p>
-					<div class="form-area">
-						<form action="#">
-							<input type="email" placeholder="Enter Your Email" />
-							<div class="button">
-								<button class="theme-btn1">Get Started</button>
-							</div>
-						</form>
-					</div>
+					
 				</div>
 			</div>
 
