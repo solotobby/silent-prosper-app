@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="logo">
-                    <a href="index.html"><img src="assets/img/logo/header-logo1.png" alt="vexon" /></a>
+                    <a href="index.html"><img src="{{ asset('assets/img/logo/header-logo1.png')}}" alt="vexon" /></a>
                 </div>
                 <div class="heading1 mt-16">
                     <p>Vexon is your hub for the latest in digital innovation, technology trends, creative insights. Our mission is to empower creators, businesses, valuable resource.</p>
@@ -61,7 +61,7 @@
                     <h3>Contact Us</h3>
                     <div class="footer-contact-box1">
                         <div class="icon">
-                            <img src="assets/img/icons/footer1-icon1.svg" alt="vexon" />
+                            <img src="{{ asset('assets/img/icons/footer1-icon1.svg')}}" alt="vexon" />
                         </div>
                         <div class="text">
                             <a href="#">eclatspad@gmail.com</a>

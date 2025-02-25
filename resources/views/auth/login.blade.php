@@ -132,21 +132,28 @@
 							<p>Please fill your email and password to sign in.</p>
 							<form method="POST" action="{{ route('login') }}">
                                 @csrf
-								<div class="single-input">
-									<label>Email</label>
-									<input type="text" name="email" placeholder="Email address" />
+								<div class="mb-3">
+                                    <label class="form-label" for="dm-post-add-title">Email Address</label>
+                                    <input type="email" name="email" class="form-control" required id="dm-post-add-title" placeholder="Enter your email">
+                                    @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="dm-post-add-title">Password</label>
+                                    <input type="password" name="password" class="form-control" required id="dm-post-add-title" placeholder="Enter password">
+                                    @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+
+								
+                                <input id="remember_me" type="hidden" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember" value="1">
+                				
+
+								<div class="d-grid gap-2">
+									<button class="btn btn-primary theme-btn1" type="submit">Sign In</button>
 								</div>
-								<div class="single-input">
-									<label>Password</label>
-									<input type="password" name="password" placeholder="Enter your password" />
-								</div>
-                                <input id="remember_me" type="hidden" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember" checked>
-                				<div class="button mt-30">
-									<button type="submit" class="theme-btn1">Sign In</button>
-								</div>
+
                                 <div class="text-center">
                                     <p class="text">Don't have an account? <a href="{{ url('register') }}">Sign Up Today.</a></p>
-									{{-- <p class="text"><a href="{{ url('register') }}">Forgot Password.</a></p> --}}
 									@if (Route::has('password.request'))
 										<a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
 											{{ __('Forgot your password?') }}
@@ -155,7 +162,11 @@
                                 </div>
 								<div class="text-center">
 									<p class="or"><span>Or</span></p>
-									<a href="{{  route('auth.google') }}" class="google-btn"><img src="assets/img/icons/google.svg" alt="vexon" /> Sign In With Google</a>
+									<div class="d-grid gap-2">
+										<a href="{{  route('auth.google') }}" class="btn btn-outline-secondary"> <img src="assets/img/icons/google.svg" alt="vexon" />   Sign In With Google</a>
+									</div>
+	
+									{{-- <a href="{{  route('auth.google') }}" class="google-btn"><img src="assets/img/icons/google.svg" alt="vexon" /> </a> --}}
 									{{-- <a href="#" class="google-btn mt-20"><img src="assets/img/icons/facebook.svg" alt="vexon" /> Sign Up With Facebook</a> --}}
 								</div>
 							</form>

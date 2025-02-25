@@ -30,9 +30,8 @@ use App\Livewire\Write;
 use App\Livewire\WriteStory;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [GeneralController::class, 'landingPage']);
+Route::get('details/{slug}', [GeneralController::class, 'details']);
 
 Route::get('about', [GeneralController::class, 'about']);
 Route::get('privacy-policies', [GeneralController::class, 'privacy']);

@@ -43,33 +43,41 @@
 
 				<div class="blog1-posts-area">
 					<div class="row">
-						<div class="col-md-6" data-aos="fade-up" data-aos-offset="50" data-aos-duration="400" data-aos-delay="0">
-							<div class="blog1-single-box">
-								<div class="thumbnail image-anime">
-									<img src="assets/img/blog/blog1-image1.png" alt="vexon" />
-								</div>
-								<div class="heading1">
-									<div class="social-area">
-										<a href="social-media.html" class="social">Social Media</a>
-										<a href="categories.html" class="time"><img src="assets/img/icons/time1.svg" alt="vexon" /> 3 min read</a>
+						@foreach ($stories as $story)
+							<div class="col-md-4" data-aos="fade-up" data-aos-offset="50" data-aos-duration="400" data-aos-delay="0">
+								<div class="blog1-single-box">
+									<div class="thumbnail image-anime">
+										<img src="{{ $story->img }}" alt="vexon" />
 									</div>
-									<h4><a href="blog-single.html">The Art of Building a Strong Personal Brand on Social Media</a></h4>
-									<p class="mt-16">This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with audience.</p>
-									<div class="author-area">
-										<div class="author">
-											<div class="author-tumb">
-												<img src="assets/img/blog/blog1-author1.png" alt="vexon" />
-											</div>
-											<a href="author.html" class="author-text">Kimberly Mastrangelo</a>
+									<div class="heading1">
+										<div class="social-area">
+											<a href="#" class="social">{{ $story->category->name }}</a>
+											<a href="categories.html" class="time"><img src="assets/img/icons/time1.svg" alt="vexon" /> 3 min read</a>
 										</div>
-										<div class="date">
-											<a href="#"><img src="assets/img/icons/date1.svg" alt="vexon" /> Oct 26, 2024 </a>
+										<h4><a href="{{ url('details/'.$story->slug) }}">{{$story->title}}</a></h4>
+										<p class="mt-16">{{$story->description}}</p>
+										<div class="author-area">
+											<div class="author">
+												
+												<div class="author-tumb">
+													@if($story->user->avarta == null)
+													<img src="assets/img/blog/blog1-author1.png" alt="vexon" />
+													@else 
+													<img src="{{$story->user->avarta}}" alt="vexon" />
+													@endif
+												</div>
+												<a href="author.html" class="author-text">{{$story->user->name}}</a>
+											</div>
+											{{-- <div class="date">
+												<a href="#"><img src="assets/img/icons/date1.svg" alt="vexon" /> Oct 26, 2024 </a>
+											</div> --}}
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-
+						@endforeach
+						
+{{-- 
 						<div class="col-md-6" data-aos="fade-up" data-aos-offset="50" data-aos-duration="400" data-aos-delay="100">
 							<div class="blog1-single-box sm:mt-30">
 								<div class="thumbnail image-anime">
@@ -311,7 +319,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> --}}
 					</div>
 
 					<div class="space60"></div>
@@ -342,7 +350,7 @@
 <!--===== BLOG AREA END=======-->
 
 <!--===== BLOG CETEGORYS START=======-->
-<div class="blog1-cetegorys sp">
+{{-- <div class="blog1-cetegorys sp">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6">
@@ -414,7 +422,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> --}}
 
 <!--===== BLOG CETEGORYS END=======-->
 
@@ -427,14 +435,7 @@
 				<div class="heading1-w">
 					<h2>Ready to Elevate Your Social Media Game?</h2>
 					<p class="mt-16">Unlock the tools and insights you need to thrive on social media with Vexon. Join our community for expert tips, trending strategies, and resources that empower you to stand out and succeed.</p>
-					<div class="form-area">
-						<form action="#">
-							<input type="email" placeholder="Enter Your Email" />
-							<div class="button">
-								<button class="theme-btn1">Get Started</button>
-							</div>
-						</form>
-					</div>
+					
 				</div>
 			</div>
 
