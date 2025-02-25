@@ -52,7 +52,7 @@
 									<div class="heading1">
 										<div class="social-area">
 											<a href="#" class="social">{{ $story->category->name }}</a>
-											<a href="categories.html" class="time"><img src="assets/img/icons/time1.svg" alt="vexon" /> 3 min read</a>
+											<a href="" class="time"><img src="{{ asset('assets/img/icons/time1.svg')}}" alt="vexon" /> 3 min read</a>
 										</div>
 										<h4><a href="{{ url('details/'.$story->slug) }}">{{$story->title}}</a></h4>
 										<p class="mt-16">{{$story->description}}</p>
@@ -61,12 +61,13 @@
 												
 												<div class="author-tumb">
 													@if($story->user->avarta == null)
-													<img src="assets/img/blog/blog1-author1.png" alt="vexon" />
+														<img src="{{ asset('assets/img/blog/blog1-author1.png') }}" alt="vexon" />
 													@else 
-													<img src="{{$story->user->avarta}}" alt="vexon" />
+														<img src="{{$story->user->avarta}}" alt="vexon" />
 													@endif
 												</div>
-												<a href="author.html" class="author-text">{{$story->user->name}}</a>
+
+												<a href="#" class="author-text">{{$story->user->name}}</a>
 											</div>
 											{{-- <div class="date">
 												<a href="#"><img src="assets/img/icons/date1.svg" alt="vexon" /> Oct 26, 2024 </a>
@@ -323,7 +324,8 @@
 					</div>
 
 					<div class="space60"></div>
-					<div class="row" data-aos-offset="50" data-aos="fade-up" data-aos-duration="400">
+
+					{{-- <div class="row" data-aos-offset="50" data-aos="fade-up" data-aos-duration="400">
 						<div class="col-12 m-auto">
 							<div class="theme-pagination text-center">
 								<ul>
@@ -340,7 +342,8 @@
 								</ul>
 							</div>
 						</div>
-					</div>
+					</div> --}}
+					
 				</div>
 			</div>
 		</div>
