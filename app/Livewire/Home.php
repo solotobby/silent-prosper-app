@@ -6,6 +6,7 @@ use App\Models\Bookmark;
 use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Story;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -27,10 +28,11 @@ class Home extends Component
     public $commentStoryId; // To track the story being commented on
     public $commentSectionOpen = []; // Tracks which story's comment section is open
     public $perPageComments = 3; // Number of comments to load per story
-
+    public $gender;
 
     protected $listeners = ['storyCreated' => '$refresh']; // Refresh on new story
     protected $story;
+
 
 
     // public function mount(Story $story)
@@ -140,6 +142,13 @@ class Home extends Component
     // }
 
 
+    public function updateGender(){
+        // dd($this->gender);
+        $user = User::where('id', auth()->user()->id)->first();
+        $user->gender = $this->gender;
+        $user->save();
+        return redirect('user/home');
+    }
     public function render()
     {
      

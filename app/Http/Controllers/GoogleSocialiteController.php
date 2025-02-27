@@ -43,7 +43,7 @@ class GoogleSocialiteController extends Controller
                         'google_id'=> $user->id,
                         'name' => $user->name,
                         'avarta' => $user->avatar,
-                        'gender' => 'Female',
+                        'gender' => 'Not-Yet-Decided',
                         'username' => $this->generateUsername($user->name),
                         'password' => Hash::make($psword), //encrypt('123456dummy')
                 ]);

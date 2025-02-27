@@ -12,7 +12,7 @@
     <meta name="robots" content="index, follow, money, post, posts, comments, comment, views, view">
 
     <!-- Open Graph Meta -->
-    <meta property="og:title" content="Eclatspad | Read, Write and Dream">
+    <meta property="og:title" content="Eclatspad | Write, Read and Dream">
     <meta property="og:site_name" content="Eclatspad">
     <meta property="og:description" content="A platform where both writers and readers can connect with each other, explore, create,  and share captivating stories.">
     <meta property="og:type" content="website">

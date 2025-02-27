@@ -97,9 +97,61 @@
 
     </div>
 
+    @if(auth()->user()->gender == 'Not-Yet-Decided')
+    <!-- Vertically Centered Block Modal -->
+    {{-- <div class="modal" id="modal-block-vcenter" tabindex="-1" role="dialog" aria-labelledby="modal-block-vcenter" aria-hidden="true"> --}}
+    <div class="modal fade" id="modal-onboarding" tabindex="-1" data-bs-backdrop="static" 
+        data-bs-keyboard="false"  role="dialog" aria-labelledby="modal-onboarding" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="block block-rounded block-themed block-transparent mb-0">
+              <div class="block-header bg-primary-dark">
+                <h3 class="block-title">Kindly Select your Gender</h3>
+                <div class="block-options">
+                  {{-- <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-fw fa-times"></i>
+                  </button> --}}
+                </div>
+              </div>
+              <div class="block-content">
+                <form  wire:submit.prevent="updateGender" >
+                    <div class="mb-3">
+                        <label class="form-label" for="dm-post-adds">Gender</label>
+                        <br>
+                        <select wire:model="gender" class="form-control" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        {{-- <input type="radio" wire:model="gender" value="Male" id="checkbox1" /> 
+                        <label aria-colspan="checkbox1" for="checkbox1">
+                            Male </label>
+                        
+                        <input type="radio"  wire:model="gender" value="Female" id="checkbox2" /> 
+                        <label aria-colspan="checkbox2" for="checkbox2">Female</label> --}}
+                        
+                    </div>
+                   
+                
+              </div>
+              <div class="block-content block-content-full text-end bg-body">
+                {{-- <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>--}}
+                <button type="submit" class="btn btn-sm btn-primary">Continue</button> 
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END Vertically Centered Block Modal -->
+    @endif
+
+
+
      
 
-
+<!-- Page JS Code -->
+<script src="{{asset('src/assets/js/pages/be_comp_onboarding.min.js')}}"></script>
     <script>
         function showModal() {
             const modal = new bootstrap.Modal(document.getElementById('storyModal'));
