@@ -6,7 +6,7 @@
                     <a href="index.html"><img src="{{ asset('assets/img/logo/header-logo1.png')}}" alt="vexon" /></a>
                 </div>
                 <div class="heading1 mt-16">
-                    <p>Vexon is your hub for the latest in digital innovation, technology trends, creative insights. Our mission is to empower creators, businesses, valuable resource.</p>
+                    <p>Eclatspad is a platform where both writers and readers can connect with each other, explore, create,  and share captivating stories.</p>
                     <div class="footer-social1">
                         <ul>
                             <li>
