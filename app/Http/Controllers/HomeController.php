@@ -109,4 +109,8 @@ class HomeController extends Controller
         setStoryCompleted($slug);
         return back()->with('success', 'Story Updated Successfully');
     }
+
+    public function postChapter(Request $request){
+        return $request;
+    }
 }
