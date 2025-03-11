@@ -19,7 +19,7 @@
     
 
 		<!--=====FAB ICON=======-->
-		<link rel="shortcut icon" href="{{ asset('assets/img/logo/title1.svg')}}" type="image/x-icon" />
+		<link rel="shortcut icon" href="{{ asset('images/fav.svg')}}" type="image/x-icon" />
 
 		<!--=====CSS=======-->
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />

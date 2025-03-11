@@ -46,6 +46,7 @@ Route::controller(GoogleSocialiteController::class)->group(function(){
 });
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::post('post/chapter', [HomeController::class, 'postChapter'])->name('post.chapter');
     Route::get('test', [HomeController::class, 'test'])->name('test');
     Route::get('edit/story/{slug}', [HomeController::class, 'EditStory']);
 

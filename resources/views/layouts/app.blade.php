@@ -21,9 +21,9 @@
 
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicon.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/fav.svg') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/fav.svg') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/fav.svg') }}">
     <!-- END Icons -->
 
    <!-- Trix CDN -->
@@ -607,7 +607,7 @@
               </span>
               <span class="smini-hidden"> 
                 
-                <img src="{{asset('logo.png')}}" alt="" class="logo-light" height="34" />
+                <img src="{{asset('images/eclatspad_logo.png')}}" alt="" class="logo-light" height="58" />
                 {{-- Pay<span class="opacity-75">Hankey</span> --}}
               </span>
             </a>

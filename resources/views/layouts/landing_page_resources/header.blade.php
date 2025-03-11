@@ -8,7 +8,7 @@
 							<div class="header-elements">
 								<div class="site-logo">
 									<a href="{{url('/')}}">
-										<img src="{{ asset('assets/img/logo/header-logo1.png')}}" alt="vexon" />
+										<img src="{{ asset('images/eclatspad_logo.png')}}" alt="eclatspad" />
 									</a>
 								</div>
 
@@ -70,7 +70,7 @@
 				<div class="col-12">
 					<div class="mobile-header-elements">
 						<div class="mobile-logo">
-							<a href="{{url('/')}}"><img src="{{ asset('assets/img/logo/header-logo1.png')}}" alt="vexon" /></a>
+							<a href="{{url('/')}}"><img src="{{ asset('images/eclatspad_logo.png')}}" alt="eclatspad" /></a>
 						</div>
 						<div class="mobile-nav-icon">
 							<i class="fa-duotone fa-bars-staggered"></i>
@@ -82,7 +82,7 @@
 
 		<div class="mobile-sidebar d-block d-lg-none">
 			<div class="logo-m">
-				<a href="{{url('/')}}"><img src="{{ asset('assets/img/logo/header-logo1.png')}}" alt="vexon" /></a>
+				<a href="{{url('/')}}"><img src="{{ asset('images/eclatspad_logo.png')}}" alt="eclatspad" /></a>
 			</div>
 			<div class="menu-close">
 				<i class="fa-solid fa-xmark"></i>
