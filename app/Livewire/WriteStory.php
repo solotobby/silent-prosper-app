@@ -67,12 +67,17 @@ class WriteStory extends Component
         $slug = Str::slug($this->title).'-'.$rand;
 
         
+        $dfrf = Storage::disk('s3')->put($this->img, 'public');
+        $s3Url = Storage::disk('s3')->url($dfrf);
+        dd($s3Url);
          if ($this->img instanceof TemporaryUploadedFile) {
             $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
             $s3Url = Storage::disk('s3')->url($path);
             // Then assign it back to the property.
             $this->img = $s3Url;
         }
+
+        dd($this->img);
 
         $data = [
             'user_id' => Auth::user()->id, 

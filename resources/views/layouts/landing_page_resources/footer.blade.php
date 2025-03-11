@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="logo">
-                    <a href="index.html"><img src="{{ asset('assets/img/logo/header-logo1.png')}}" alt="vexon" /></a>
+                    <a href="index.html"><img src="{{ asset('images/eclatspad_logo.png')}}" alt="eclatspad" /></a>
                 </div>
                 <div class="heading1 mt-16">
                     <p>Eclatspad is a platform where both writers and readers can connect with each other, explore, create,  and share captivating stories.</p>

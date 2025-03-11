@@ -56,7 +56,7 @@
 		<title>Eclatspad | Write, Read and Dream</title>
 
 		<!--=====FAB ICON=======-->
-		<link rel="shortcut icon" href="assets/img/logo/title1.svg" type="image/x-icon" />
+		<link rel="shortcut icon" href="{{ asset('images/fav.svg') }}" type="image/x-icon" />
 
 		<!--=====CSS=======-->
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
@@ -126,7 +126,13 @@
 			<div class="container">
 				
 				<div class="row">
+					
 					<div class="col-lg-5 m-auto">
+						<center>
+						<a href="{{url('/')}}">
+							<img src="{{ asset('images/eclatspad_logo.png')}}" alt="eclatspad" height="68" />
+						</a>
+						</center>
 						<div class="login-form">
 							<h3>Welcome Back</h3>
 							<p>Please fill your email and password to sign in.</p>
