@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Story;
+use App\Models\SubCategory;
 use App\Models\SubscriptionIntent;
 use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
@@ -110,7 +111,13 @@ class HomeController extends Controller
         return back()->with('success', 'Story Updated Successfully');
     }
 
-    public function postChapter(Request $request){
-        return $request;
+    public function getSubcategories($id)
+    {
+        
+        // Retrieve subcategories for the given category id
+        $subcategories = SubCategory::where('category_id', $id)->get();
+        
+        // Return the subcategories as JSON
+        return response()->json($subcategories);
     }
 }
