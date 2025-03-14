@@ -15,8 +15,8 @@
                         {{ session('fail') }}
                     </div>
                 @endif
-
-            <form action="" method="POST" wire:submit.prevent="saveCategory" class="mb-4">
+{{-- 
+            <form wire:submit.prevent="postCategory" class="mb-4">
             
                 
                 <div class="mb-4">
@@ -30,7 +30,7 @@
                     <i class="fa fa-check opacity-50 me-1"></i> Save Category Name
                 </button>
          
-            </form>
+            </form> --}}
 
             <form wire:submit.prevent="saveSubCategory">
             
@@ -39,11 +39,11 @@
                         <label for="accountNumber">Select Category</label>
                         <select class="form-control" wire:model="category_id" required> 
                             <option value="">Selecte One</option>
-                            @if (!empty($subcategories))
+                           
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{$category->name}}</option>
                                 @endforeach
-                            @endif
+                           
                         </select>
                         {{-- <input type="text" required class="form-control" id="accountNumber" wire:model="name" placeholder="Enter Category Name"> --}}
                     </div>

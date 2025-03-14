@@ -16,12 +16,16 @@ class Category extends Component
 
   
 
-    // public function mount()
-    // {
-    //     $this->categories = ModelsCategory::orderBy('created_at', 'DESC')->get();
-    // }
+    public function mount()
+    {
+        $this->categories = ModelsCategory::orderBy('created_at', 'DESC')->get();
 
-    public function saveCategory(){
+        
+    }
+
+    public function postCategory(){
+
+        
         $this->validate([
             'name' => 'required|string|unique:categories'
         ], [
@@ -59,7 +63,7 @@ class Category extends Component
 
     public function render()
     {
-        $this->categories = ModelsCategory::orderBy('created_at', 'DESC')->get();
-        return view('livewire.admin.category', ['categories' => $this->categories]);
+        // $this->categories = ModelsCategory::orderBy('created_at', 'DESC')->get();
+        return view('livewire.admin.category');
     }
 }
