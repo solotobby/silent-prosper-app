@@ -54,7 +54,7 @@
 									</div>
 									<div class="heading1">
 										<div class="social-area">
-											<a href="#" class="social">{{ $story->category->name }}</a>
+											<a href="#" class="social">{{ @$story->category->name }}</a>
 											<a href="" class="time"><img src="{{ asset('assets/img/icons/time1.svg')}}" alt="vexon" /> 3 min read</a>
 										</div>
 										<h4><a href="{{ url('details/'.$story->slug) }}">{{$story->title}}</a></h4>

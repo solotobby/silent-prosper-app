@@ -49,6 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('post/chapter', [HomeController::class, 'postChapter'])->name('post.chapter');
     Route::get('test', [HomeController::class, 'test'])->name('test');
     Route::get('edit/story/{slug}', [HomeController::class, 'EditStory']);
+    Route::get('/get-subcategories/{id}', [HomeController::class, 'getSubcategories']);
 
     Route::get('subscribe/{plan}', [HomeController::class, 'subscribe']);
     Route::get('validate/subscription/plan', [HomeController::class, 'subscribePlan']);

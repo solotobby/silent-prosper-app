@@ -61,6 +61,13 @@
 				
 				<div class="row">
 					<div class="col-lg-5 m-auto">
+						
+						<center>
+							<a href="{{url('/')}}">
+								<img src="{{ asset('images/eclatspad_logo.png')}}" alt="eclatspad" height="68" />
+							</a>
+						</center>
+
 						<div class="login-form">
 							<h3>Forgot Password</h3>
 							

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Story extends Model
 {
-    protected $fillable = ['user_id','category_id', '_id', 'title', 'content', 'likes_count', 'comments_count', 'views_count',
+    protected $fillable = ['user_id','category_id', 'sub_category_id', '_id', 'title', 'content', 'likes_count', 'comments_count', 'views_count',
          'is_completed', 'copyright', 'is_book', 'img', 'description', 'slug', 'is_published', 'is_under_review', 'is_xrated', 'audience'];
 
     public function user() {

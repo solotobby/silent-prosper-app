@@ -16,7 +16,7 @@
                     </div>
                 @endif
 
-            <form action="" method="POST" wire:submit.prevent="saveCategory">
+            <form action="" method="POST" wire:submit.prevent="saveCategory" class="mb-4">
             
                 
                 <div class="mb-4">
@@ -26,8 +26,39 @@
                     </div>
                     <div style="color: brown">@error('name') {{ $message }} @enderror</div>
                 </div>
-                <button type="submit" class="btn btn-sm btn-alt-primary mt-3">
-                    <i class="fa fa-check opacity-50 me-1"></i> Submit
+                <button type="submit" class="btn btn-sm btn-alt-primary">
+                    <i class="fa fa-check opacity-50 me-1"></i> Save Category Name
+                </button>
+         
+            </form>
+
+            <form wire:submit.prevent="saveSubCategory">
+            
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="accountNumber">Select Category</label>
+                        <select class="form-control" wire:model="category_id" required> 
+                            <option value="">Selecte One</option>
+                            @if (!empty($subcategories))
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$category->name}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        {{-- <input type="text" required class="form-control" id="accountNumber" wire:model="name" placeholder="Enter Category Name"> --}}
+                    </div>
+                    <div style="color: brown">@error('name') {{ $message }} @enderror</div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="accountNumber">SubCategory Name</label>
+                        <input type="text" required class="form-control" wire:model="subCategory_name" placeholder="Enter Category Name">
+                    </div>
+                    <div style="color: brown">@error('name') {{ $message }} @enderror</div>
+                </div>
+                <button type="submit" class="btn btn-sm btn-alt-primary">
+                    <i class="fa fa-check opacity-50 me-1"></i> Save Sub Category Name
                 </button>
          
             </form>
@@ -37,6 +68,7 @@
                 <thead class="thead-dark table-responsive">
                 <tr>
                     <th scope="col">Name</th>
+                    <th scope="col">SubCategory Count</th>
                     <th scope="col">Status</th>
                     
                 </tr>
@@ -45,6 +77,7 @@
                     @foreach ($categories as $story)
                     <tr>
                         <td>{{$story->name}}</td>
+                        <td>{{$story->subCategory()->count()}}</td>
                         <td>{{$story->is_active == 1 ? 'Active' : 'Not Active'}}</td>
                     </tr>
                     @endforeach

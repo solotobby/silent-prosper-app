@@ -54,9 +54,18 @@
                             <option value="{{ $cate->id }}">{{ $cate->name }}</option>
                         @endforeach
                     </select>
+
                     @error('category') <span class="text-danger">{{ $message }}</span> @enderror
                   </div>
 
+                  <div class="mb-4">
+                      <label for="subcategory" class="mt-2">Subcategory:</label>
+                      <select wire:model="sub_category_id" id="subcategory" class="form-control">
+                          <option value="">-- Select Subcategory --</option>
+                          
+                      </select>
+                  </div>
+         
                   <div class="mb-4">
                     <label class="form-label" for="dm-post-add-title">Rating</label>
                     <div class="form-check form-switch">
@@ -104,7 +113,7 @@
 
          <!-- Page JS Plugins -->
     <script src="{{ asset('src/assets/js/plugins/ckeditor/ckeditor.js')}}"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Page JS Helpers (CKEditor plugin) -->
     <script>
             Dashmix.onLoad(function () {
@@ -112,5 +121,41 @@
               Dashmix.helpers(['js-ckeditor']);
             });
     </script>
+
+<script>
+  $(document).ready(function(){
+      $('#category').on('change', function(){
+          var categoryId = $(this).val();
+          
+          if(categoryId) {
+              $.ajax({
+                  url: '/get-subcategories/' + categoryId,
+                  type: 'GET',
+                  dataType: 'json',
+                  success: function(data) {
+                      // Clear current options
+                      $('#subcategory').empty();
+                      $('#subcategory').append('<option value="">Select Subcategory</option>');
+                      
+                      // Populate subcategory select with the new data
+                      $.each(data, function(index, subcategory){
+                          $('#subcategory').append('<option value="'+ subcategory.id +'">'+ subcategory.name +'</option>');
+                      });
+                  },
+                  error: function(xhr, status, error) {
+                      console.error("AJAX Error: ", status, error);
+                  }
+              });
+          } else {
+              // If no category is selected, clear the subcategory dropdown
+              $('#subcategory').empty();
+              $('#subcategory').append('<option value="">Select Subcategory</option>');
+          }
+      });
+  });
+  </script>
+  
+
+
 
 </div>

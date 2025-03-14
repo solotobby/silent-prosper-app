@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Category;
 use App\Models\Story;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -22,12 +23,18 @@ class WriteStory extends Component
     public $title = '';
     public $img = '';
     public $category = '';
+    public $sub_category_id;
     public $is_book = '';
     public $is_xrated = false;
     public $audience = '';
     public $slug;
     public $story;
     public $categories;
+
+    public $subcategories = [];
+    // public $selectedCategory = null;
+    public $selectedSubcategory = null;
+
 
     public function mount($slug=null){
         $this->slug = $slug;
@@ -45,12 +52,16 @@ class WriteStory extends Component
         $this->categories = Category::all();
     }
 
+    
+
+
     public function saveStory(){
         $this->validate([
             'description' => 'required|string',
             'title' => 'required|string',
             'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'category' => 'required',
+            'subcategory_id' => 'required',
         
         ], [
             'description.required' => 'The Excerpt field is required.',
@@ -60,29 +71,27 @@ class WriteStory extends Component
             'img.image' => 'The uploaded file must be an image.',
             'img.max' => 'The image size must not exceed 1MB.',
             'category.required' => 'The Category field is required.',
+            'subcategory_id.required' => 'The Sub Category field is required.',
             
         ]);
 
         $rand = rand(999,99999);
         $slug = Str::slug($this->title).'-'.$rand;
 
-        
-        $dfrf = Storage::disk('s3')->put($this->img, 'public');
-        $s3Url = Storage::disk('s3')->url($dfrf);
-        dd($s3Url);
-         if ($this->img instanceof TemporaryUploadedFile) {
+        if ($this->img instanceof TemporaryUploadedFile) {
             $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
             $s3Url = Storage::disk('s3')->url($path);
             // Then assign it back to the property.
             $this->img = $s3Url;
         }
 
-        dd($this->img);
+       
 
         $data = [
             'user_id' => Auth::user()->id, 
             '_id' => $rand,
             'category_id' => $this->category, 
+            'sub_category_id' => $this->sub_category_id, 
             'title' => $this->title, 
             'description' => $this->description, 
             'slug' => $slug,
