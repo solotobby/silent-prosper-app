@@ -310,6 +310,11 @@
                                     <input type="password" name="password_confirmation" required class="form-control" id="dm-post-add-title" placeholder="Enter password">
                                     {{-- @error('email') <span class="text-danger">{{ $message }}</span> @enderror --}}
                                 </div>
+								<div class="mb-3">
+                                    {{-- <label class="form-label" for="dm-post-add-title">Confirm Password</label> --}}
+                                    <input type="checkbox" name="confirm" required id="dm-post-add-title"> Yes, i have read and agree to Eclatspad <a href=" {{ url('terms-conditions') }} ">Terms & Conditions</a> and <a href="{{ url('privacy-policies') }}">Privacy Policy</a>
+                                    {{-- @error('email') <span class="text-danger">{{ $message }}</span> @enderror --}}
+                                </div>
 
                                 <div class="button mt-30">
 									<button class="btn btn-primary theme-btn1" type="submit">Sign Up</button>

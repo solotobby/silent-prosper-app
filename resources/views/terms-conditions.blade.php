@@ -103,7 +103,7 @@
 
 <!--===== CTA AREA START=======-->
 
-<div class="cta1">
+{{-- <div class="cta1">
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-lg-6">
@@ -128,7 +128,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> --}}
 
 <!--===== CTA AREA END=======-->
 
