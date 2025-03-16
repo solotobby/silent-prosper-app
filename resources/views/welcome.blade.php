@@ -38,48 +38,48 @@
 			<div class="col-lg-12">
 				<div class="sidebar-widget_1 _search-area1 mb-3">
 					<h3>Search</h3>
-					<form action="#">
-						<input type="text" placeholder="Search..." />
+					<form action="{{ url('search') }}" action="GET">
+						<input type="text" name="query" placeholder="Search..." required />
 					</form>
 				</div>
 
 				<div class="blog1-posts-area">
 					<div class="row">
 						@if($stories->count() > 0)
-						@foreach ($stories as $story)
-							<div class="col-md-4" data-aos="fade-up" data-aos-offset="50" data-aos-duration="400" data-aos-delay="0">
-								<div class="blog1-single-box">
-									<div class="thumbnail image-anime">
-										<img src="{{ $story->img }}" alt="vexon" />
-									</div>
-									<div class="heading1">
-										<div class="social-area">
-											<a href="#" class="social">{{ @$story->category->name }}</a>
-											<a href="" class="time"><img src="{{ asset('assets/img/icons/time1.svg')}}" alt="vexon" /> 3 min read</a>
+							@foreach ($stories as $story)
+								<div class="col-md-4" data-aos="fade-up" data-aos-offset="50" data-aos-duration="400" data-aos-delay="0">
+									<div class="blog1-single-box">
+										<div class="thumbnail image-anime">
+											<img src="{{ $story->img }}" alt="vexon" />
 										</div>
-										<h4><a href="{{ url('details/'.$story->slug) }}">{{$story->title}}</a></h4>
-										<p class="mt-16">{{$story->description}}</p>
-										<div class="author-area">
-											<div class="author">
-												
-												<div class="author-tumb">
-													@if($story->user->avarta == null)
-														<img src="{{ asset('assets/img/blog/blog1-author1.png') }}" alt="vexon" />
-													@else 
-														<img src="{{$story->user->avarta}}" alt="vexon" />
-													@endif
-												</div>
-
-												<a href="#" class="author-text">{{$story->user->name}}</a>
+										<div class="heading1">
+											<div class="social-area">
+												<a href="#" class="social">{{ @$story->category->name }}</a>
+												<a href="" class="time"><img src="{{ asset('assets/img/icons/time1.svg')}}" alt="vexon" /> 3 min read</a>
 											</div>
-											{{-- <div class="date">
-												<a href="#"><img src="assets/img/icons/date1.svg" alt="vexon" /> Oct 26, 2024 </a>
-											</div> --}}
+											<h4><a href="{{ url('details/'.$story->slug) }}">{{$story->title}}</a></h4>
+											<p class="mt-16">{{$story->description}}</p>
+											<div class="author-area">
+												<div class="author">
+													
+													<div class="author-tumb">
+														@if($story->user->avarta == null)
+															<img src="{{ asset('assets/img/blog/blog1-author1.png') }}" alt="vexon" />
+														@else 
+															<img src="{{$story->user->avarta}}" alt="vexon" />
+														@endif
+													</div>
+
+													<a href="#" class="author-text">{{$story->user->name}}</a>
+												</div>
+												{{-- <div class="date">
+													<a href="#"><img src="assets/img/icons/date1.svg" alt="vexon" /> Oct 26, 2024 </a>
+												</div> --}}
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						@endforeach
+							@endforeach
 						@else
 							<div class="alert alert-info">
 								There are no stories at the moment.

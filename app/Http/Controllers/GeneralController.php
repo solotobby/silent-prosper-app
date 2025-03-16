@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class GeneralController extends Controller
 {
     public function landingPage(){
-        $stories = Story::all();
+        $stories = Story::where('is_published', true)->get();
         return view('welcome', ['stories' => $stories]);
     }
 
@@ -20,17 +20,31 @@ class GeneralController extends Controller
 
     public function search(Request $request){
 
-        $result = Story::where([
-            [function ($query) use ($request) {
-                if (($search = $request->q)) {
-                    $query->orWhere('title', 'LIKE', '%' . $search . '%')
-                        // ->orWhere('email', 'LIKE', '%' . $search . '%')
-                        // ->orWhere('phone', 'LIKE', '%' . $search . '%')
-                        // ->orWhere('referral_code', 'LIKE', '%' . $search . '%')
-                        ->get();
-                }
-            }]
-        ])->get();
+  
+
+        $search = $request->input('query');
+
+        $query = Story::where('is_published', true);
+
+        if (!empty($search)) {
+            $query->where('title', 'LIKE', "%{$search}%");
+        }
+
+        $result = $query->limit(50)->get(); // Adding limit for performance
+
+
+        // $result = Story::where('is_published', true)->where([
+        //     [function ($query) use ($request) {
+        //         if (($search = $request->query)) {
+                   
+        //             $query->orWhere('title', 'LIKE', '%' . $search . '%')
+        //                 // ->orWhere('email', 'LIKE', '%' . $search . '%')
+        //                 // ->orWhere('phone', 'LIKE', '%' . $search . '%')
+        //                 // ->orWhere('referral_code', 'LIKE', '%' . $search . '%')
+        //                 ->get();
+        //         }
+        //     }]
+        // ])->get();
 
         return view('search_result', ['result' => $result]);
 

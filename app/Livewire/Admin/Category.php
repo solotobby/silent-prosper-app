@@ -24,7 +24,6 @@ class Category extends Component
     }
 
     public function postCategory(){
-
         
         $this->validate([
             'name' => 'required|string|unique:categories'

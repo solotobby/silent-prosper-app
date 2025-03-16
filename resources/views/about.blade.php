@@ -63,12 +63,12 @@
 
 <!--===== CTA AREA START=======-->
 
-<div class="cta1">
+{{-- <div class="cta1">
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-lg-6">
 				<div class="heading1-w">
-					<h2>Ready to Elevate Your Social Media Game?</h2>
+					<h2>Start Reading Now</h2>
 					<p class="mt-16">Unlock the tools and insights you need to thrive on social media with Vexon. Join our community for expert tips, trending strategies, and resources that empower you to stand out and succeed.</p>
 					
 				</div>
@@ -81,7 +81,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> --}}
 
 <!--===== CTA AREA END=======-->
 
