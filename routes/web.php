@@ -58,6 +58,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('webhook/handle', [WebhookController::class, 'handle']);
 
     Route::get('update/story/completed/{slug}', [HomeController::class, 'updateStoryCompleted']);
+
+    Route::get('/send-email', [HomeController::class, 'sendEmail']);
    
     Route::get('user/home', Home::class);
     Route::get('show/{slug}', StoryDetails::class);

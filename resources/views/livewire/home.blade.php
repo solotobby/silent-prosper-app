@@ -42,7 +42,7 @@
                         <div class="mb-5 mb-sm-7 d-sm-flex justify-content-sm-between align-items-sm-center">
                         <p>
                             <span class="badge bg-primary fw-bold p-2 text-uppercase">
-                            {{$story->category->name}}
+                            {{$story->category?->name}}
                             </span>
                         </p>
                         <p class="fs-sm">
