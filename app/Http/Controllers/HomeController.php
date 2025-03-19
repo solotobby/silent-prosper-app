@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TestEmail;
 use App\Models\Story;
 use App\Models\SubCategory;
 use App\Models\SubscriptionIntent;
@@ -9,6 +10,7 @@ use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -119,5 +121,13 @@ class HomeController extends Controller
         
         // Return the subcategories as JSON
         return response()->json($subcategories);
+    }
+
+    public function sendEmail()
+    {
+        
+        Mail::to('solotobby@gmail.com')->send(new TestEmail());
+
+        return "Email sent successfully!";
     }
 }
