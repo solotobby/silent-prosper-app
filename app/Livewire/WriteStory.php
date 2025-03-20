@@ -92,7 +92,7 @@ class WriteStory extends Component
             '_id' => $rand,
             'category_id' => $this->category, 
             'sub_category_id' => $this->sub_category_id, 
-            'title' => $this->title, 
+            'title' => $this->title,
             'description' => $this->description, 
             'slug' => $slug,
             'img' => $this->img,

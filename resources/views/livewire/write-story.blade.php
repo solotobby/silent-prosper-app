@@ -60,7 +60,7 @@
 
                   <div class="mb-4">
                       <label for="subcategory" class="mt-2">Subcategory:</label>
-                      <select wire:model="sub_category_id" id="subcategory" class="form-control">
+                      <select wire:model="sub_category_id" id="subcategory" required class="form-control">
                           <option value="">-- Select Subcategory --</option>
                           
                       </select>
@@ -74,26 +74,32 @@
                     </div>
                   </div>
 
+                  
+                  
+
+
                   <div class="row mb-4">
                     <div class="col-xl-6">
                       <label class="form-label" for="dm-post-add-image">Featured Image</label>
                       <input class="form-control" type="file" wire:model="img" id="dm-post-add-image">
                       @error('img') <span class="text-danger">{{ $message }}</span> @enderror
 
-                       @if ($img)
+                        @if ($img)
                         <div class="mt-2">
                           @if (is_object($img) && method_exists($img, 'temporaryUrl'))
-                            <!-- New file uploaded: display the temporary preview -->
+                           
                             <img src="{{ $img->temporaryUrl() }}" alt="Image Preview" class="img-fluid">
                           @else
-                            <!-- Existing image: display the stored image (adjust the path as needed) -->
+                          
                             <img src="{{  $img }}" alt="Current Image" class="img-responsive img-thumbnail" sizes="50">
                           @endif
                         </div>
-                      @endif 
+                      @endif  
 
                     </div>
                   </div>
+
+
                
                 </div>
               </div>
@@ -155,7 +161,4 @@
   });
   </script>
   
-
-
-
 </div>
