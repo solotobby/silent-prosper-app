@@ -6,8 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "aws/aws-sdk-php": "^3.342",
-        "aws/aws-sdk-php-laravel": "^3.10",
         "laravel/framework": "^11.9",
         "laravel/socialite": "^5.17",
         "laravel/tinker": "^2.9",

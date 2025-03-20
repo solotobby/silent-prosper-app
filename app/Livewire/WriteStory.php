@@ -61,7 +61,7 @@ class WriteStory extends Component
             'title' => 'required|string',
             'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'category' => 'required',
-            'subcategory_id' => 'required',
+            'sub_category_id' => 'required',
         
         ], [
             'description.required' => 'The Excerpt field is required.',
@@ -71,7 +71,7 @@ class WriteStory extends Component
             'img.image' => 'The uploaded file must be an image.',
             'img.max' => 'The image size must not exceed 1MB.',
             'category.required' => 'The Category field is required.',
-            'subcategory_id.required' => 'The Sub Category field is required.',
+            'sub_category_id.required' => 'The Sub Category field is required.',
             
         ]);
 

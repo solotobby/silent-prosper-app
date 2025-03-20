@@ -20,12 +20,6 @@ class GoogleSocialiteController extends Controller
 {
     public function redirectToGoogle()
     {
-        // $user = User::where('id', 1)->first();
-        // Mail::send('emails.test', ['user' => $user], function ($m) use ($user) {
-        //         $m->to('eclatspad@gmail.com', $user->name)->subject('AWS SES Test!');
-        // });
-
-        //     return 'ok';
         return Socialite::driver('google')->redirect();
     }
 
