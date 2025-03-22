@@ -11,7 +11,11 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Spatie\Image\Image;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Image\Drivers\Gd;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Illuminate\Support\Facades\File;
+
+
 
 class WriteStory extends Component
 {
@@ -21,7 +25,7 @@ class WriteStory extends Component
     public $content = '';
     public $description = '';
     public $title = '';
-    public $img = '';
+    public $img;
     public $category = '';
     public $sub_category_id;
     public $is_book = '';
@@ -46,6 +50,7 @@ class WriteStory extends Component
             $this->is_book = $this->story->is_book;
             $this->is_xrated = (bool)$this->story->is_xrated;
             $this->img = $this->story->img;
+            $this->sub_category_id = $this->sub_category_id;
 
         }
 
@@ -56,6 +61,7 @@ class WriteStory extends Component
 
 
     public function saveStory(){
+
         $this->validate([
             'description' => 'required|string',
             'title' => 'required|string',
@@ -75,18 +81,22 @@ class WriteStory extends Component
             
         ]);
 
+
+
         $rand = rand(999,99999);
         $slug = Str::slug($this->title).'-'.$rand;
 
-        if ($this->img instanceof TemporaryUploadedFile) {
-            $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
-            $s3Url = Storage::disk('s3')->url($path);
-            // Then assign it back to the property.
-            $this->img = $s3Url;
-        }
+        // if ($this->img instanceof TemporaryUploadedFile) {
+        //     $path = Storage::disk('s3')->put($this->img, 'public');
+        //     $s3Url = Storage::disk('s3')->url($path);
+        //     // Then assign it back to the property.
+        //     $this->img = $s3Url;
+        // }
 
+
+
+        $imgUrl = $this->img->store('story_img', 'public');
        
-
         $data = [
             'user_id' => Auth::user()->id, 
             '_id' => $rand,
@@ -95,7 +105,7 @@ class WriteStory extends Component
             'title' => $this->title,
             'description' => $this->description, 
             'slug' => $slug,
-            'img' => $this->img,
+            'img' =>$imgUrl,//$this->img,
             'is_book' => $this->is_book == 1 ? true : false,
             'is_xrated' => $this->is_xrated == 1 ? true : false,
             'audience' => 'All',
@@ -133,24 +143,20 @@ class WriteStory extends Component
             
         ]);
 
-
-       
-           
-
             $rand = rand(999,99999);
             $slug = Str::slug($this->title).'-'.$rand;
             
             // If a new file is uploaded, upload to S3
 
-        // if ($this->img instanceof \Livewire\TemporaryUploadedFile) {
-        //     $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
-        //     // Replace $this->img with the full S3 URL.
-        //     $this->img = Storage::disk('s3')->url($path);
-        // }
-
+        if ($this->img instanceof \Livewire\TemporaryUploadedFile) {
             $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
+            // Replace $this->img with the full S3 URL.
+            $this->img = Storage::disk('s3')->url($path);
+        }
 
-            $path = Storage::disk('s3')->url($path);
+            // $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
+
+            // $path = Storage::disk('s3')->url($path);
 
             $data = [
                 'user_id' => Auth::user()->id, 
@@ -159,7 +165,7 @@ class WriteStory extends Component
                 'title' => $this->title, 
                 'description' => $this->description, 
                 'slug' => $slug,
-                'img' => $path,
+                'img' => $this->img,
                 'is_book' => $this->is_book == 1 ? true : false,
                 'is_xrated' => $this->is_xrated == 1 ? true : false,
                 'audience' => 'All',
