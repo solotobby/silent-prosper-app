@@ -6,8 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "aws/aws-sdk-php": "^3.342",
-        "aws/aws-sdk-php-laravel": "^3.10",
+        "intervention/image": "^3.11",
         "laravel/framework": "^11.9",
         "laravel/socialite": "^5.17",
         "laravel/tinker": "^2.9",
@@ -15,7 +14,7 @@
         "livewire/livewire": "^3.5",
         "paypal/rest-api-sdk-php": "^1.6",
         "spatie/image": "^3.8",
-        "srmklive/paypal": "~3.0"
+        "srmklive/paypal": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
