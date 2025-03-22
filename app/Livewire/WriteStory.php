@@ -65,7 +65,7 @@ class WriteStory extends Component
         $this->validate([
             'description' => 'required|string',
             'title' => 'required|string',
-            'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            'img' => 'mimes:jpeg,png,jpg,gif,svg|max:1024', //image|
             'category' => 'required',
             'sub_category_id' => 'required',
         
@@ -74,7 +74,7 @@ class WriteStory extends Component
             'description.string' => 'The Excerpt must be a valid string.',
             'title.required' => 'The title field is required.',
             'title.string' => 'The title must be a valid string.',
-            'img.image' => 'The uploaded file must be an image.',
+            // 'img.image' => 'The uploaded file must be an image.',
             'img.max' => 'The image size must not exceed 1MB.',
             'category.required' => 'The Category field is required.',
             'sub_category_id.required' => 'The Sub Category field is required.',
