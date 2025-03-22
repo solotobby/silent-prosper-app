@@ -47,7 +47,7 @@
                           </div>
                         @endif 
 
-                        @if ($img)
+                        {{-- @if ($img)
                           <div class="mt-2">
                             @if (is_object($img) && method_exists($img, 'temporaryUrl'))
                              
@@ -57,7 +57,7 @@
                               <img src=" {{ Storage::url($img) }}" alt="Current Image" class="img-responsive img-thumbnail" sizes="50">
                             @endif
                           </div>
-                        @endif  
+                        @endif   --}}
 
   
                       </div>
