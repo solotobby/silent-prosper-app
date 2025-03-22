@@ -11,7 +11,7 @@
               <div class="row g-0">
                 <div class="col-md-4 col-lg-5 overflow-hidden d-flex align-items-center">
                   <a href="{{url('show/'.$story->slug)}}">
-                    <img class="img-fluid img-link" src="{{ $story->img }} " alt="">
+                    <img class="img-fluid img-link" src=" {{ Storage::url($story->img) }} " alt="" sizes="50">
                     {{-- <img class="img-fluid img-link" src="{{ asset('src/assets/media/photos/photo19.jpg') }} " alt=""> --}}
                   </a>
                 </div>
@@ -21,13 +21,14 @@
                       <a class="text-dark" href="{{url('show/'.$story->slug)}}">{{ $story->title }} </a>
                     </h4>
                     <div class="fs-sm mb-2">
-                      <a href="{{ url('profile/'.$story->user->username)}}">{{  $story->user->id == auth()->user()->id ? 'Me' : $story->user->name}}</a> on {{ $story->created_at->format('M d, Y') }} · <em class="text-muted">13 min</em>
+                      <a href="{{ url('profile/'.$story->user->username)}}">{{  $story->user->id == auth()->user()->id ? 'Me' : $story->user->name}}</a> on {{ $story->created_at->format('M d, Y') }} 
+                      {{-- · <em class="text-muted">13 min</em> --}}
                     </div>
                     <p class="mb-0">
                         {!! \Illuminate\Support\Str::words($story->description, 35) !!}
                     
                       
-                      <a href="{{url('show/'.$story->slug)}}">Read on</a>
+                      <a href="{{url('show/'.$story->slug)}}">Continue Reading</a>
                     </p>
 
                     <div class="block-contenlt block-content-fullk mt-2">

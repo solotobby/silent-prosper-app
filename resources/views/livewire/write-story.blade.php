@@ -20,6 +20,33 @@
                         </div>
                     @endif
 
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    <div class="row mb-4">
+                      <div class="col-xl-6">
+                        <label class="form-label" for="dm-post-add-image">Featured Image</label>
+                        <input class="form-control" type="file" wire:model="img" id="dm-post-add-image">
+                        @error('img') <span class="text-danger">{{ $message }}</span> @enderror
+  
+                        @if ($img)
+                          <div class="mt-2">
+                            @if (is_object($img) && method_exists($img, 'temporaryUrl'))
+                             
+                              <img src="{{ $img->temporaryUrl() }}" alt="Image Preview" class="img-fluid">
+                            @else
+                            
+                              <img src=" {{ Storage::url($img) }}" alt="Current Image" class="img-responsive img-thumbnail" sizes="50">
+                            @endif
+                          </div>
+                        @endif  
+  
+                      </div>
+                    </div>
+
                   <div class="mb-4">
                     <label class="form-label" for="dm-post-add-title">Title</label>
                     <input type="text" class="form-control" id="dm-post-add-title" wire:model="title" placeholder="Enter a title..">
@@ -78,26 +105,7 @@
                   
 
 
-                  <div class="row mb-4">
-                    <div class="col-xl-6">
-                      <label class="form-label" for="dm-post-add-image">Featured Image</label>
-                      <input class="form-control" type="file" wire:model="img" id="dm-post-add-image">
-                      @error('img') <span class="text-danger">{{ $message }}</span> @enderror
-
-                        @if ($img)
-                        <div class="mt-2">
-                          @if (is_object($img) && method_exists($img, 'temporaryUrl'))
-                           
-                            <img src="{{ $img->temporaryUrl() }}" alt="Image Preview" class="img-fluid">
-                          @else
-                          
-                            <img src="{{  $img }}" alt="Current Image" class="img-responsive img-thumbnail" sizes="50">
-                          @endif
-                        </div>
-                      @endif  
-
-                    </div>
-                  </div>
+                  
 
 
                
