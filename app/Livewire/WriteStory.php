@@ -95,8 +95,12 @@ class WriteStory extends Component
 
 
 
-        $imgUrl = $this->img->store('story_img', 'public');
-       
+        // $imgUrl = $this->img->store('story_img', 'public');
+
+        // Store file in public/uploads directory
+        $fileName = time() . '.' . $this->img->getClientOriginalExtension();
+        $this->img->storeAs('uploads', $fileName, 'public_uploads');
+
         $data = [
             'user_id' => Auth::user()->id, 
             '_id' => $rand,
@@ -105,7 +109,7 @@ class WriteStory extends Component
             'title' => $this->title,
             'description' => $this->description, 
             'slug' => $slug,
-            'img' =>$imgUrl,//$this->img,
+            'img' =>'uploads/'.$fileName,//$this->img,
             'is_book' => $this->is_book == 1 ? true : false,
             'is_xrated' => $this->is_xrated == 1 ? true : false,
             'audience' => 'All',
