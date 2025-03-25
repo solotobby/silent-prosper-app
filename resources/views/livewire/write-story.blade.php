@@ -35,7 +35,7 @@
                         @error('img') <span class="text-danger">{{ $message }}</span> @enderror
   
 
-                         @if ($img)
+                         {{-- @if ($img)
                           <div class="mt-2">
                             @if (is_object($img) && method_exists($img, 'temporaryUrl'))
                               <!-- New file uploaded: display the temporary preview -->
@@ -45,7 +45,7 @@
                               <img src="{{  $img }}" alt="Current Image" class="img-responsive img-thumbnail" sizes="50">
                             @endif
                           </div>
-                        @endif 
+                        @endif  --}}
 
                         {{-- @if ($img)
                           <div class="mt-2">
