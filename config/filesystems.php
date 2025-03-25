@@ -36,6 +36,11 @@ return [
             'serve' => true,
             'throw' => false,
         ],
+        'public_uploads' => [
+            'driver' => 'local',
+            'root' => public_path('uploads'), // Store directly in public/uploads
+            'visibility' => 'public',
+        ],
 
         'public' => [
             'driver' => 'local',

@@ -11,7 +11,8 @@
               <div class="row g-0">
                 <div class="col-md-4 col-lg-5 overflow-hidden d-flex align-items-center">
                   <a href="{{url('show/'.$story->slug)}}">
-                    <img class="img-fluid img-link" src=" {{ Storage::url($story->img) }} " alt="" sizes="50">
+                    {{-- Storage::url($story->img) --}}
+                    <img class="img-fluid img-link" src=" {{ asset('uploads/'.$story->img) }} " alt="" sizes="50">
                     {{-- <img class="img-fluid img-link" src="{{ asset('src/assets/media/photos/photo19.jpg') }} " alt=""> --}}
                   </a>
                 </div>
