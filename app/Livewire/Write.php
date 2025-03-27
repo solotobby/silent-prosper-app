@@ -65,6 +65,7 @@ class Write extends Component
 
     private function calculateReadTime($content)
     {
+        
         $wordCount = str_word_count(strip_tags($content)); // Remove any HTML tags
         $averageReadingSpeed = 200; // Words per minute
         $readTime = number_format($wordCount / $averageReadingSpeed, 2); // Round up to nearest minute
