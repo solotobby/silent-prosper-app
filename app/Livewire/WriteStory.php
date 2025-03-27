@@ -74,7 +74,7 @@ class WriteStory extends Component
             'description.string' => 'The Excerpt must be a valid string.',
             'title.required' => 'The title field is required.',
             'title.string' => 'The title must be a valid string.',
-            // 'img.image' => 'The uploaded file must be an image.',
+            'img.image' => 'The uploaded file must be an image.',
             'img.max' => 'The image size must not exceed 1MB.',
             'category.required' => 'The Category field is required.',
             'sub_category_id.required' => 'The Sub Category field is required.',
@@ -86,12 +86,17 @@ class WriteStory extends Component
         $rand = rand(999,99999);
         $slug = Str::slug($this->title).'-'.$rand;
 
-        if ($this->img instanceof TemporaryUploadedFile) {
-            $path = Storage::disk('s3')->put($this->img, 'public');
-            $s3Url = Storage::disk('s3')->url($path);
-            // Then assign it back to the property.
-            $this->img = $s3Url;
-        }
+        // if ($this->img instanceof TemporaryUploadedFile) {
+        //     $path = Storage::disk('s3')->put('eclatspad/'.$this->img, 'public');
+        //     $s3Url = Storage::disk('s3')->url($path);
+        //     // Then assign it back to the property.
+        //     $this->img = $s3Url;
+        // }
+
+        $path = $this->img->store('eclatspad', 's3', 'public');
+       
+        $url = Storage::disk('s3')->url($path);
+
 
 
 
@@ -109,7 +114,7 @@ class WriteStory extends Component
             'title' => $this->title,
             'description' => $this->description, 
             'slug' => $slug,
-            'img' => $this->img,
+            'img' =>$url, //$this->img,
             'is_book' => $this->is_book == 1 ? true : false,
             'is_xrated' => $this->is_xrated == 1 ? true : false,
             'audience' => 'All',
