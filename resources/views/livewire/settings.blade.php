@@ -7,7 +7,7 @@
         <div class="bg-black-75">
           <div class="content content-full">
             <div class="py-5 text-center">
-              <a class="img-link" href="be_pages_generic_profile.html">
+              <a class="img-link" href="">
                 <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{ asset('src/assets/media/avatars/avatar10.jpg') }}" alt="">
               </a>
               <h1 class="fw-bold my-2 text-white">{{ auth()->user()->name }}</h1>
@@ -76,12 +76,12 @@
                         <div class="mb-4">
                             <label class="form-label" for="dm-profile-edit-name">Name</label>
                             <input type="text" class="form-control"  wire:model="name">
-                            @error('name') <span class="error">{{ $message }}</span> @enderror
+                            @error('name') <span class="error text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="dm-profile-edit-username">Username</label>
                             <input type="text" class="form-control"  wire:model="username">
-                            @error('username') <span class="error">{{ $message }}</span> @enderror
+                            @error('username') <span class="error text-danger">{{ $message }}</span> @enderror
                         </div>
                         
                         <div class="mb-4">
