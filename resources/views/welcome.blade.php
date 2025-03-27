@@ -76,7 +76,7 @@
 								<span class="badge bg-primary category-badge">{{ @$story->category->name }}</span>
 								<div class="card-body">
 									<h5 class="card-title">{{$story->title}}</h5>
-									<p class="card-text text-muted">A thrilling tale about conquering peaks and personal fears...</p>
+									<p class="card-text text-muted">  {!! \Illuminate\Support\Str::words($story->description, 20) !!}</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<small class="text-muted">
 											<i class="bi bi-person"></i> {{@$story->user->name}}
