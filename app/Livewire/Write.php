@@ -37,7 +37,7 @@ class Write extends Component
        
         $readtime = $this->calculateReadTime($this->body);
         
-        StoryChapter::create([
+        $storyChapter = StoryChapter::create([
             'story_id' => $this->story->id, 
             'user_id' => Auth::id(), 
             'body'=>$this->body, 
@@ -60,6 +60,7 @@ class Write extends Component
         $this->reset(['body', 'title']);
         session()->flash('message', 'Story posted successfully!');
 
+        return redirect('preview/chapter/'.$storyChapter->slug);
     }
 
     private function calculateReadTime($content)

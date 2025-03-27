@@ -65,6 +65,7 @@ class UserProfile extends Component
     }
 
     public function deleteStory($storyId){
+
         $story = Story::where('id', $storyId)->first();
         $usr = $story->img;  
         $filename = 'eclatspad/'.basename($usr);
@@ -154,9 +155,9 @@ class UserProfile extends Component
 
     public function storyList() {
         if(auth()->user()->id === $this->user->id){
-           return $stories = Story::where('user_id', $this->user->id)->latest()->get();
+           return Story::where('user_id', $this->user->id)->latest()->get();
         }else{
-           return $stories = Story::where('user_id', $this->user->id)->where('is_published', true)->latest()->get();
+           return Story::where('user_id', $this->user->id)->where('is_published', true)->latest()->get();
         }
     }
 

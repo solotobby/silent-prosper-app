@@ -19,6 +19,7 @@ use App\Livewire\EditStory;
 use App\Livewire\EditStoryChapter;
 use App\Livewire\Home;
 use App\Livewire\LandingPage;
+use App\Livewire\PreviewChapter;
 use App\Livewire\Read;
 use App\Livewire\Settings;
 use App\Livewire\ShortStory;
@@ -77,6 +78,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
    
     Route::get('write/{slug}', Write::class); 
     Route::get('edit/story/chapter/{slug}', EditStoryChapter::class);
+    Route::get('preview/chapter/{slug}', PreviewChapter::class);
     Route::get('read/{slug}', Read::class);
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

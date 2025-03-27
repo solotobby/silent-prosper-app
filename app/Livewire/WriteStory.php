@@ -97,9 +97,6 @@ class WriteStory extends Component
        
         $url = Storage::disk('s3')->url($path);
 
-
-
-
         // $imgUrl = $this->img->store('story_img', 'public');
 
         // Store file in public/uploads directory
