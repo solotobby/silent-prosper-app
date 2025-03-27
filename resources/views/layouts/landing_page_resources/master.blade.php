@@ -38,6 +38,7 @@
 		<script src="{{ asset('assets/js/jquery-3-7-1.min.js') }}"></script>
 		
         <meta name="google-site-verification" content="8RaIFC4lLLLKzYQN7h-kQXi7wQrmZTWXCIOhfSxIiak" />
+		@yield('style')
 	</head>
 	
 	<body>

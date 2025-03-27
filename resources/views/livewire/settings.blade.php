@@ -80,7 +80,7 @@
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="dm-profile-edit-username">Username</label>
-                            <input type="text" class="form-control"  wire:model="username">
+                            <input type="text" class="form-control"  wire:model="username" readonly>
                             @error('username') <span class="error text-danger">{{ $message }}</span> @enderror
                         </div>
                         

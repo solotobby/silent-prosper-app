@@ -19,7 +19,7 @@ class Read extends Component
     public $perPageComments = 5;
 
     public function mount($slug){
-        // dd(readTime('3.634'));
+        // dd(readTime('1.69'));
         $this->chapter = StoryChapter::with(['comments', 'user', 'likes'])->where('slug', $slug)->first();
        
        if($this->chapter){

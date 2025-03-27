@@ -1,5 +1,27 @@
 @extends('layouts.landing_page_resources.master')
 
+@section('style')
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<style>
+	.story-card {
+		transition: transform 0.3s;
+		cursor: pointer;
+	}
+	.story-card:hover {
+		transform: translateY(-5px);
+	}
+	.card-img-top {
+		height: 200px;
+		object-fit: cover;
+	}
+	.category-badge {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
+</style>
+@endsection
 
 @section('content')
 
@@ -36,103 +58,120 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="sidebar-widget_1 _search-area1 mb-3">
+				{{-- <div class="sidebar-widget_1 _search-area1 mb-3">
 					<h3>Search</h3>
 					<form action="{{ url('search') }}" action="GET">
 						<input type="text" name="query" placeholder="Search..." required />
 					</form>
-				</div>
-
-				{{-- <div class="row">
-					<div class="col-md-4">
-					  <div class="card">
-						<img src="https://freebyz.s3.us-east-1.amazonaws.com/eclatspad/X5ifB8JaodMxBAikDM27W9NEcquGueOih6UyjRkW.jpg" class="card-img-top" alt="Story Image">
-						<div class="card-body">
-						  <h5 class="card-title">Starlight Hearts</h5>
-						  <p class="card-text"><strong>Category:</strong> Romance, Adventure</p>
-						  <p class="card-text">A young girl and boy meet under the stars and share an adventure of love, growth, and dreams...</p>
-						  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#storyModal">Read More</button>
-						</div>
-					  </div>
-					</div>
-				  </div>
 				</div> --}}
+				
+				@if($stories->count() > 0)
+				<div class="row">
 
-				<!-- Modal for Story Details -->
-				{{-- <div class="modal fade" id="storyModal" tabindex="-1" aria-labelledby="storyModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-						<h5 class="modal-title" id="storyModalLabel">Starlight Hearts - Full Story</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-						<img src="https://via.placeholder.com/350x200" class="img-fluid mb-4" alt="Story Image">
-						<p><strong>Category:</strong> Romance, Adventure</p>
-						<h6>Chapter 1: The Serendipity of the Stars</h6>
-						<p>On a clear evening in late autumn, 17-year-old Emily was sitting at her usual spot by the lake in her small town. She loved the peace it brought, especially when the sky was dotted with stars, sparkling like diamonds against the night...</p>
-						<h6>Chapter 2: Growing Together</h6>
-						<p>Over the next few years, Emily and Jake became inseparable. They shared everything from their deepest fears to their most wild ambitions...</p>
-						<h6>Chapter 3: The Test of Time</h6>
-						<p>As college came around, Emily and Jake faced the realities of life and the challenges of a long-distance relationship...</p>
-						<h6>Chapter 4: Building a Life Together</h6>
-						<p>After graduation, Emily and Jake settled into their new life, finding a cozy apartment in the city...</p>
-						<h6>Chapter 5: The Legacy of Love</h6>
-						<p>Twenty years had passed since that magical night by the lake, and Emily and Jake’s love had only deepened...</p>
-						</div>
-						<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						</div>
-					</div>
-					</div>
-				</div> --}}
-
-
-				<div class="blog1-posts-area">
-					<div class="row">
-						@if($stories->count() > 0)
-							@foreach ($stories as $story)
-								<div class="col-md-4 mt-5" data-aos="fade-up" data-aos-offset="50" data-aos-duration="400" data-aos-delay="0" >
-									<div class="blog1-single-box">
-										<div class="thumbnail image-anime">
-											<img src="{{ $story->img }}" alt="vexon" />
-										</div>
-										<div class="heading1">
-											<div class="social-area">
-												<a href="#" class="social">{{ @$story->category->name }}</a>
-												<a href="" class="time"><img src="{{ asset('assets/img/icons/time1.svg')}}" alt="vexon" /> 3 min read</a>
-											</div>
-											<h4><a href="{{ url('details/'.$story->slug) }}">{{$story->title}}</a></h4>
-											<p class="mt-16">{{$story->description}}</p>
-											<div class="author-area">
-												<div class="author">
-													
-													<div class="author-tumb">
-														@if($story->user->avarta == null)
-															<img src="{{ asset('assets/img/blog/blog1-author1.png') }}" alt="vexon" />
-														@else 
-															<img src="{{$story->user->avarta}}" alt="vexon" />
-														@endif
-													</div>
-
-													<a href="#" class="author-text">{{$story->user->name}}</a>
-												</div>
-												{{-- <div class="date">
-													<a href="#"><img src="assets/img/icons/date1.svg" alt="vexon" /> Oct 26, 2024 </a>
-												</div> --}}
-											</div>
-										</div>
+					@foreach ($stories as $story)
+						<div class="col-md-6 col-lg-4 mb-4">
+							<div class="card story-card" data-bs-toggle="modal" data-bs-target="#storyModal-{{$story->_id}}">
+								{{-- https://source.unsplash.com/random/800x600 --}}
+								<img src="{{$story->img}}"  class="card-img-top" alt="Story Image">
+								<span class="badge bg-primary category-badge">{{ @$story->category->name }}</span>
+								<div class="card-body">
+									<h5 class="card-title">{{$story->title}}</h5>
+									<p class="card-text text-muted">A thrilling tale about conquering peaks and personal fears...</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<small class="text-muted">
+											<i class="bi bi-person"></i> {{@$story->user->name}}
+										</small>
+										{{-- <small class="text-muted">
+											<i class="bi bi-clock"></i> 3 min read
+										</small> --}}
 									</div>
 								</div>
-							@endforeach
-						@else
-							<div class="alert alert-info">
-								There are no stories at the moment.
+								<div class="card-footer d-flex justify-content-between">
+									<small><i class="bi bi-eye"></i> {{$story->views_count}} views</small>
+									<small><i class="bi bi-chat"></i> {{$story->comments_count}} comments</small>
+								</div>
 							</div>
-						@endif
-				</div>
+						</div>
 
-					<div class="space60"></div>
+						{{-- modals --}}
+
+						<!-- Story Detail Modal -->
+						<div class="modal fade" id="storyModal-{{$story->_id}}" tabindex="-1">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h2 class="modal-title">{{ $story->title }} </h2>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+									</div>
+									<div class="modal-body">
+										<div class="row mb-4">
+											<div class="col-md-8">
+												<div class="d-flex align-items-center mb-3">
+
+
+													<img 
+														@if($story->user->avarta == null)
+															src="{{ asset('assets/img/blog/blog1-author1.png') }}" 
+														@else
+															src="{{$story->user->avarta}}" 
+														@endif
+
+														class="rounded-circle me-3" 
+														alt="Author" 
+														style="width: 50px; height: 50px;">
+														
+													<div>
+														<h5 class="mb-0">{{@$story->user->name}}</h5>
+														{{-- <small class="text-muted">Published 3 days ago</small> --}}
+													</div>
+												</div>
+												<div class="d-flex gap-3">
+													<span class="badge bg-primary">{{@$story->category->name}}</span>
+													{{-- <span class="badge bg-secondary">Travel</span> --}}
+												</div>
+											</div>
+											<div class="col-md-4 text-end">
+												<div class="text-muted">
+													<span class="me-3"><i class="bi bi-eye"></i>  {{$story->views_count}}</span>
+													<span><i class="bi bi-chat"></i>  {{$story->comments_count}}</span>
+												</div>
+											</div>
+										</div>
+
+										<img src="{{ $story->img }}" 
+											class="img-fluid mb-4 rounded" 
+											alt="Story Image">
+
+										<div class="story-content">
+											<p>{{$story->description}}</p>
+										</div>
+
+										{{-- <div class="tags mt-4">
+											<h6>Tags:</h6>
+											<a href="#" class="badge bg-light text-dark me-1">mountains</a>
+											<a href="#" class="badge bg-light text-dark me-1">hiking</a>
+											<a href="#" class="badge bg-light text-dark">adventure</a>
+										</div> --}}
+									</div>
+									<div class="modal-footer">
+										{{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> --}}
+										<a class="btn btn-primary" href="{{ url('register') }}">
+											<i class="bi bi-arrow"></i> Start Reading
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					@endforeach
+
+
+				
+				@else
+				<div class="alert alert-info">
+					There are no stories at the moment.
+				</div>
+				@endif
 
 					{{-- <div class="row" data-aos-offset="50" data-aos="fade-up" data-aos-duration="400">
 						<div class="col-12 m-auto">
@@ -183,5 +222,7 @@
 </div> --}}
 
 <!--===== CTA AREA END=======-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 @endsection

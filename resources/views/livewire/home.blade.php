@@ -61,7 +61,8 @@
                             {{$story->title}}
                         </p>
                         <p class="fw-medium text-white-75">
-                            {{$story->user->name}} &middot; 12 min
+                            {{$story->user->name}} 
+                            {{-- &middot; 12 min --}}
                         </p>
                     </div>
                     </a>

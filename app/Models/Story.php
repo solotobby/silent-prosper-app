@@ -19,6 +19,14 @@ class Story extends Model
         return $this->hasMany(StoryChapter::class, 'story_id');
     }
 
+    public function getTotalWordCountAttribute() {
+        return $this->chapters->sum('read_count');
+    }
+
+    public function getTotalReadTimeAttribute() {
+        return ceil($this->total_word_count / 200); // Update to 200 WPM
+    }
+
     public function category(){
         return $this->belongsTo(Category::class);
     }
