@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class GeneralController extends Controller
 {
     public function landingPage(){
-        $stories = Story::where('is_published', true)->get();
+        $stories = Story::where('is_published', true)->orderBy('created_at', 'DESC')->get();
         return view('welcome', ['stories' => $stories]);
     }
 

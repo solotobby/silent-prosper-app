@@ -43,11 +43,56 @@
 					</form>
 				</div>
 
+				{{-- <div class="row">
+					<div class="col-md-4">
+					  <div class="card">
+						<img src="https://freebyz.s3.us-east-1.amazonaws.com/eclatspad/X5ifB8JaodMxBAikDM27W9NEcquGueOih6UyjRkW.jpg" class="card-img-top" alt="Story Image">
+						<div class="card-body">
+						  <h5 class="card-title">Starlight Hearts</h5>
+						  <p class="card-text"><strong>Category:</strong> Romance, Adventure</p>
+						  <p class="card-text">A young girl and boy meet under the stars and share an adventure of love, growth, and dreams...</p>
+						  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#storyModal">Read More</button>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div> --}}
+
+				<!-- Modal for Story Details -->
+				{{-- <div class="modal fade" id="storyModal" tabindex="-1" aria-labelledby="storyModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+						<h5 class="modal-title" id="storyModalLabel">Starlight Hearts - Full Story</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+						<img src="https://via.placeholder.com/350x200" class="img-fluid mb-4" alt="Story Image">
+						<p><strong>Category:</strong> Romance, Adventure</p>
+						<h6>Chapter 1: The Serendipity of the Stars</h6>
+						<p>On a clear evening in late autumn, 17-year-old Emily was sitting at her usual spot by the lake in her small town. She loved the peace it brought, especially when the sky was dotted with stars, sparkling like diamonds against the night...</p>
+						<h6>Chapter 2: Growing Together</h6>
+						<p>Over the next few years, Emily and Jake became inseparable. They shared everything from their deepest fears to their most wild ambitions...</p>
+						<h6>Chapter 3: The Test of Time</h6>
+						<p>As college came around, Emily and Jake faced the realities of life and the challenges of a long-distance relationship...</p>
+						<h6>Chapter 4: Building a Life Together</h6>
+						<p>After graduation, Emily and Jake settled into their new life, finding a cozy apartment in the city...</p>
+						<h6>Chapter 5: The Legacy of Love</h6>
+						<p>Twenty years had passed since that magical night by the lake, and Emily and Jake’s love had only deepened...</p>
+						</div>
+						<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						</div>
+					</div>
+					</div>
+				</div> --}}
+
+
 				<div class="blog1-posts-area">
 					<div class="row">
 						@if($stories->count() > 0)
 							@foreach ($stories as $story)
-								<div class="col-md-4" data-aos="fade-up" data-aos-offset="50" data-aos-duration="400" data-aos-delay="0">
+								<div class="col-md-4 mt-5" data-aos="fade-up" data-aos-offset="50" data-aos-duration="400" data-aos-delay="0" >
 									<div class="blog1-single-box">
 										<div class="thumbnail image-anime">
 											<img src="{{ $story->img }}" alt="vexon" />

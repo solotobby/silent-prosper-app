@@ -15,7 +15,7 @@
             @foreach ($stories as $story)
             <tr>
                 <td>{{$story->title}}</td>
-                <td>{{$story->category->name}}</td>
+                <td>{{@$story->category->name}}</td>
                 <td>{{$story->chapters->count()}}</td>
                 <td>{{$story->user->name}}</td>
                 <td><a href="{{ url('admin/story/chapter/'.$story->slug) }}" class="btn btn-sm btn-secondary">View Chapters</a></td>
