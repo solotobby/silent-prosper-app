@@ -86,12 +86,12 @@ class WriteStory extends Component
         $rand = rand(999,99999);
         $slug = Str::slug($this->title).'-'.$rand;
 
-        // if ($this->img instanceof TemporaryUploadedFile) {
-        //     $path = Storage::disk('s3')->put($this->img, 'public');
-        //     $s3Url = Storage::disk('s3')->url($path);
-        //     // Then assign it back to the property.
-        //     $this->img = $s3Url;
-        // }
+        if ($this->img instanceof TemporaryUploadedFile) {
+            $path = Storage::disk('s3')->put($this->img, 'public');
+            $s3Url = Storage::disk('s3')->url($path);
+            // Then assign it back to the property.
+            $this->img = $s3Url;
+        }
 
 
 
@@ -131,7 +131,7 @@ class WriteStory extends Component
         $this->validate([
             'description' => 'required|string',
             'title' => 'required|string',
-            // 'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'category' => 'required',
         
         ], [
@@ -139,8 +139,8 @@ class WriteStory extends Component
             'description.string' => 'The Excerpt must be a valid string.',
             'title.required' => 'The title field is required.',
             'title.string' => 'The title must be a valid string.',
-            // 'img.image' => 'The uploaded file must be an image.',
-            // 'img.max' => 'The image size must not exceed 1MB.',
+            'img.image' => 'The uploaded file must be an image.',
+            'img.max' => 'The image size must not exceed 1MB.',
             'category.required' => 'The Category field is required.',
             
         ]);
