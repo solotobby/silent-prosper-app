@@ -36,6 +36,16 @@
 
 		<!--=====JQUERY=======-->
 		<script src="{{ asset('assets/js/jquery-3-7-1.min.js') }}"></script>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-6Q2SD7KG94"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-6Q2SD7KG94');
+		</script>
 		
         <meta name="google-site-verification" content="8RaIFC4lLLLKzYQN7h-kQXi7wQrmZTWXCIOhfSxIiak" />
 		@yield('style')
