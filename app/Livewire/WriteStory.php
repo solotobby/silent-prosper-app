@@ -103,6 +103,11 @@ class WriteStory extends Component
         // $fileName = time() . '.' . $this->img->getClientOriginalExtension();
         // $this->img->storeAs('uploads', $fileName, 'public_uploads');
 
+        if(!$this->slug){
+            $publisheStatus = false;
+        }else{
+            $publisheStatus = true;
+        }
         $data = [
             'user_id' => Auth::user()->id, 
             '_id' => $rand,
@@ -115,7 +120,7 @@ class WriteStory extends Component
             'is_book' => $this->is_book == 1 ? true : false,
             'is_xrated' => $this->is_xrated == 1 ? true : false,
             'audience' => 'All',
-            'is_published' => false
+            'is_published' => $publisheStatus
         ];
 
         if(!$this->slug){
