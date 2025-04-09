@@ -28,7 +28,6 @@ class Read extends Component
             
             $user = Auth::user();
 
-           
             if (Auth::check()) {
                 // Check if the user is the author of the story
                 if ($this->chapter->story->user_id == $user->id) {

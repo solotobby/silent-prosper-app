@@ -35,7 +35,7 @@
                         @error('img') <span class="text-danger">{{ $message }}</span> @enderror
   
 
-                         @if ($img)
+                        @if ($img)
                           <div class="mt-2">
                             @if (is_object($img) && method_exists($img, 'temporaryUrl'))
                               <!-- New file uploaded: display the temporary preview -->

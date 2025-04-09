@@ -1,7 +1,4 @@
 
-
- 
-
   @if($stories->count() > 0)
     <!-- Story -->
     @foreach ($stories as $story)

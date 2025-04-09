@@ -34,27 +34,27 @@
                         </div>
                     @endif
 
-                @if(!$story->is_book)
-                    <div class="mb-4">
-                        <label class="form-label" for="dm-post-add-title">Title</label>
-                        <input type="text" class="form-control" id="dm-post-add-title" wire:model="title" value="{{ $story->title }}"required>
-                        @error('title') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
-                @else
-                    <div class="mb-4">
-                        <label class="form-label" for="dm-post-add-title">Title</label>
-                        <input type="text" class="form-control" id="dm-post-add-title" wire:model="title" placeholder="Chapter Title" required>
-                        @error('title') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
-                @endif
+                    @if(!$story->is_book)
+                        <div class="mb-4">
+                            <label class="form-label" for="dm-post-add-title">Title</label>
+                            <input type="text" class="form-control" id="dm-post-add-title" wire:model="title" value="{{ $story->title }}"required>
+                            @error('title') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    @else
+                        <div class="mb-4">
+                            <label class="form-label" for="dm-post-add-title">Title</label>
+                            <input type="text" class="form-control" id="dm-post-add-title" wire:model="title" placeholder="Chapter Title" required>
+                            @error('title') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    @endif
               
-                <div class="mb-4">
-                  <label class="form-label">Body</label>
-                  <textarea name="dm-post-add-body" rows="12" class="form-control" wire:model="body" required></textarea>
-                  {{-- <textarea id="js-ckeditor" name="dm-post-add-body" wire:model="body"></textarea> --}}
-                </div>
+                    <div class="mb-4">
+                      <label class="form-label">Body</label>
+                      <textarea name="dm-post-add-body" rows="12" class="form-control" wire:model="body" required></textarea>
+                      {{-- <textarea id="js-ckeditor" name="dm-post-add-body" wire:model="body"></textarea> --}}
+                    </div>
 
-              </div>
+                </div>
             </div>
           </div>
           <div class="block-content bg-body-light">
