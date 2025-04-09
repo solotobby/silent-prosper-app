@@ -28,7 +28,6 @@ class Read extends Component
             
             $user = Auth::user();
 
-           
             if (Auth::check()) {
                 // Check if the user is the author of the story
                 if ($this->chapter->story->user_id == $user->id) {
@@ -42,55 +41,66 @@ class Read extends Component
                     return; // Skip further checks for story restrictions
                 }
 
+                StoryRead::firstOrCreate([
+                    'user_id' => Auth::id(),
+                    'story_id' => $this->chapter->story_id,
+                    'story_chapter_id' => $this->chapter->id,
+                ]);
 
-                if (!$this->hasActiveSubscription($user)) { //user not subscribed
+                $this->nextChapter = $this->chapter
+                ->where('story_id', $this->chapter->story_id)
+                ->where('id', '>', $this->chapter->id)->orderBy('id', 'asc')
+                ->first();
 
-                    $alreadyRead = StoryRead::where('user_id', Auth::id())
-                        ->where('story_id', $this->chapter->story_id)
-                        ->where('story_chapter_id', $this->chapter->id)
-                        ->exists();
 
-                    if (!$alreadyRead) {   
+                // if (!$this->hasActiveSubscription($user)) { //user not subscribed
 
-                            // Count the total number of unique stories read by the user
-                            $uniqueStoriesRead = StoryRead::where('user_id', Auth::id())
-                            ->where('story_id', $this->chapter->story_id)
-                            ->distinct('story_chapter_id')->count();
+                //     $alreadyRead = StoryRead::where('user_id', Auth::id())
+                //         ->where('story_id', $this->chapter->story_id)
+                //         ->where('story_chapter_id', $this->chapter->id)
+                //         ->exists();
+
+                //     if (!$alreadyRead) {   
+
+                //             // Count the total number of unique stories read by the user
+                //             $uniqueStoriesRead = StoryRead::where('user_id', Auth::id())
+                //             ->where('story_id', $this->chapter->story_id)
+                //             ->distinct('story_chapter_id')->count();
             
-                            // If the user has already read 3 unique stories, redirect to the subscription page
-                            if ($uniqueStoriesRead >= 2) {
-                                // dd('subscription');
-                                return redirect()->route('subscription.page');
-                            }
+                //             // If the user has already read 3 unique stories, redirect to the subscription page
+                //             if ($uniqueStoriesRead >= 2) {
+                //                 // dd('subscription');
+                //                 return redirect()->route('subscription.page');
+                //             }
 
-                            StoryRead::firstOrCreate([
-                                'user_id' => Auth::id(),
-                                'story_id' => $this->chapter->story_id,
-                                'story_chapter_id' => $this->chapter->id,
-                            ]);
+                //             StoryRead::firstOrCreate([
+                //                 'user_id' => Auth::id(),
+                //                 'story_id' => $this->chapter->story_id,
+                //                 'story_chapter_id' => $this->chapter->id,
+                //             ]);
 
                            
-                    }
+                //     }
 
-                    $this->nextChapter = $this->chapter
-                    ->where('story_id', $this->chapter->story_id)
-                    ->where('id', '>', $this->chapter->id)->orderBy('id', 'asc')
-                    ->first();
+                //     $this->nextChapter = $this->chapter
+                //     ->where('story_id', $this->chapter->story_id)
+                //     ->where('id', '>', $this->chapter->id)->orderBy('id', 'asc')
+                //     ->first();
 
-                }else{
+                // }else{
 
-                    StoryRead::firstOrCreate([
-                        'user_id' => Auth::id(),
-                        'story_id' => $this->chapter->story_id,
-                        'story_chapter_id' => $this->chapter->id,
-                    ]);
+                //     StoryRead::firstOrCreate([
+                //         'user_id' => Auth::id(),
+                //         'story_id' => $this->chapter->story_id,
+                //         'story_chapter_id' => $this->chapter->id,
+                //     ]);
 
-                    $this->nextChapter = $this->chapter
-                    ->where('story_id', $this->chapter->story_id)
-                    ->where('id', '>', $this->chapter->id)->orderBy('id', 'asc')
-                    ->first();
+                //     $this->nextChapter = $this->chapter
+                //     ->where('story_id', $this->chapter->story_id)
+                //     ->where('id', '>', $this->chapter->id)->orderBy('id', 'asc')
+                //     ->first();
 
-                }
+                // }
 
             }
 
