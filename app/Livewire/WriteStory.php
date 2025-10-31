@@ -40,9 +40,10 @@ class WriteStory extends Component
     public $selectedSubcategory = null;
 
 
-    public function mount($slug=null){
+    public function mount($slug = null)
+    {
         $this->slug = $slug;
-        if($slug){
+        if ($slug) {
             $this->story = Story::where('slug', $slug)->first();
             $this->title = $this->story->title;
             $this->description = $this->story->description;
@@ -51,16 +52,16 @@ class WriteStory extends Component
             $this->is_xrated = (bool)$this->story->is_xrated;
             $this->img = $this->story->img;
             $this->sub_category_id = $this->sub_category_id;
-
         }
 
         $this->categories = Category::all();
     }
 
-    
 
 
-    public function saveStory(){
+
+    public function saveStory()
+    {
 
         $this->validate([
             'description' => 'required|string',
@@ -68,7 +69,7 @@ class WriteStory extends Component
             'img' => 'mimes:jpeg,png,jpg,gif,svg|max:1024', //image|
             'category' => 'required',
             'sub_category_id' => 'required',
-        
+
         ], [
             'description.required' => 'The Excerpt field is required.',
             'description.string' => 'The Excerpt must be a valid string.',
@@ -78,13 +79,13 @@ class WriteStory extends Component
             'img.max' => 'The image size must not exceed 1MB.',
             'category.required' => 'The Category field is required.',
             'sub_category_id.required' => 'The Sub Category field is required.',
-            
+
         ]);
 
 
 
-        $rand = rand(999,99999);
-        $slug = Str::slug($this->title).'-'.$rand;
+        $rand = rand(999, 99999);
+        $slug = Str::slug($this->title) . '-' . $rand;
 
         // if ($this->img instanceof TemporaryUploadedFile) {
         //     $path = Storage::disk('s3')->put('eclatspad/'.$this->img, 'public');
@@ -93,9 +94,9 @@ class WriteStory extends Component
         //     $this->img = $s3Url;
         // }
 
-        $path = $this->img->store('eclatspad', 's3', 'public');
-       
-        $url = Storage::disk('s3')->url($path);
+        // $path = $this->img->store('eclatspad', 's3', 'public');
+
+        $url = $this->img->store('story_img', 'public'); //Storage::disk('s3')->url($path);
 
         // $imgUrl = $this->img->store('story_img', 'public');
 
@@ -103,44 +104,44 @@ class WriteStory extends Component
         // $fileName = time() . '.' . $this->img->getClientOriginalExtension();
         // $this->img->storeAs('uploads', $fileName, 'public_uploads');
 
-        if(!$this->slug){
+        if (!$this->slug) {
             $publisheStatus = false;
-        }else{
+        } else {
             $publisheStatus = true;
         }
         $data = [
-            'user_id' => Auth::user()->id, 
+            'user_id' => Auth::user()->id,
             '_id' => $rand,
-            'category_id' => $this->category, 
-            'sub_category_id' => $this->sub_category_id, 
+            'category_id' => $this->category,
+            'sub_category_id' => $this->sub_category_id,
             'title' => $this->title,
-            'description' => $this->description, 
+            'description' => $this->description,
             'slug' => $slug,
-            'img' =>$url, //$this->img,
+            'img' => $url, //asset('storage/' . $url),
             'is_book' => $this->is_book == 1 ? true : false,
             'is_xrated' => $this->is_xrated == 1 ? true : false,
             'audience' => 'All',
             'is_published' => $publisheStatus
         ];
 
-        if(!$this->slug){
+        if (!$this->slug) {
             Story::create($data);
-            return redirect('write/'.$slug);
-        }else{
+            return redirect('write/' . $slug);
+        } else {
             $this->story->update($data);
-            return redirect('show/'.$slug); //redirect to story details page
+            return redirect('show/' . $slug); //redirect to story details page
         }
-        
     }
 
-    public function story(){
+    public function story()
+    {
 
         $this->validate([
             'description' => 'required|string',
             'title' => 'required|string',
             'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'category' => 'required',
-        
+
         ], [
             'description.required' => 'The Excerpt field is required.',
             'description.string' => 'The Excerpt must be a valid string.',
@@ -149,13 +150,13 @@ class WriteStory extends Component
             'img.image' => 'The uploaded file must be an image.',
             'img.max' => 'The image size must not exceed 1MB.',
             'category.required' => 'The Category field is required.',
-            
+
         ]);
 
-            $rand = rand(999,99999);
-            $slug = Str::slug($this->title).'-'.$rand;
-            
-            // If a new file is uploaded, upload to S3
+        $rand = rand(999, 99999);
+        $slug = Str::slug($this->title) . '-' . $rand;
+
+        // If a new file is uploaded, upload to S3
 
         if ($this->img instanceof \Livewire\TemporaryUploadedFile) {
             $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
@@ -163,45 +164,45 @@ class WriteStory extends Component
             $this->img = Storage::disk('s3')->url($path);
         }
 
-            // $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
+        // $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
 
-            // $path = Storage::disk('s3')->url($path);
+        // $path = Storage::disk('s3')->url($path);
 
-            $data = [
-                'user_id' => Auth::user()->id, 
-                '_id' => $rand,
-                'category_id' => $this->category, 
-                'title' => $this->title, 
-                'description' => $this->description, 
-                'slug' => $slug,
-                'img' => $this->img,
-                'is_book' => $this->is_book == 1 ? true : false,
-                'is_xrated' => $this->is_xrated == 1 ? true : false,
-                'audience' => 'All',
-                'is_published' => false
-            ];
+        $data = [
+            'user_id' => Auth::user()->id,
+            '_id' => $rand,
+            'category_id' => $this->category,
+            'title' => $this->title,
+            'description' => $this->description,
+            'slug' => $slug,
+            'img' => $this->img,
+            'is_book' => $this->is_book == 1 ? true : false,
+            'is_xrated' => $this->is_xrated == 1 ? true : false,
+            'audience' => 'All',
+            'is_published' => false
+        ];
 
-            if(!$this->slug){
-                Story::create($data);
-                return redirect('write/'.$slug);
-            }else{
-                $this->story->update($data);
-                return redirect('show/'.$slug); //redirect to story details page
-            }
+        if (!$this->slug) {
+            Story::create($data);
+            return redirect('write/' . $slug);
+        } else {
+            $this->story->update($data);
+            return redirect('show/' . $slug); //redirect to story details page
+        }
 
 
         // $imageName = time().'.'.$this->img->extension();
-            // $imagePath = $this->img ? $this->img->store(public_path('images/'.$imageName)) : null; //$this->img->store('images', 'public') : null;
-        
-            // $imageName = time().'.'.$this->img->extension();
-            // Image::load($this->img->path())
-            //         ->optimize()
-            //         ->save(public_path('images/'). $imageName);
+        // $imagePath = $this->img ? $this->img->store(public_path('images/'.$imageName)) : null; //$this->img->store('images', 'public') : null;
 
-            // $imageUrl = 'images/'.$imageName;
-            // dd($imageName);
+        // $imageName = time().'.'.$this->img->extension();
+        // Image::load($this->img->path())
+        //         ->optimize()
+        //         ->save(public_path('images/'). $imageName);
 
-            // $filePathBanner = 'banners/' . $imageName;
+        // $imageUrl = 'images/'.$imageName;
+        // dd($imageName);
+
+        // $filePathBanner = 'banners/' . $imageName;
 
 
     }

@@ -18,26 +18,27 @@ class Read extends Component
     public $comment;
     public $perPageComments = 5;
 
-    public function mount($slug){
+    public function mount($slug)
+    {
         // dd(readTime('1.69'));
         $this->chapter = StoryChapter::with(['comments', 'user', 'likes'])->where('slug', $slug)->first();
-       
-       if($this->chapter){
+
+        if ($this->chapter) {
             $this->chapter->visit_count += 1;
             $this->chapter->save();
-            
+
             $user = Auth::user();
 
             if (Auth::check()) {
                 // Check if the user is the author of the story
                 if ($this->chapter->story->user_id == $user->id) {
-                 
+
                     // Allow authors to read their own stories unlimitedly, but track views
                     //next chapter
                     $this->nextChapter = $this->chapter
-                    ->where('story_id', $this->chapter->story_id)
-                    ->where('id', '>', $this->chapter->id)->orderBy('id', 'asc')
-                    ->first();
+                        ->where('story_id', $this->chapter->story_id)
+                        ->where('id', '>', $this->chapter->id)->orderBy('id', 'asc')
+                        ->first();
                     return; // Skip further checks for story restrictions
                 }
 
@@ -48,9 +49,9 @@ class Read extends Component
                 ]);
 
                 $this->nextChapter = $this->chapter
-                ->where('story_id', $this->chapter->story_id)
-                ->where('id', '>', $this->chapter->id)->orderBy('id', 'asc')
-                ->first();
+                    ->where('story_id', $this->chapter->story_id)
+                    ->where('id', '>', $this->chapter->id)->orderBy('id', 'asc')
+                    ->first();
 
 
                 // if (!$this->hasActiveSubscription($user)) { //user not subscribed
@@ -66,7 +67,7 @@ class Read extends Component
                 //             $uniqueStoriesRead = StoryRead::where('user_id', Auth::id())
                 //             ->where('story_id', $this->chapter->story_id)
                 //             ->distinct('story_chapter_id')->count();
-            
+
                 //             // If the user has already read 3 unique stories, redirect to the subscription page
                 //             if ($uniqueStoriesRead >= 2) {
                 //                 // dd('subscription');
@@ -79,7 +80,7 @@ class Read extends Component
                 //                 'story_chapter_id' => $this->chapter->id,
                 //             ]);
 
-                           
+
                 //     }
 
                 //     $this->nextChapter = $this->chapter
@@ -103,23 +104,21 @@ class Read extends Component
                 // }
 
             }
-
         }
-    
     }
 
-    
-    public function hasActiveSubscription($user){
-        
+
+    public function hasActiveSubscription($user)
+    {
+
         return  @$user->userSubscription->is_active && Carbon::parse($user->userSubscription->ends_at)->isFuture();
-        
-     }
+    }
 
 
 
     public function addComment($storyId)
     {
-        
+
 
         $this->validate([
             'comment' => 'required|string|max:255',
@@ -138,7 +137,6 @@ class Read extends Component
         likeStory($storyId);
 
         $this->chapter->refresh();
-        
     }
 
     public function loadMoreComments()
@@ -146,7 +144,8 @@ class Read extends Component
         $this->perPageComments += 5; // Increase the number of comments displayed
     }
 
-    public function addBookShelf($storyId){
+    public function addBookShelf($storyId)
+    {
         dd($storyId);
     }
 
@@ -156,10 +155,10 @@ class Read extends Component
     {
         // $chapter = StoryChapter::where('slug', $this->slug)->first();
         $comments =  $this->chapter->comments()->latest()->paginate($this->perPageComments);
-        
+
         return view('livewire.read', [
             // 'chapter' => $chapter,
-             'comments' => $comments
+            'comments' => $comments
         ]);
     }
 }
