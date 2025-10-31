@@ -42,23 +42,10 @@
                               <img src="{{ $img->temporaryUrl() }}" alt="Image Preview" class="img-fluid">
                             @else
                               <!-- Existing image: display the stored image (adjust the path as needed) -->
-                              <img src="{{  $img }}" alt="Current Image" class="img-responsive img-thumbnail" sizes="50">
+                              <img src="{{ Storage::url($img)  }}" alt="Current Image" class="img-responsive img-thumbnail" sizes="50">
                             @endif
                           </div>
                         @endif 
-
-                        {{-- @if ($img)
-                          <div class="mt-2">
-                            @if (is_object($img) && method_exists($img, 'temporaryUrl'))
-                             
-                              <img src="{{ $img->temporaryUrl() }}" alt="Image Preview" class="img-fluid">
-                            @else
-                            
-                              <img src=" {{ Storage::url($img) }}" alt="Current Image" class="img-responsive img-thumbnail" sizes="50">
-                            @endif
-                          </div>
-                        @endif   --}}
-
   
                       </div>
                     </div>

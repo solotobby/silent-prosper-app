@@ -141,7 +141,6 @@ class WriteStory extends Component
             'title' => 'required|string',
             'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'category' => 'required',
-
         ], [
             'description.required' => 'The Excerpt field is required.',
             'description.string' => 'The Excerpt must be a valid string.',
@@ -158,15 +157,17 @@ class WriteStory extends Component
 
         // If a new file is uploaded, upload to S3
 
-        if ($this->img instanceof \Livewire\TemporaryUploadedFile) {
-            $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
-            // Replace $this->img with the full S3 URL.
-            $this->img = Storage::disk('s3')->url($path);
-        }
+        // if ($this->img instanceof \Livewire\TemporaryUploadedFile) {
+        //     $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
+        //     // Replace $this->img with the full S3 URL.
+        //     $this->img = Storage::disk('s3')->url($path);
+        // }
 
         // $path = Storage::disk('s3')->put('eclatspad', $this->img, 'public');
 
         // $path = Storage::disk('s3')->url($path);
+
+        $url = $this->img->store('story_img', 'public');
 
         $data = [
             'user_id' => Auth::user()->id,
@@ -175,7 +176,7 @@ class WriteStory extends Component
             'title' => $this->title,
             'description' => $this->description,
             'slug' => $slug,
-            'img' => $this->img,
+            'img' => $url, //$this->img,
             'is_book' => $this->is_book == 1 ? true : false,
             'is_xrated' => $this->is_xrated == 1 ? true : false,
             'audience' => 'All',
@@ -191,18 +192,7 @@ class WriteStory extends Component
         }
 
 
-        // $imageName = time().'.'.$this->img->extension();
-        // $imagePath = $this->img ? $this->img->store(public_path('images/'.$imageName)) : null; //$this->img->store('images', 'public') : null;
-
-        // $imageName = time().'.'.$this->img->extension();
-        // Image::load($this->img->path())
-        //         ->optimize()
-        //         ->save(public_path('images/'). $imageName);
-
-        // $imageUrl = 'images/'.$imageName;
-        // dd($imageName);
-
-        // $filePathBanner = 'banners/' . $imageName;
+        
 
 
     }
