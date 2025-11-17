@@ -72,7 +72,7 @@
 						<div class="col-md-6 col-lg-4 mb-4">
 							<div class="card story-card" data-bs-toggle="modal" data-bs-target="#storyModal-{{$story->_id}}">
 								{{-- https://source.unsplash.com/random/800x600 --}}
-								<img src="{{$story->img}}"  class="card-img-top" alt="Story Image">
+								<img src="{{ asset('storage/' . $story->img) }}" class="card-img-top" alt="Story Image">
 								<span class="badge bg-primary category-badge">{{ @$story->category->name }}</span>
 								<div class="card-body">
 									<h5 class="card-title">{{$story->title}}</h5>

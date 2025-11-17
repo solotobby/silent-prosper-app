@@ -3,7 +3,7 @@
 
 
     {{-- <div class="bg-image" style="background-image: url('{{asset('src/assets/media/photos/photo13@2x.jpg')}}');"> --}}
-    <div class="bg-image" style="background-image: url('{{$chapterPreview->story->img}}');">
+    <div class="bg-image" style="background-image: url('{{ asset('storage/' . $chapter->story->img) }}');">
         <div class="bg-black-75">
           <div class="content content-top content-full text-center">
             <h1 class="fw-bold text-white mt-5 mb-3">

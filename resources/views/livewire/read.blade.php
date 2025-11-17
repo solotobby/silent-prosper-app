@@ -3,7 +3,7 @@
 
     <!-- Hero -->
     {{-- <div class="bg-image" style="background-image: url('{{asset('src/assets/media/photos/photo13@2x.jpg')}}');"> --}}
-    <div class="bg-image" style="background-image: url('{{$chapter->story->img}}');">
+    <div class="bg-image" style="background-image: url('{{ asset('storage/' . $chapter->story->img) }}');">
     
         <div class="bg-black-75">
           <div class="content content-top content-full text-center">
